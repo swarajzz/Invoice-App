@@ -1,0 +1,27 @@
+:root {
+  // COLOR VARIABLES
+  --primary-purple: #7c5dfa;
+  --light-purple: #9277ff;
+  --dark-blue-gray: #1e2139;
+  --midnight-blue: #252945;
+  --light-gray-blue: #dfe3fa;
+  --gray-blue: #888eb0;
+  --steel-blue: #7e88c3;
+  --deep-black: #0c0e16;
+  --bright-red: #ec5757;
+  --light-red: #ff9797;
+  --off-white: #f8f8fb;
+  --dark-gray: #141625;
+
+  // FONT VARIABLES
+  --font-primary: "League Spartan", sans-serif;
+
+  /* Text-size styles */
+  /* base size: heading--l (36px) */
+  --heading--l: 36px;
+  --heading--m: 24px;
+  --heading--s: 15px;
+  --heading--s--variant: 15px;
+  --body: 13px;
+  --body--variant: 13px;
+}
