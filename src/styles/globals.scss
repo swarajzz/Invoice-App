@@ -1,4 +1,5 @@
 @import "./variables";
+@import "./mixins";
 
 /* Box sizing rules */
 *,
@@ -57,6 +58,10 @@ label {
   line-height: 1.1;
 }
 
+button {
+  display: block;
+}
+
 /* Balance text wrapping on headings */
 h1,
 h2,
@@ -96,3 +101,19 @@ textarea:not([rows]) {
 :target {
   scroll-margin-block: 5ex;
 }
+
+// .flex-center {
+//   @apply flex justify-center items-center;
+// }
+
+// .flex-start {
+//   @apply flex justify-start items-start;
+// }
+
+// .flex-end {
+//   @apply flex justify-end items-center;
+// }
+
+// .flex-between {
+//   @apply flex justify-between items-center;
+// }
