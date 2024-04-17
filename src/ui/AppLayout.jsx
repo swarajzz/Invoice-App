@@ -5,10 +5,10 @@ import styles from "./AppLayout.module.scss";
 
 function AppLayout() {
   return (
-    <div className={styles.grid}>
+    <div className={styles.flex}>
       <Header />
 
-      <main>
+      <main className={styles.main}>
         <Outlet />
       </main>
     </div>

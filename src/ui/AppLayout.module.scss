@@ -1,5 +1,9 @@
-.grid {
+.flex {
   display: flex;
-//   grid-template-columns: 103px 1fr;
-//   grid-template-rows: 1fr;
+  background-color: var(--off-white);
+
+  .main {
+    width: 730px;
+    margin: 100px auto;
+  }
 }
