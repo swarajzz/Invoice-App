@@ -1,9 +1,16 @@
-.flex {
-  display: flex;
-  background-color: var(--off-white);
+@import "../styles/mixins";
 
-  .main {
-    width: 730px;
-    margin: 100px auto;
-  }
+// .flex {
+//   display: flex;
+//   @include flex-center;
+//   background-color: var(--off-white);
+//   width: 730px;
+
+.main {
+  background-color: var(--off-white);
+  @include flex-center;
+  min-height: 100vh;
+  flex-direction: column;
+  // padding-left: 103px;
+  padding: 50px 0px 50px 103px;
 }

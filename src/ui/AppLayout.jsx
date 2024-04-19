@@ -5,13 +5,15 @@ import styles from "./AppLayout.module.scss";
 
 function AppLayout() {
   return (
-    <div className={styles.flex}>
+    // <div className={styles.flex}>
+    <>
       <Header />
 
       <main className={styles.main}>
         <Outlet />
       </main>
-    </div>
+    </>
+    // </div>
   );
 }
 

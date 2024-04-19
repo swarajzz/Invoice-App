@@ -1,0 +1,92 @@
+@import "../../styles/mixins";
+
+.invoiceItem {
+  background-color: #fff;
+  padding: 25px;
+  box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
+  border-radius: 8px;
+  @include flex-between;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.3s;
+
+  .first_container {
+    @include flex-between;
+    gap: 20px;
+
+    .id {
+      font-size: var(--heading--s);
+      font-weight: 700;
+      color: var(--deep-black);
+
+      span {
+        color: var(--steel-blue);
+      }
+    }
+
+    .date {
+      font-weight: 500;
+      color: var(--gray-blue);
+    }
+  }
+
+  .second_container {
+    @include flex-between;
+    flex-basis: 60%;
+
+    .sub_container {
+      @include flex-between;
+      //   gap: 30px;
+      flex-basis: 60%;
+
+      .name {
+        font-weight: 500;
+        color: #858bb2;
+      }
+
+      .amount {
+        color: var(--deep-black);
+        font-size: var(--heading--m-variant);
+        font-weight: 700;
+      }
+    }
+
+    .wrapper {
+      @include flex-end;
+      gap: 10px;
+
+      .statusBox {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: 120px;
+        height: 40px;
+        border-radius: 8px;
+
+        background-color: rgba(51, 214, 159, 0.057);
+
+        font-size: var(--heading--s);
+        font-weight: bold;
+
+        span {
+          background-color: #33d69f;
+          display: inline-block;
+          min-width: 5px;
+          min-height: 5px;
+          border-radius: 50px;
+          margin-right: 10px;
+        }
+
+        .status {
+          color: #33d69f;
+          // align-items: center;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    box-shadow: none;
+    border: 1px solid #7c5dfa;
+  }
+}
