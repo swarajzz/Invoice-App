@@ -1,0 +1,82 @@
+@import "../../styles/mixins.scss";
+
+.invoiceDetail {
+  width: 688px;
+
+  .link_container {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    font-size: var(--heading--s);
+    font-weight: 700;
+
+    img {
+      color: var(--dark-purple);
+    }
+
+    .link {
+      color: var(--deep-black);
+      text-decoration: none;
+    }
+  }
+
+  .status_container {
+    @include flex-between;
+
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    
+    .status_bar {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+
+      p {
+        color: #858bb2;
+      }
+
+      .wrapper {
+        @include flex-end;
+        gap: 10px;
+
+        .statusBox {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-width: 100px;
+          height: 40px;
+          border-radius: 8px;
+
+          background-color: rgba(51, 214, 159, 0.057);
+
+          font-size: var(--heading--s);
+          font-weight: bold;
+
+          span {
+            background-color: #33d69f;
+            display: inline-block;
+            min-width: 7px;
+            min-height: 7px;
+            border-radius: 50%;
+            margin-right: 10px;
+          }
+
+          .status {
+            color: #33d69f;
+          }
+        }
+      }
+    }
+
+    .control_btns {
+      display: flex;
+      align-items: items;
+      gap: 10px;
+    }
+  }
+}
+
+// background-color: #fff;
+// padding: 25px;

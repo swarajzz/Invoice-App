@@ -1,0 +1,27 @@
+.button {
+  font-size: var(--heading--s);
+  font-weight: 700;
+  background-color: red;
+  padding: 20px;
+  border-radius: 30px;
+  transition: all 0.3s ease-in-out;
+
+  &.edit {
+    background-color: #f9fafe;
+    color: var(--steel-blue);
+
+    &:hover {
+      color: var(--steel-blue);
+      background-color: #dfe3fa;
+    }
+  }
+
+  &.delete {
+    background-color: var(--bright-red);
+    color: #fff;
+
+    &:hover {
+      background-color: var(--light-red);
+    }
+  }
+}

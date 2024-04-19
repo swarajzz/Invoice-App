@@ -8,7 +8,9 @@
 
 .main {
   background-color: var(--off-white);
-  @include flex-center;
+  // @include flex-center;
+  display: flex;
+  align-items: center;
   min-height: 100vh;
   flex-direction: column;
   // padding-left: 103px;
