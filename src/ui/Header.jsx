@@ -6,9 +6,17 @@ import avatar from "../assets/image-avatar.jpg";
 import styles from "./Header.module.scss";
 
 function Header() {
+  function handleToTop() {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "smooth",
+    });
+  }
+
   return (
     <header className={styles.header}>
-      <div className={styles.left_container}>
+      <div className={styles.left_container} onClick={handleToTop}>
         <img src={logo} className={styles.logo} />
       </div>
 

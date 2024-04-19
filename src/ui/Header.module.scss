@@ -8,7 +8,7 @@
   height: 100vh;
   position: fixed;
   border-radius: 0px 20px 20px 0;
-  
+
   .left_container {
     @include flex-center;
     background-color: var(--dark-purple);
@@ -18,6 +18,7 @@
     position: relative;
     z-index: 100;
     overflow: hidden;
+    cursor: pointer;
 
     .logo {
     }
@@ -60,7 +61,7 @@
     .divider {
       display: block;
       // height: 103px;
-        width: 103px;
+      width: 103px;
       border: 1px solid #494e6e;
     }
 
