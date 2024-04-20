@@ -2,6 +2,9 @@
 
 .invoiceDetail {
   width: 688px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 
   .link_container {
     display: flex;
@@ -27,7 +30,7 @@
     background-color: #fff;
     padding: 25px;
     border-radius: 8px;
-    
+
     .status_bar {
       display: flex;
       align-items: center;
@@ -74,6 +77,64 @@
       display: flex;
       align-items: items;
       gap: 10px;
+    }
+  }
+
+  .detail_container {
+    display: grid;
+    grid-template-rows: repeat(3, 100pxp);
+    grid-template-columns: repeat(4, 1fr);
+
+    // justify-items: center;
+    // align-items: center;
+
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 8px;
+
+    font-weight: 500;
+    color: var(--steel-blue);
+
+    h4 {
+      margin-top: 10px
+    }
+    
+    .general {
+      .id {
+        font-size: var(--heading--s);
+
+        span {
+          color: var(--steel-blue);
+        }
+        font-weight: bold;
+        color: var(--deep-black);
+      }
+    }
+
+    .senderAddress {
+      grid-row: span 1;
+      grid-column: 4 / 5;
+
+      justify-self: end;
+    }
+
+    .clientAddress {
+      margin-right: 20%;
+    }
+
+    .dateBox {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      .dueBox {
+        // justify-self: flex-end;
+      }
+    }
+
+    .sentTo {
+      justify-self: end;
     }
   }
 }

@@ -32,32 +32,43 @@ function InvoiceDetail() {
 
       <div className={styles.detail_container}>
         <div className={styles.general}>
-          <p className={styles.id}>Invoice</p>
-          <p className={styles.detail_content}>XM9141</p>
+          <h5 className={styles.id}>
+            <span>#</span>RT3080
+          </h5>
+          <p className={styles.content}>Re-branding</p>
         </div>
 
-        <div className={styles.item2}>
-          <p className={styles.detail_title}>Issue Date</p>
-          <p className={styles.detail_content}>21 Aug 2021</p>
+        <div className={styles.senderAddress}>
+          <p className={styles.senderStreet}>21 Aug 2021</p>
+          <p className={styles.senderCity}>Issue Date</p>
+          <p className={styles.senderPostCode}>21 Aug 2021</p>
+          <p className={styles.senderCountry}>21 Aug 2021</p>
         </div>
 
-        <div className={styles.item3}>
-          <p className={styles.detail_title}>Due Date</p>
-          <p className={styles.detail_content}>20 Sep 2021</p>
+        <div className={styles.dateBox}>
+          <div className="invoiceDateBox">
+            <p>Invoice Date</p>
+            <h4 className={styles.invoiceDate}>20 Sep 2021</h4>
+          </div>
+
+          <div className={styles.dueBox}>
+            <p>Payment Due</p>
+            <h4 className={styles.dueDate}>20 Sep 2021</h4>
+          </div>
         </div>
 
-        <div className={styles.item4}>
-          <p className={styles.detail_title}>Bill To</p>
-          <p className={styles.detail_content}>Jensen Huang</p>
-          <p className={styles.detail_content}>NVIDIA Corporation</p>
-          <p className={styles.detail_content}>2788 San Tomas Expressway</p>
-          <p className={styles.detail_content}>Santa Clara, CA 95051</p>
-          <p className={styles.detail_content}>United States</p>
+        <div className={styles.clientAddress}>
+          <p>Bill To</p>
+          <h4 className={styles.clientStreet}>Jensen Huang</h4>
+          <p className={styles.clientCity}>2788 San Tomas Expressway</p>
+          <p className={styles.clientPost}>Santa Clara, CA 95051</p>
+          <p className={styles.clientCountry}>United States</p>
+          <p className={styles.clientCountry}>United States</p>
         </div>
 
-        <div className={styles.item5}>
+        <div className={styles.sentTo}>
           <p className={styles.detail_title}>Sent to</p>
-          <p className={styles.detail_content}></p>
+          <h4 className={styles.clientEmail}>Jensen Huang</h4>
         </div>
       </div>
     </div>

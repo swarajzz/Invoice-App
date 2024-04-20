@@ -45,7 +45,7 @@ ol {
 body {
   min-height: 100vh;
   font-size: var(--body);
-  line-height: 1.5;
+  line-height: 1.6;
 }
 
 /* Set shorter line heights on headings and interactive elements */
@@ -106,18 +106,14 @@ textarea:not([rows]) {
   scroll-margin-block: 5ex;
 }
 
-// .flex-center {
-//   @apply flex justify-center items-center;
-// }
+h4 {
+  font-weight: 700;
+  color: var(--deep-black);
+  font-size: var(--heading--m-variant);
+}
 
-// .flex-start {
-//   @apply flex justify-start items-start;
-// }
-
-// .flex-end {
-//   @apply flex justify-end items-center;
-// }
-
-// .flex-between {
-//   @apply flex justify-between items-center;
-// }
+h5 {
+  font-weight: 700;
+  color: var(--deep-black);
+  font-size: var(--heading--s);
+}
