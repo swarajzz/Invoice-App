@@ -80,61 +80,117 @@
     }
   }
 
-  .detail_container {
-    display: grid;
-    grid-template-rows: repeat(3, 100pxp);
-    grid-template-columns: repeat(4, 1fr);
-
-    // justify-items: center;
-    // align-items: center;
-
+  .wrapper {
     background-color: #fff;
     padding: 25px;
     border-radius: 8px;
 
-    font-weight: 500;
-    color: var(--steel-blue);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 
-    h4 {
-      margin-top: 10px
-    }
-    
-    .general {
-      .id {
-        font-size: var(--heading--s);
+    .detail_container {
+      display: grid;
+      grid-template-rows: repeat(3, 100pxp);
+      grid-template-columns: repeat(4, 1fr);
 
-        span {
-          color: var(--steel-blue);
+      // justify-items: center;
+      // align-items: center;
+
+      font-weight: 500;
+      color: var(--steel-blue);
+
+      h4 {
+        margin-top: 10px;
+      }
+
+      .general {
+        .id {
+          font-size: var(--heading--s);
+
+          span {
+            color: var(--steel-blue);
+          }
+          font-weight: bold;
+          color: var(--deep-black);
         }
-        font-weight: bold;
-        color: var(--deep-black);
+      }
+
+      .senderAddress {
+        grid-row: span 1;
+        grid-column: 4 / 5;
+
+        justify-self: end;
+      }
+
+      .clientAddress {
+        margin-right: 20%;
+      }
+
+      .dateBox {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        margin-bottom: 20px;
+
+        .dueBox {
+          // justify-self: flex-end;
+        }
+      }
+
+      .sentTo {
+        justify-self: end;
       }
     }
 
-    .senderAddress {
-      grid-row: span 1;
-      grid-column: 4 / 5;
+    .receipt_container {
+      .receiptTable {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        padding: 20px;
+        background-color: #f9fafe;
+        border-radius: 15px 15px 0 0;
 
-      justify-self: end;
-    }
+        tr {
+          display: flex;
+          justify-content: space-between;
+        }
 
-    .clientAddress {
-      margin-right: 20%;
-    }
+        thead {
+          // font-size: var(--heading--s);
+          color: var(--steel-blue);
+          font-weight: 500;
+          flex-grow: 1;
+        }
 
-    .dateBox {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      margin-bottom: 20px;
+        tbody {
+          font-size: var(--heading--s);
+          font-weight: 700;
+          color: var(--steel-blue);
 
-      .dueBox {
-        // justify-self: flex-end;
+          .itemName,
+          .total {
+            font-weight: 700;
+            color: var(--deep-black);
+          }
+        }
       }
-    }
+      .total_container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+        background-color: #373b53;
+        color: #fff;
+        font-weight: 500;
+        border-radius: 0 0 15px 15px;
 
-    .sentTo {
-      justify-self: end;
+        .totalValue {
+          font-weight: 700;
+          font-size: var(--heading--m);
+        }
+      }
     }
   }
 }
