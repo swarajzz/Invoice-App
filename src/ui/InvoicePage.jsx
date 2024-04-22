@@ -1,4 +1,4 @@
-import InvoiceDetail from "../features/invoices/InvoiceDetail";
+import InvoiceDetail from "../features/invoice/InvoiceDetail";
 
 function InvoicePage() {
   return (

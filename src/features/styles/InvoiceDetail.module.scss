@@ -28,6 +28,7 @@
     @include flex-between;
 
     background-color: #fff;
+    box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
     padding: 25px;
     border-radius: 8px;
 
@@ -80,8 +81,10 @@
     }
   }
 
-  .wrapper {
+  .detail_wrapper {
     background-color: #fff;
+    box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
+
     padding: 25px;
     border-radius: 8px;
 

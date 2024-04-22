@@ -30,7 +30,7 @@ function InvoiceDetail() {
         </div>
       </div>
 
-      <div className={styles.wrapper}>
+      <div className={styles.detail_wrapper}>
         <div className={styles.detail_container}>
           <div className={styles.general}>
             <h5 className={styles.id}>

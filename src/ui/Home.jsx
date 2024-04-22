@@ -1,11 +1,13 @@
-import InvoiceHeading from "../features/invoices/InvoiceHeading";
-import InvoiceList from "../features/invoices/InvoiceList";
+import InvoiceForm from "../features/invoice/InvoiceForm";
+import InvoiceHeading from "../features/invoice/InvoiceHeading";
+import InvoiceList from "../features/invoice/InvoiceList";
 
 function Home() {
   return (
     <>
-      <InvoiceHeading />
-      <InvoiceList />
+      <InvoiceForm />
+      {/* <InvoiceHeading />
+      <InvoiceList /> */}
     </>
   );
 }
