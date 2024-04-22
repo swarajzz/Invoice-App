@@ -33,8 +33,6 @@ function InvoiceItem({ invoice }) {
 
   const navigate = useNavigate();
 
-  console.log(invoice);
-
   function handleNavigate() {
     navigate(`/invoice`);
   }

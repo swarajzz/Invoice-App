@@ -1,6 +1,17 @@
+@import "../../styles/mixins.scss";
+@import "../../styles/animations.scss";
+
 .form {
   background-color: #fff;
   padding: 20px;
+  position: absolute;
+  left: 103px;
+  top: 0;
+  animation: moveInBack 1s ease-in-out forwards;
+
+  &.open {
+    animation: moveInLeft 1s ease-in-out forwards;
+  }
 
   h2 {
     font-size: var(--heading--m);

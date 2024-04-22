@@ -8,6 +8,7 @@
   height: 100vh;
   position: fixed;
   border-radius: 0px 20px 20px 0;
+  z-index: 1000;
 
   .left_container {
     @include flex-center;

@@ -1,10 +1,12 @@
+import { useState } from "react";
 import FormRow from "../../ui/FormRow";
 
 import styles from "../styles/InvoiceForm.module.scss";
 
-function InvoiceForm() {
+function InvoiceForm({ isOpen }) {
+  console.log(isOpen)
   return (
-    <div className={styles.form}>
+    <div className={`${styles.form} ${isOpen ? styles.open : ""}`}>
       <h2>New Invoice</h2>
       <form>
         <h6>Bill From</h6>
@@ -61,75 +63,3 @@ function InvoiceForm() {
 }
 
 export default InvoiceForm;
-
-// <form {...formProps}>
-//   <div className={styles.padding}>
-//     <Heading variant="h1">
-//       {editing && invoice ? (
-//         <>
-//           Edit <span>#</span>
-//           {invoice.id}
-//         </>
-//       ) : (
-//         "New Invoice"
-//       )}
-//     </Heading>
-//     <p className={styles.colorLabel}>Bill From</p>
-//     <Input {...fromStreetInputProps} />
-//     <div className={styles.inputGrid}>
-//       <Input {...fromCityInputProps} />
-//       <Input {...fromPostCodeInputProps} />
-//       <Input {...fromCountryInputProps} />
-//     </div>
-//     <p className={styles.colorLabel}>Bill To</p>
-//     <Input {...clientNameInputProps} />
-//     <Input {...clientEmailInputProps} />
-//     <Input {...clientAddressInputProps} />
-//     <div className={styles.inputGrid}>
-//       <Input {...clientCityInputProps} />
-//       <Input {...clientPostCodeInputProps} />
-//       <Input {...clientCountryInputProps} />
-//     </div>
-
-//     <div className={styles.dateAndTerms}>
-//       <DatePicker {...datePickerProps} />
-//       <SelectDropdown {...paymentTermsProps} />
-//     </div>
-//     <Input {...projectDescriptionInputProps} />
-//     <FormItemList items={items} setItems={setItems} />
-//   </div>
-
-//   <div className={bottomClass}>
-//     {editing && (
-//       <>
-//         {/* empty div for flexbox  */}
-//         <div></div>
-//         <div>
-//           <Button variant={2} type="button" onClick={handleCancel}>
-//             Cancel
-//           </Button>
-//           <Button variant={1} type="submit">
-//             Save Changes
-//           </Button>
-//         </div>
-//       </>
-//     )}
-//     {!editing && (
-//       <>
-//         <div>
-//           <Button variant={2} type="button" onClick={handleCancel}>
-//             Discard
-//           </Button>
-//         </div>
-//         <div>
-//           <Button variant={3} type="button" onClick={handleSaveAsDraft}>
-//             Save as Draft
-//           </Button>
-//           <Button variant={1} type="submit">
-//             Save & Send
-//           </Button>
-//         </div>
-//       </>
-//     )}
-//   </div>
-// </form>
