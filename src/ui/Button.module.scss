@@ -1,10 +1,12 @@
+@import "../styles/mixins";
+
 .button {
   font-size: var(--heading--s);
   font-weight: 700;
-  background-color: red;
-  padding: 20px;
-  border-radius: 30px;
+  padding: 12px 24px;
+  border-radius: 20px;
   transition: all 0.3s ease-in-out;
+  color: #fff;
 
   &.edit {
     background-color: #f9fafe;
@@ -23,5 +25,47 @@
     &:hover {
       background-color: var(--light-red);
     }
+  }
+
+  &.discard {
+    @extend .edit;
+  }
+
+  &.save {
+    @include flex-center;
+    background-color: var(--dark-purple);
+    position: relative;
+
+    // .plusIcon {
+    //   position: absolute;
+    //   width: 30px;
+    //   height: 30px;
+    //   background-color: #fff;
+    //   @include flex-center;
+    //   border-radius: 30px;
+    //   left: 5px;
+    // }
+    & > div {
+      position: absolute;
+      width: 30px;
+      height: 30px;
+      background-color: #fff;
+      @include flex-center;
+      border-radius: 30px;
+      left: 5px;
+    }
+
+    p {
+      margin-left: 30px;
+    }
+
+    &:hover {
+      background-color: var(--light-purple);
+      transition: all 0.3s ease-in-out;
+    }
+  }
+
+  &.saveDraft {
+    @extend .edit;
   }
 }

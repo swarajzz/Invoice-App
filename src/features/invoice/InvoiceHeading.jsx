@@ -1,6 +1,7 @@
 import filterIcon from "../../assets/icon-arrow-down.svg";
 import plusIcon from "../../assets/icon-plus.svg";
 import styles from "../styles/InvoiceHeading.module.scss";
+import Button from "../../ui/Button";
 
 function InvoiceHeading({ setIsOpen }) {
   function handleOnClick() {
@@ -19,12 +20,12 @@ function InvoiceHeading({ setIsOpen }) {
           Filter by status
           <img src={filterIcon} alt="filter icon" />
         </div>
-        <button className={styles.btn} onClick={handleOnClick}>
+        <Button type='save' className={styles.btn} onClick={handleOnClick}>
           <div className={styles.plusIcon}>
             <img src={plusIcon} alt="filter icon" />
           </div>
           <p>New Invoice</p>
-        </button>
+        </Button>
       </div>
     </section>
   );
