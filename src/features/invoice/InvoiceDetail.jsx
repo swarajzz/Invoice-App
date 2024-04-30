@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import styles from "../styles/InvoiceDetail.module.scss";
 import backArrow from "../../assets/icon-arrow-left.svg";
 import Button from "../../ui/Button";
+import StatusBox from "../../ui/StatusBox";
 
 function InvoiceDetail() {
   return (
@@ -17,10 +18,7 @@ function InvoiceDetail() {
         <div className={styles.status_bar}>
           <p>Status</p>
           <div className={styles.wrapper}>
-            <div className={styles.statusBox}>
-              <span></span>
-              <p className={styles.status}>paid</p>
-            </div>
+            <StatusBox type={status} />
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 import styles from "../styles/InvoiceItem.module.scss";
 import rightArrow from "../../assets/icon-arrow-right.svg";
 import { useNavigate } from "react-router-dom";
+import StatusBox from "../../ui/StatusBox";
 
 function InvoiceItem({ invoice }) {
   const {
@@ -56,10 +57,7 @@ function InvoiceItem({ invoice }) {
         </div>
 
         <div className={styles.wrapper}>
-          <div className={styles.statusBox}>
-            <span></span>
-            <p className={styles.status}>{status}</p>
-          </div>
+          <StatusBox type={status} />
           <img src={rightArrow} alt="" />
         </div>
       </div>
