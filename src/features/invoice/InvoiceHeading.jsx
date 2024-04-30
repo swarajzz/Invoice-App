@@ -2,6 +2,7 @@ import filterIcon from "../../assets/icon-arrow-down.svg";
 import plusIcon from "../../assets/icon-plus.svg";
 import styles from "../styles/InvoiceHeading.module.scss";
 import Button from "../../ui/Button";
+import CheckBox from "../../ui/CheckBox";
 
 function InvoiceHeading({ setIsOpen }) {
   function handleOnClick() {
@@ -20,12 +21,22 @@ function InvoiceHeading({ setIsOpen }) {
           Filter by status
           <img src={filterIcon} alt="filter icon" />
         </div>
-        <Button type='save' className={styles.btn} onClick={handleOnClick}>
+        <Button
+          type="save"
+          className={styles.btn}
+          handleOnClick={handleOnClick}
+        >
           <div className={styles.plusIcon}>
             <img src={plusIcon} alt="filter icon" />
           </div>
           <p>New Invoice</p>
         </Button>
+
+        <div className={styles.checkBox_container}>
+          <CheckBox name="draft" label="Draft" />
+          <CheckBox name="pending" label="Pending" />
+          <CheckBox name="paid" label="Paid" />
+        </div>
       </div>
     </section>
   );

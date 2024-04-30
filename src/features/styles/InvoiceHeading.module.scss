@@ -1,13 +1,8 @@
-// @import "../styles/_mixins.scss";
 @import "../../styles/mixins";
 
 .invoiceHeader {
-  //   @include flex-center;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @include flex-between;
   width: 730px;
-  // margin-top: 50px;
 
   .left_container {
     display: flex;
@@ -29,10 +24,27 @@
     font-size: var(--heading--s);
     font-weight: 700;
     gap: 20px;
+    position: relative;
 
     .filter {
       @include flex-center;
       gap: 10px;
+    }
+
+    .checkBox_container {
+      background-color: #fff;
+      border-radius: 8px;
+      width: 192px;
+      height: 128px;
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+      gap: 10px;
+      box-shadow: 0 10px 20px rgba(72, 84, 159, 0.25);
+      left: -50px;
+      top: 50px;
+      padding: 20px;
     }
   }
 }

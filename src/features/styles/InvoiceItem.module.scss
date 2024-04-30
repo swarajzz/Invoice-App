@@ -54,34 +54,6 @@
     .wrapper {
       @include flex-end;
       gap: 10px;
-
-      .statusBox {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-width: 120px;
-        height: 40px;
-        border-radius: 8px;
-
-        background-color: rgba(51, 214, 159, 0.057);
-
-        font-size: var(--heading--s);
-        font-weight: bold;
-
-        span {
-          background-color: #33d69f;
-          display: inline-block;
-          min-width: 7px;
-          min-height: 7px;
-          border-radius: 50px;
-          margin-right: 10px;
-        }
-
-        .status {
-          color: #33d69f;
-          // align-items: center;
-        }
-      }
     }
   }
 
