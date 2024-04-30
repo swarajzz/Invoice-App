@@ -25,10 +25,12 @@
     font-weight: 700;
     gap: 20px;
     position: relative;
+    transition: all 0.3s;
 
     .filter {
       @include flex-center;
       gap: 10px;
+      cursor: pointer;
     }
 
     .checkBox_container {
@@ -45,6 +47,14 @@
       left: -50px;
       top: 50px;
       padding: 20px;
+      transition: opacity .3s ease-in-out;
+      opacity: 0;
+      pointer-events: none;
+
+      &.active {
+        pointer-events: all;
+        opacity: 1;
+      }
     }
   }
 }
