@@ -3,10 +3,14 @@ import plusIcon from "../../assets/icon-plus.svg";
 import styles from "../styles/InvoiceHeading.module.scss";
 import Button from "../../ui/Button";
 import CheckBox from "../../ui/CheckBox";
-import { useState } from "react";
+import { useRef, useState } from "react";
+import useOutsideClick from "../../hooks/useOutsideClick";
 
 function InvoiceHeading({ setIsOpen }) {
   const [toggleFilter, setToggleFilter] = useState(false);
+  const filterRef = useRef();
+
+  const boxRef = useOutsideClick(handleOnClickOutside, filterRef);
 
   function handleOnClick() {
     setIsOpen((prev) => !prev);
@@ -14,6 +18,10 @@ function InvoiceHeading({ setIsOpen }) {
 
   function handleToggleFilter() {
     setToggleFilter((prev) => !prev);
+  }
+
+  function handleOnClickOutside() {
+    setToggleFilter(false);
   }
 
   return (
@@ -24,9 +32,17 @@ function InvoiceHeading({ setIsOpen }) {
       </div>
 
       <div className={styles.right_container}>
-        <div className={styles.filter} onClick={handleToggleFilter}>
+        <div
+          className={styles.filter}
+          onClick={handleToggleFilter}
+          ref={filterRef}
+        >
           Filter by status
-          <img src={filterIcon} alt="filter icon" />
+          <img
+            className={toggleFilter ? styles.scaleImg : ""}
+            src={filterIcon}
+            alt="filter icon"
+          />
         </div>
         <Button
           type="save"
@@ -42,6 +58,7 @@ function InvoiceHeading({ setIsOpen }) {
           className={`${styles.checkBox_container} ${
             toggleFilter ? styles.active : ""
           }`}
+          ref={boxRef}
         >
           <CheckBox name="draft" label="Draft" />
           <CheckBox name="pending" label="Pending" />

@@ -31,6 +31,14 @@
       @include flex-center;
       gap: 10px;
       cursor: pointer;
+
+      img {
+        transition: transform 0.3s;
+
+        &.scaleImg {
+          transform: scaleY(-1);
+        }
+      }
     }
 
     .checkBox_container {
@@ -47,7 +55,7 @@
       left: -50px;
       top: 50px;
       padding: 20px;
-      transition: opacity .3s ease-in-out;
+      transition: opacity 0.3s ease-in-out;
       opacity: 0;
       pointer-events: none;
 
