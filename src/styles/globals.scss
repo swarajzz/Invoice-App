@@ -107,6 +107,12 @@ textarea:not([rows]) {
   scroll-margin-block: 5ex;
 }
 
+h3 {
+  font-weight: 700;
+  color: #777f98;
+  font-size: var(--heading--m-variant);
+}
+
 h4 {
   font-weight: 700;
   color: var(--deep-black);
