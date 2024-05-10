@@ -1,7 +1,7 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Home from "./ui/Home";
 import AppLayout from "./ui/AppLayout";
 import InvoicePage from "./ui/InvoicePage";
+import InvoiceMain from "./features/invoice/InvoiceMain";
 
 const router = createBrowserRouter([
   {
@@ -9,7 +9,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <InvoiceMain />,
       },
       {
         path: "/invoice",
