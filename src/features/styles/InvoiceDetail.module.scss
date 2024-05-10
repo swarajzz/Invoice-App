@@ -1,175 +1,117 @@
 @import "../../styles/mixins.scss";
 
-.invoiceDetail {
-  width: 688px;
+.detail_wrapper {
+  background-color: #fff;
+  box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
+
+  padding: 25px;
+  border-radius: 8px;
+
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 
-  .link_container {
-    display: flex;
-    justify-content: start;
-    align-items: center;
-    gap: 10px;
-    font-size: var(--heading--s);
-    font-weight: 700;
+  .detail_container {
+    display: grid;
+    grid-template-rows: repeat(3, 100pxp);
+    grid-template-columns: repeat(4, 1fr);
 
-    img {
-      color: var(--dark-purple);
+    // justify-items: center;
+    // align-items: center;
+
+    font-weight: 500;
+    color: var(--steel-blue);
+
+    h4 {
+      margin-top: 10px;
     }
 
-    .link {
-      color: var(--deep-black);
-      text-decoration: none;
+    .general {
+      .id {
+        font-size: var(--heading--s);
+
+        span {
+          color: var(--steel-blue);
+        }
+        font-weight: bold;
+        color: var(--deep-black);
+      }
+    }
+
+    .senderAddress {
+      grid-row: span 1;
+      grid-column: 4 / 5;
+
+      justify-self: end;
+    }
+
+    .clientAddress {
+      margin-right: 20%;
+    }
+
+    .dateBox {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 20px;
+
+      .dueBox {
+        // justify-self: flex-end;
+      }
+    }
+
+    .sentTo {
+      justify-self: end;
     }
   }
 
-  .status_container {
-    @include flex-between;
-
-    background-color: #fff;
-    box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
-    padding: 25px;
-    border-radius: 8px;
-
-    .status_bar {
+  .receipt_container {
+    .receiptTable {
       display: flex;
-      align-items: center;
-      gap: 20px;
-
-      p {
-        color: #858bb2;
-      }
-
-      .wrapper {
-        @include flex-end;
-        gap: 10px;
-      }
-    }
-
-    .control_btns {
-      display: flex;
-      align-items: items;
+      flex-direction: column;
       gap: 10px;
-    }
-  }
+      padding: 20px;
+      background-color: #f9fafe;
+      border-radius: 15px 15px 0 0;
 
-  .detail_wrapper {
-    background-color: #fff;
-    box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
-
-    padding: 25px;
-    border-radius: 8px;
-
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    .detail_container {
-      display: grid;
-      grid-template-rows: repeat(3, 100pxp);
-      grid-template-columns: repeat(4, 1fr);
-
-      // justify-items: center;
-      // align-items: center;
-
-      font-weight: 500;
-      color: var(--steel-blue);
-
-      h4 {
-        margin-top: 10px;
+      tr {
+        display: flex;
+        justify-content: space-between;
       }
 
-      .general {
-        .id {
-          font-size: var(--heading--s);
+      thead {
+        // font-size: var(--heading--s);
+        color: var(--steel-blue);
+        font-weight: 500;
+        flex-grow: 1;
+      }
 
-          span {
-            color: var(--steel-blue);
-          }
-          font-weight: bold;
+      tbody {
+        font-size: var(--heading--s);
+        font-weight: 700;
+        color: var(--steel-blue);
+
+        .itemName,
+        .total {
+          font-weight: 700;
           color: var(--deep-black);
         }
       }
-
-      .senderAddress {
-        grid-row: span 1;
-        grid-column: 4 / 5;
-
-        justify-self: end;
-      }
-
-      .clientAddress {
-        margin-right: 20%;
-      }
-
-      .dateBox {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        margin-bottom: 20px;
-
-        .dueBox {
-          // justify-self: flex-end;
-        }
-      }
-
-      .sentTo {
-        justify-self: end;
-      }
     }
+    .total_container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px;
+      background-color: #373b53;
+      color: #fff;
+      font-weight: 500;
+      border-radius: 0 0 15px 15px;
 
-    .receipt_container {
-      .receiptTable {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        padding: 20px;
-        background-color: #f9fafe;
-        border-radius: 15px 15px 0 0;
-
-        tr {
-          display: flex;
-          justify-content: space-between;
-        }
-
-        thead {
-          // font-size: var(--heading--s);
-          color: var(--steel-blue);
-          font-weight: 500;
-          flex-grow: 1;
-        }
-
-        tbody {
-          font-size: var(--heading--s);
-          font-weight: 700;
-          color: var(--steel-blue);
-
-          .itemName,
-          .total {
-            font-weight: 700;
-            color: var(--deep-black);
-          }
-        }
-      }
-      .total_container {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px;
-        background-color: #373b53;
-        color: #fff;
-        font-weight: 500;
-        border-radius: 0 0 15px 15px;
-
-        .totalValue {
-          font-weight: 700;
-          font-size: var(--heading--m);
-        }
+      .totalValue {
+        font-weight: 700;
+        font-size: var(--heading--m);
       }
     }
   }
 }
-
-// background-color: #fff;
-// padding: 25px;

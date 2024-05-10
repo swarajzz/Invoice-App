@@ -1,32 +1,12 @@
-import { Link } from "react-router-dom";
 import styles from "../styles/InvoiceDetail.module.scss";
-import backArrow from "../../assets/icon-arrow-left.svg";
-import Button from "../../ui/Button";
-import StatusBox from "../../ui/StatusBox";
+import GoBack from "../../ui/GoBack";
+import StatusContainer from "../../ui/StatusContainer";
 
 function InvoiceDetail() {
   return (
-    <div className={styles.invoiceDetail}>
-      <div className={styles.link_container}>
-        <img src={backArrow} alt="Back Arrow Icon" />
-        <Link to="/" className={styles.link}>
-          Go back
-        </Link>
-      </div>
-
-      <div className={styles.status_container}>
-        <div className={styles.status_bar}>
-          <p>Status</p>
-          <div className={styles.wrapper}>
-            <StatusBox type={status} />
-          </div>
-        </div>
-
-        <div className={styles.control_btns}>
-          <Button type="edit">Edit</Button>
-          <Button type="delete">Delete</Button>
-        </div>
-      </div>
+    <>
+      <GoBack />
+      <StatusContainer />
 
       <div className={styles.detail_wrapper}>
         <div className={styles.detail_container}>
@@ -98,7 +78,7 @@ function InvoiceDetail() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

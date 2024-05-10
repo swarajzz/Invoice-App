@@ -1,0 +1,31 @@
+@import "../styles/mixins.scss";
+
+.status_container {
+  @include flex-between;
+
+  background-color: #fff;
+  box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
+  padding: 25px;
+  border-radius: 8px;
+
+  .status_bar {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+
+    p {
+      color: #858bb2;
+    }
+
+    .wrapper {
+      @include flex-end;
+      gap: 10px;
+    }
+  }
+
+  .control_btns {
+    display: flex;
+    align-items: items;
+    gap: 10px;
+  }
+}

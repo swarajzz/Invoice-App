@@ -1,0 +1,17 @@
+.link_container {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 10px;
+  font-size: var(--heading--s);
+  font-weight: 700;
+
+  img {
+    color: var(--dark-purple);
+  }
+
+  .link {
+    color: var(--deep-black);
+    text-decoration: none;
+  }
+}
