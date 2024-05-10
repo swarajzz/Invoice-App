@@ -23,9 +23,9 @@ function Header() {
       <div className={styles.right_container}>
         <img src={sun} alt="Sun logo" className={styles.toggleIcon} />
         <hr className={styles.divider} />
-        <button className={styles.btn}>
+        <div className={styles.btn}>
           <img src={avatar} alt="Avatar Icon" className={styles.avatar} />
-        </button>
+        </div>
       </div>
     </header>
   );

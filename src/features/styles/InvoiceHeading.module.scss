@@ -2,7 +2,6 @@
 
 .invoiceHeader {
   @include flex-between;
-  width: 730px;
 
   .left_container {
     display: flex;

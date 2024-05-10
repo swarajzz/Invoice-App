@@ -25,7 +25,7 @@ function InvoiceHeading({ setIsOpen }) {
   }
 
   return (
-    <section className={styles.invoiceHeader}>
+    <div className={styles.invoiceHeader}>
       <div className={styles.left_container}>
         <h2>Invoices</h2>
         <p>There are X total invoices</p>
@@ -65,7 +65,7 @@ function InvoiceHeading({ setIsOpen }) {
           <CheckBox name="paid" label="Paid" />
         </div>
       </div>
-    </section>
+    </div>
   );
 }
 

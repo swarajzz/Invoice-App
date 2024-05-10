@@ -9,17 +9,36 @@
   position: fixed;
   border-radius: 0px 20px 20px 0;
   z-index: 1000;
+  padding-bottom: 2rem;
+
+  @include respond(tab-land) {
+    flex-direction: row;
+    width: 100%;
+    height: max-content;
+    border-radius: 0px;
+    padding-bottom: 0px;
+    padding-right: 2rem;
+  }
 
   .left_container {
     @include flex-center;
     background-color: var(--dark-purple);
-    width: 103px;
-    height: 103px;
+    width: 10.3rem;
+    height: 10.3rem;
     border-radius: 0px 20px 20px 0px;
     position: relative;
     z-index: 100;
     overflow: hidden;
     cursor: pointer;
+
+    @include respond(tab-land) {
+      width: 8rem;
+      height: 8rem;
+    }
+    @include respond(tab-port) {
+      width: 7.2rem;
+      height: 7.2rem;
+    }
 
     .logo {
     }
@@ -27,8 +46,9 @@
     &::after {
       content: "";
       position: absolute;
-      width: 103px;
-      height: 206px;
+      width: 10.3rem;
+      height: 10.3rem;
+      // background-color: var(--light-purple);
       background-color: var(--light-purple);
       top: 50%;
       left: 0px;
@@ -37,15 +57,25 @@
 
       background: linear-gradient(
         to bottom,
-        var(--light-purple) 50%,
+        var(--light-purple) 80%,
         transparent 50%
       );
 
       transition: all 0.3s ease;
+
+      @include respond(tab-land) {
+        width: 8rem;
+        height: 8rem;
+
+      }
+      @include respond(tab-port) {
+        width: 7.2rem;
+        height: 7.2rem;
+      }
     }
 
     &:hover::after {
-      transform: translateY(-20%);
+      transform: translateY(-30%);
     }
   }
 
@@ -53,9 +83,14 @@
     @include flex-center;
     flex-direction: column;
     position: relative;
+    gap: 20px;
+
+    @include respond(tab-land) {
+      flex-direction: row;
+    }
 
     .toggleIcon {
-      margin: 20px;
+      // margin: 20px;
       position: relative;
     }
 
@@ -64,29 +99,21 @@
       // height: 103px;
       width: 103px;
       border: 1px solid #494e6e;
+
+      @include respond(tab-land) {
+        width: 0px;
+        height: 100%;
+      }
     }
 
     .btn {
       cursor: pointer;
-      margin: 20px;
 
       .avatar {
         width: 32px;
         height: 32px;
+        border-radius: 50%;
       }
     }
-
-    // &::after {
-    //   content: "";
-    //   display: block;
-    //   position: absolute;
-    //   width: 2px;
-    //   height: 103px;
-    //   // background-color: var(--light-gray-blue);
-    //   background-color: red;
-    //   left: 50%;
-    //   top: 0px;
-    //   transform: translateX(-50%);
-    // }
   }
 }
