@@ -3,49 +3,80 @@
 
 .form_container {
   position: fixed;
-  left: 90px;
+  left: 8rem;
   top: 0;
+  bottom: 0px;
 
-  width: 650px;
+  max-width: 65rem;
   background-color: #fff;
-  height: 100vh;
-  padding: 50px;
+  padding: 5rem;
   border-radius: 0 11px 11px 0;
   box-shadow: 0 0 1em rgb(0 0 0 / 0.3);
 
   opacity: 0;
   visibility: hidden;
 
-  overflow-y: scroll;
+  overflow: auto;
+
   z-index: 800;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @include respond(tab-land) {
+    padding: 3rem;
+
+    left: 0px;
+    top: 8rem;
+  }
+
+  @include respond(tab-port) {
+    top: 7.2rem;
+  }
+
+  @include respond(phone) {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    // overflow-y: scroll;
+  }
 
   &.open {
     visibility: visible;
     opacity: 1;
-    animation: moveInLeft .5s ease-in-out forwards;
+    animation: moveInLeft 0.5s ease-in-out forwards;
   }
 
   h2 {
     font-size: var(--heading--m);
-    margin-bottom: 30px;
+    margin-bottom: 3rem;
+  }
+
+  h3 {
+    margin-bottom: 2rem;
   }
 
   h6 {
     font-size: var(--heading--s);
     font-weight: 700;
     color: var(--dark-purple);
-    margin-bottom: 20px;
+    margin-bottom: 2rem;
   }
 
   .flexInputs {
     display: grid;
-    // grid-template-rows: 1fr;
     grid-template-columns: repeat(3, 1fr);
-    margin-bottom: 20px;
     justify-content: space-between;
+    grid-column-gap: 2rem;
 
-    & > * {
-      width: 160px;
+    @include respond(phone) {
+      grid-template-columns: repeat(2, 1fr);
     }
 
     input {
@@ -55,13 +86,24 @@
   }
 
   input {
-    height: 48px;
+    height: 4.8rem;
     border-radius: 4px;
     border: 1px solid var(--light-gray-blue);
     font-weight: 700;
     font-size: var(--heading--s);
     color: var(--deep-black);
-    padding: 0 10px;
+    gap: 1rem;
+  }
+
+  .buttonControls {
+    margin-top: 3rem;
+
+    @include flex-between;
+
+    div {
+      @include flex-around;
+      gap: 1rem;
+    }
   }
 }
 

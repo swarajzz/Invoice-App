@@ -80,7 +80,9 @@ button {
   display: block;
   cursor: pointer;
   color: none;
+  background-color: transparent;
   border: none;
+  overflow: hidden;
 }
 
 /* Balance text wrapping on headings */

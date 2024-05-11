@@ -1,13 +1,13 @@
 .formRow {
-  //   display: grid;
-  //   align-items: center;
-  //   grid-template-columns: 24rem 1fr 1.2fr;
-  //   gap: 2.4rem;
   display: flex;
   flex-direction: column;
   gap: 5px;
   margin-bottom: 10px;
-  // width: 50px;
+  min-width: 0;
+
+  input {
+    padding: 20px;
+  }
 
   label {
     color: var(--steel-blue);

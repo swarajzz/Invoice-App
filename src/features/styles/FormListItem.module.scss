@@ -1,0 +1,24 @@
+@import "../../styles/_mixins.scss";
+
+.listItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+
+  input:disabled {
+    color: var(--gray-blue);
+    border: none;
+    background-color: transparent;
+  }
+
+  .iconBox {
+    .deleteIcon {
+      width: 20px;
+      
+      // &:hover {
+      //   fill: red;
+      // }
+    }
+  }
+}

@@ -7,6 +7,7 @@ function Button({ children, type, handleOnClick }) {
     discard: styles.discard,
     save: styles.save,
     saveDraft: styles.saveDraft,
+    add: styles.add,
   };
 
   return (

@@ -36,15 +36,6 @@
     background-color: var(--dark-purple);
     position: relative;
 
-    // .plusIcon {
-    //   position: absolute;
-    //   width: 30px;
-    //   height: 30px;
-    //   background-color: #fff;
-    //   @include flex-center;
-    //   border-radius: 30px;
-    //   left: 5px;
-    // }
     & > div {
       position: absolute;
       width: 30px;
@@ -66,6 +57,16 @@
   }
 
   &.saveDraft {
+    background-color: #373B53;
+    color: var(--gray-blue);
+
+    &:hover {
+      color: var(--light-gray-blue);
+    }
+  }
+
+  &.add {
     @extend .edit;
+    width: 100%;
   }
 }
