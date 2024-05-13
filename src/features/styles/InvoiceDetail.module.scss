@@ -13,14 +13,17 @@
 
   .detail_container {
     display: grid;
-    grid-template-rows: repeat(3, 100pxp);
     grid-template-columns: repeat(4, 1fr);
-
-    // justify-items: center;
-    // align-items: center;
 
     font-weight: 500;
     color: var(--steel-blue);
+    margin-bottom: 20px;
+
+    @include respond(phone) {
+      grid-row-gap: 20px;
+      grid-template-rows: repeat(4, auto);
+      grid-template-columns: repeat(2, 1fr);
+    }
 
     h4 {
       margin-top: 10px;
@@ -41,19 +44,38 @@
     .senderAddress {
       grid-row: span 1;
       grid-column: 4 / 5;
+      text-align: right;
 
       justify-self: end;
+
+      @include respond(phone) {
+        grid-row: 2 / 3;
+        grid-column: 1 / 2;
+
+        text-align: left;
+        justify-self: start;
+      }
     }
 
     .clientAddress {
       margin-right: 20%;
+
+      @include respond(phone) {
+        grid-row: 3 / 4;
+        grid-column: 2 / 2;
+      }
     }
 
     .dateBox {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      margin-bottom: 20px;
+      // margin-bottom: 20px;
+
+      @include respond(phone) {
+        grid-row: 3 / 4;
+        grid-column: 1 / 2;
+      }
 
       .dueBox {
         // justify-self: flex-end;
@@ -62,6 +84,12 @@
 
     .sentTo {
       justify-self: end;
+
+      @include respond(phone) {
+        grid-row: 4 / 5;
+        grid-column: 1 / 2;
+        justify-self: start;
+      }
     }
   }
 }

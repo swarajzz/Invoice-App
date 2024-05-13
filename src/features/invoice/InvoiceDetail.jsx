@@ -42,7 +42,7 @@ function InvoiceDetail() {
   return (
     <>
       <GoBack />
-      <StatusContainer />
+      <StatusContainer status={status} />
 
       <div className={styles.detail_wrapper}>
         <div className={styles.detail_container}>
@@ -62,7 +62,7 @@ function InvoiceDetail() {
           </div>
 
           <div className={styles.dateBox}>
-            <div className="invoiceDateBox">
+            <div className={styles.invoiceDateBox}>
               <p>Invoice Date</p>
               <h4 className={styles.invoiceDate}>
                 {formatDate(new Date(createdAt))}

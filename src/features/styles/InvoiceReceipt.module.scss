@@ -1,36 +1,74 @@
+@import "../../styles/mixins";
+
 .receipt_container {
-  .receiptTable {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  background-color: #f9fafe;
+  border-radius: 15px 15px 0 0;
+
+  .wrapper {
     padding: 20px;
-    background-color: #f9fafe;
-    border-radius: 15px 15px 0 0;
 
-    tr {
-      display: flex;
-      justify-content: space-between;
-    }
-
-    thead {
-      // font-size: var(--heading--s);
-      color: var(--steel-blue);
-      font-weight: 500;
-      flex-grow: 1;
-    }
-
-    tbody {
+    .itemName,
+    .total {
       font-size: var(--heading--s);
       font-weight: 700;
-      color: var(--steel-blue);
+      color: var(--deep-black);
+    }
 
-      .itemName,
-      .total {
+    .quantity {
+      color: var(--steel-blue);
+      font-weight: 700;
+    }
+
+    .receiptTable {
+      width: 100%;
+
+      tr {
+        td:first-child {
+          text-align: left;
+        }
+        td {
+          text-align: right;
+        }
+      }
+
+      thead {
+        color: var(--steel-blue);
+        font-weight: 500;
+        flex-grow: 1;
+
+        @include respond(phone) {
+          display: none;
+        }
+      }
+
+      tbody {
+        font-size: var(--heading--s);
         font-weight: 700;
-        color: var(--deep-black);
+        color: var(--steel-blue);
+
+        p {
+          display: none;
+
+          @include respond(phone) {
+            display: block;
+          }
+        }
+      }
+
+      @include respond(phone) {
+        display: none;
+      }
+    }
+
+    .phoneResponsive {
+      display: none;
+
+      @include respond(phone) {
+        @include flex-between;
       }
     }
   }
+
   .total_container {
     display: flex;
     justify-content: space-between;

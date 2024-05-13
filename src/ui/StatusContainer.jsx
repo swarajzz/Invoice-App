@@ -2,7 +2,7 @@ import Button from "./Button";
 import StatusBox from "./StatusBox";
 import styles from "./StatusContainer.module.scss";
 
-function StatusContainer() {
+function StatusContainer({ status }) {
   return (
     <div className={styles.status_container}>
       <div className={styles.status_bar}>

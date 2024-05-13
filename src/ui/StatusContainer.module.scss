@@ -21,11 +21,23 @@
       @include flex-end;
       gap: 10px;
     }
+
+    @include respond(phone) {
+      @include flex-between;
+    }
   }
 
   .control_btns {
     display: flex;
     align-items: items;
     gap: 10px;
+
+    @include respond(phone) {
+      display: none;
+    }
+  }
+
+  @include respond(phone) {
+    display: block;
   }
 }
