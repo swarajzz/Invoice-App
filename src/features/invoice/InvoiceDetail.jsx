@@ -1,8 +1,44 @@
 import styles from "../styles/InvoiceDetail.module.scss";
 import GoBack from "../../ui/GoBack";
 import StatusContainer from "../../ui/StatusContainer";
+import { useLocation } from "react-router-dom";
+import { formatDate } from "../../utils/helper";
+import InvoiceReceipt from "./InvoiceReceipt";
 
 function InvoiceDetail() {
+  const { state } = useLocation();
+  const {
+    clientAddress,
+    id,
+    clientName,
+    clientEmail,
+    createdAt,
+    description,
+    items,
+    paymentDue,
+    total,
+    senderAddress,
+    status,
+  } = state.invoice;
+
+  const {
+    city: clientCity,
+    country: clientCountry,
+    postCode: clientPostCode,
+    street: clientStreet,
+  } = clientAddress;
+
+  const {
+    city: senderCity,
+    country: senderCountry,
+    postCode: senderPostCode,
+    street: senderStreet,
+  } = senderAddress;
+
+  // const { items: invoiceItems } = items;
+
+  // console.log(state);
+
   return (
     <>
       <GoBack />
@@ -12,71 +48,51 @@ function InvoiceDetail() {
         <div className={styles.detail_container}>
           <div className={styles.general}>
             <h5 className={styles.id}>
-              <span>#</span>RT3080
+              <span>#</span>
+              {id}
             </h5>
-            <p className={styles.content}>Re-branding</p>
+            <p className={styles.content}>{description}</p>
           </div>
 
           <div className={styles.senderAddress}>
-            <p className={styles.senderStreet}>21 Aug 2021</p>
-            <p className={styles.senderCity}>Issue Date</p>
-            <p className={styles.senderPostCode}>21 Aug 2021</p>
-            <p className={styles.senderCountry}>21 Aug 2021</p>
+            <p className={styles.senderStreet}>{senderStreet}</p>
+            <p className={styles.senderCity}>{senderCity}</p>
+            <p className={styles.senderPostCode}>{senderPostCode}</p>
+            <p className={styles.senderCountry}>{senderCountry}</p>
           </div>
 
           <div className={styles.dateBox}>
             <div className="invoiceDateBox">
               <p>Invoice Date</p>
-              <h4 className={styles.invoiceDate}>20 Sep 2021</h4>
+              <h4 className={styles.invoiceDate}>
+                {formatDate(new Date(createdAt))}
+              </h4>
             </div>
 
             <div className={styles.dueBox}>
               <p>Payment Due</p>
-              <h4 className={styles.dueDate}>20 Sep 2021</h4>
+              <h4 className={styles.dueDate}>
+                {formatDate(new Date(paymentDue))}
+              </h4>
             </div>
           </div>
 
           <div className={styles.clientAddress}>
             <p>Bill To</p>
-            <h4 className={styles.clientStreet}>Jensen Huang</h4>
-            <p className={styles.clientCity}>2788 San Tomas Expressway</p>
-            <p className={styles.clientPost}>Santa Clara, CA 95051</p>
-            <p className={styles.clientCountry}>United States</p>
-            <p className={styles.clientCountry}>United States</p>
+            <h4 className={styles.clientName}>{clientName}</h4>
+            <p className={styles.clientStreet}>{clientStreet}</p>
+            <p className={styles.clientCity}>{clientCity}</p>
+            <p className={styles.clientPost}>{clientPostCode}</p>
+            <p className={styles.clientCountry}>{clientCountry}</p>
           </div>
 
           <div className={styles.sentTo}>
             <p className={styles.detail_title}>Sent to</p>
-            <h4 className={styles.clientEmail}>Jensen Huang</h4>
+            <h4 className={styles.clientEmail}>{clientEmail}</h4>
           </div>
         </div>
 
-        <div className={styles.receipt_container}>
-          <table className={styles.receiptTable}>
-            <thead>
-              <tr>
-                <td>Item Name</td>
-                <td>QTY.</td>
-                <td>Price</td>
-                <td>Total</td>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td className={styles.itemName}>Banner Design</td>
-                <td>1</td>
-                <td>& 156.00</td>
-                <td className={styles.total}>$ 400</td>
-              </tr>
-            </tbody>
-          </table>
-
-          <div className={styles.total_container}>
-            <p>Grand Total</p>
-            <p className={styles.totalValue}>$1800.90</p>
-          </div>
-        </div>
+        <InvoiceReceipt items={items} />
       </div>
     </>
   );

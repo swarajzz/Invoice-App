@@ -35,7 +35,9 @@ function InvoiceItem({ invoice }) {
   const navigate = useNavigate();
 
   function handleNavigate() {
-    navigate(`/invoice`);
+    navigate(`/invoice`, {
+      state: { invoice },
+    });
   }
 
   return (
