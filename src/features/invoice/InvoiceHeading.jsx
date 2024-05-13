@@ -5,9 +5,13 @@ import Button from "../../ui/Button";
 import CheckBox from "../../ui/CheckBox";
 import { useRef, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import useCheckMobileScreen from "../../hooks/useCheckMobileScreen";
 
 function InvoiceHeading({ setIsOpen }) {
   const [toggleFilter, setToggleFilter] = useState(false);
+
+  const isPhone = useCheckMobileScreen();
+
   const filterRef = useRef();
 
   const boxRef = useOutsideClick(handleOnClickOutside, filterRef);
@@ -28,7 +32,8 @@ function InvoiceHeading({ setIsOpen }) {
     <div className={styles.invoiceHeader}>
       <div className={styles.left_container}>
         <h2>Invoices</h2>
-        <p>There are X total invoices</p>
+
+        <p>{!isPhone ? `There are 10 total invoices` : `10 invoices`}</p>
       </div>
 
       <div className={styles.right_container}>
@@ -37,22 +42,18 @@ function InvoiceHeading({ setIsOpen }) {
           onClick={handleToggleFilter}
           ref={filterRef}
         >
-          Filter by status
+          <p>{!isPhone ? `Filter by status` : `Filter`}</p>
           <img
             className={toggleFilter ? styles.scaleImg : ""}
             src={filterIcon}
             alt="filter icon"
           />
         </div>
-        <Button
-          type="save"
-          className={styles.btn}
-          handleOnClick={handleOnClick}
-        >
+        <Button type="new" className={styles.btn} handleOnClick={handleOnClick}>
           <div className={styles.plusIcon}>
             <img src={plusIcon} alt="filter icon" />
           </div>
-          <p>New Invoice</p>
+          <p>{!isPhone ? `New Invoice` : `New`}</p>
         </Button>
         <div
           className={`${styles.checkBox_container} ${

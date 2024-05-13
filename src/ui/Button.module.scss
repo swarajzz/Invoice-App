@@ -38,8 +38,8 @@
 
     & > div {
       position: absolute;
-      width: 30px;
-      height: 30px;
+      width: 26px;
+      height: 26px;
       background-color: #fff;
       @include flex-center;
       border-radius: 30px;
@@ -57,7 +57,7 @@
   }
 
   &.saveDraft {
-    background-color: #373B53;
+    background-color: #373b53;
     color: var(--gray-blue);
 
     &:hover {
@@ -68,5 +68,26 @@
   &.add {
     @extend .edit;
     width: 100%;
+  }
+
+  &.new {
+    @extend .save;
+
+    @include respond(phone) {
+      padding: 10px 20px;
+    }
+
+    & > div {
+      @include respond(phone) {
+        width: 25px;
+        height: 25px;
+      }
+    }
+
+    p {
+      @include respond(phone) {
+        margin-left: 20px;
+      }
+    }
   }
 }

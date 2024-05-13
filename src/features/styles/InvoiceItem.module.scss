@@ -10,6 +10,12 @@
   border: 1px solid transparent;
   transition: all 0.3s;
 
+  .amount {
+    color: var(--deep-black);
+    font-size: var(--heading--m-variant);
+    font-weight: 700;
+  }
+
   .first_container {
     @include flex-between;
     gap: 20px;
@@ -28,6 +34,11 @@
       font-weight: 500;
       color: var(--gray-blue);
     }
+
+    @include respond(phone) {
+      flex-direction: column;
+      align-items: flex-start;
+    }
   }
 
   .second_container {
@@ -36,24 +47,27 @@
 
     .sub_container {
       @include flex-between;
-      //   gap: 30px;
-      flex-basis: 60%;
+      flex-basis: 50%;
 
       .name {
         font-weight: 500;
         color: #858bb2;
-      }
-
-      .amount {
-        color: var(--deep-black);
-        font-size: var(--heading--m-variant);
-        font-weight: 700;
       }
     }
 
     .wrapper {
       @include flex-end;
       gap: 10px;
+
+      @include respond(phone) {
+        justify-content: start;
+      }
+    }
+
+    @include respond(phone) {
+      gap: 20px;
+      flex-direction: column;
+      align-items: flex-end;
     }
   }
 

@@ -2,6 +2,7 @@ import styles from "../styles/InvoiceItem.module.scss";
 import rightArrow from "../../assets/icon-arrow-right.svg";
 import { useNavigate } from "react-router-dom";
 import StatusBox from "../../ui/StatusBox";
+import useCheckMobileScreen from "../../hooks/useCheckMobileScreen";
 
 function InvoiceItem({ invoice }) {
   const {
@@ -34,6 +35,8 @@ function InvoiceItem({ invoice }) {
 
   const navigate = useNavigate();
 
+  const isMobile = useCheckMobileScreen();
+
   function handleNavigate() {
     navigate(`/invoice`, {
       state: { invoice },
@@ -49,18 +52,20 @@ function InvoiceItem({ invoice }) {
         </p>
         <p className={styles.date}>Due {paymentDue}</p>
         {/* <p className={styles.name}>{clientName}</p> */}
+        {isMobile ? <p className={styles.amount}>£ {total}</p> : null}
       </div>
 
       <div className={styles.second_container}>
         <div className={styles.sub_container}>
           <p className={styles.name}>{clientName}</p>
           {/* <p className={styles.date}>Due {paymentDue}</p> */}
-          <p className={styles.amount}>£ {total}</p>
+          {!isMobile ? <p className={styles.amount}>£ {total}</p> : null}
         </div>
 
         <div className={styles.wrapper}>
           <StatusBox type={status} />
-          <img src={rightArrow} alt="" />
+
+          {!isMobile ? <img src={rightArrow} alt="" /> : null}
         </div>
       </div>
     </li>

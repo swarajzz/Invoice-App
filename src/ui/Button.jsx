@@ -2,6 +2,7 @@ import styles from "./Button.module.scss";
 
 function Button({ children, type, handleOnClick }) {
   const buttonTypes = {
+    new: styles.new,
     edit: styles.edit,
     delete: styles.delete,
     discard: styles.discard,
