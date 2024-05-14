@@ -10,7 +10,6 @@ const useOutsideClick = (handler, filterRef) => {
         !ref.current.contains(event.target) &&
         !filterRef.current.contains(event.target)
       ) {
-        console.log(ref.current, event.target);
         handler();
       }
     }

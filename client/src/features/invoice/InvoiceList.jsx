@@ -1,9 +1,8 @@
-import data from "../../data/data.json";
 import InvoiceItem from "./InvoiceItem";
-
 import styles from "../styles/InvoiceList.module.scss";
 import { useQuery } from "@tanstack/react-query";
 import { getInvoices } from "../../services/apiInvoices";
+import Spinner from "../../ui/Spinner";
 
 function InvoiceList() {
   const {
@@ -15,13 +14,12 @@ function InvoiceList() {
     queryFn: getInvoices,
   });
 
-  if (isLoading) alert("Loading...");
-  console.log(invoices);
-
+  if (isLoading) return <Spinner />;
+  
   return (
     <>
       <ul className={styles.invoiceList}>
-        {data.map((invoice) => (
+        {invoices.map((invoice) => (
           <InvoiceItem key={invoice.id} invoice={invoice} />
         ))}
       </ul>
