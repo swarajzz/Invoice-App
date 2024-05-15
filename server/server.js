@@ -3,6 +3,11 @@ import express from "express";
 const app = express();
 
 app.get("/api/invoices", (req, res) => {
+
+  res.send(invoices);
+});
+
+app.get("/api/invoices", (req, res) => {
   const invoices = [
     {
       id: "RT3080",
