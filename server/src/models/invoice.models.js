@@ -1,8 +1,24 @@
 import mongoose from "mongoose";
 
-const invoiceSchema = new Schema(
+const generateRandomPrefix = () => {
+  const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  let prefix = "";
+  for (let i = 0; i < 2; i++) {
+    const randomIndex = Math.floor(Math.random() * letters.length);
+    prefix += letters[randomIndex];
+  }
+  return prefix;
+};
+
+const generateCustomId = () => {
+  const prefix = generateRandomPrefix();
+  const randomNumber = Math.floor(1000 + Math.random() * 9000); 
+  return `${prefix}${randomNumber}`;
+};
+
+const invoiceSchema = new mongoose.Schema(
   {
-    id: { type: String, required: true },
+    id: { type: String, default: generateCustomId, required: true },
     paymentDue: { type: Date, required: true },
     description: { type: String, required: true },
     paymentTerms: { type: Number, enum: [1, 7, 14, 30], required: true },
@@ -35,7 +51,7 @@ const invoiceSchema = new Schema(
     ],
     total: { type: Number, required: true },
   },
-  { timeStamps: true }
+  { timestamps: true }
 );
 
 export const Invoice = mongoose.model("Invoice", invoiceSchema);

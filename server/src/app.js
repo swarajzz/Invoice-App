@@ -18,9 +18,12 @@ app.use(cookieParser());
 
 // routes import
 import userRouter from "./routes/user.routes.js";
+import invoiceRouter from "./routes/invoice.routes.js";
 
 // routes declaration
 app.use("/api/users", userRouter);
-// app.use("/invoice", userRouter);
+app.use("/api/invoice", invoiceRouter);
 
 export { app };
+
+// http:localhost:3000/api/invoice
