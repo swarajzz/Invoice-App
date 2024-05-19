@@ -4,19 +4,13 @@ import { User } from "../models/user.models.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
 const registerUser = asyncHandler(async (req, res) => {
-  res.status(200).json({
-    message: "chai aur code",
-  });
-
-  // console.log(req.body)
-  const { email, password } = req.body;
-  console.log(email);
+  const { username, email, password } = req.body;
 
   if ([username, email, password].some((field) => field?.trim() === "")) {
     throw new ApiError(400, "All fields are required");
   }
 
-  const existedUser = User.findOne({
+  const existedUser = await User.findOne({
     $or: [{ username }, { email }],
   });
 
