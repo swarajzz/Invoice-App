@@ -38,7 +38,7 @@ function InvoiceItem({ invoice }) {
   const isMobile = useCheckMobileScreen();
 
   function handleNavigate() {
-    navigate(`/invoice`, {
+    navigate(`/invoice/:${id}`, {
       state: { invoice },
     });
   }
