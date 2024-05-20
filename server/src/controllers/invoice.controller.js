@@ -3,6 +3,14 @@ import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
+const getInvoices = asyncHandler(async (req, res) => {
+  const allInvoices = await Invoice.find().select();
+
+  return res
+    .status(201)
+    .json(new ApiResponse(200, allInvoices, "Invoices fetched successfully"));
+});
+
 const createInvoice = asyncHandler(async (req, res) => {
   const {
     id,
@@ -48,7 +56,7 @@ const createInvoice = asyncHandler(async (req, res) => {
   });
 
   const createdInvoice = await Invoice.findById(invoice._id).select(
-    "+status"
+    "+id +status"
   );
   // console.log(createInvoice)
 
@@ -57,4 +65,4 @@ const createInvoice = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, createdInvoice, "Invoice created successfully"));
 });
 
-export { createInvoice };
+export { createInvoice, getInvoices };
