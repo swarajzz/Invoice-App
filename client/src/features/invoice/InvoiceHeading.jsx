@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import useCheckMobileScreen from "../../hooks/useCheckMobileScreen";
 
-function InvoiceHeading({ setIsOpen }) {
+function InvoiceHeading({ setIsOpen, setToggleFilterValues }) {
   const [toggleFilter, setToggleFilter] = useState(false);
 
   const isPhone = useCheckMobileScreen();
@@ -28,6 +28,12 @@ function InvoiceHeading({ setIsOpen }) {
     setToggleFilter(false);
   }
 
+  function toggleValue(e) {
+    e.target.checked
+      ? setToggleFilterValues((prev) => [...prev, e.target.name])
+      : setToggleFilterValues((prev) => prev.filter((item) => item !== e.target.name));
+  }
+  
   return (
     <div className={styles.invoiceHeader}>
       <div className={styles.left_container}>
@@ -61,9 +67,9 @@ function InvoiceHeading({ setIsOpen }) {
           }`}
           ref={boxRef}
         >
-          <CheckBox name="draft" label="Draft" />
-          <CheckBox name="pending" label="Pending" />
-          <CheckBox name="paid" label="Paid" />
+          <CheckBox toggleValue={toggleValue} name="draft" label="Draft" />
+          <CheckBox toggleValue={toggleValue} name="pending" label="Pending" />
+          <CheckBox toggleValue={toggleValue} name="paid" label="Paid" />
         </div>
       </div>
     </div>

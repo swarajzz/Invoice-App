@@ -3,6 +3,7 @@ import rightArrow from "../../assets/icon-arrow-right.svg";
 import { useNavigate } from "react-router-dom";
 import StatusBox from "../../ui/StatusBox";
 import useCheckMobileScreen from "../../hooks/useCheckMobileScreen";
+import { formatDate } from "../../utils/helper";
 
 function InvoiceItem({ invoice }) {
   const {
@@ -50,7 +51,7 @@ function InvoiceItem({ invoice }) {
           <span>#</span>
           {id}
         </p>
-        <p className={styles.date}>Due {paymentDue}</p>
+        <p className={styles.date}>Due {formatDate(new Date(paymentDue))}</p>
         {/* <p className={styles.name}>{clientName}</p> */}
         {isMobile ? <p className={styles.amount}>£ {total}</p> : null}
       </div>

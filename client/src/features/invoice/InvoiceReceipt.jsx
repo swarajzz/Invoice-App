@@ -1,8 +1,6 @@
 import styles from "../styles/InvoiceReceipt.module.scss";
 
 function InvoiceReceipt({ items }) {
-  console.log(items);
-
   const totalPrice = items.reduce(
     (acc, item) => acc + item.quantity * item.price,
     0
@@ -23,7 +21,6 @@ function InvoiceReceipt({ items }) {
 
           <tbody>
             {items.map((item) => (
-              <>
                 <tr key={item.name}>
                   <td className={styles.itemName}>{item.name}</td>
                   <td>{item.quantity}</td>
@@ -32,7 +29,6 @@ function InvoiceReceipt({ items }) {
                     $ {item.quantity * item.price}
                   </td>
                 </tr>
-              </>
             ))}
           </tbody>
         </table>

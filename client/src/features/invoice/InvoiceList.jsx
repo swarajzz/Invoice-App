@@ -5,7 +5,7 @@ import { getInvoices } from "../../services/apiInvoices";
 import Spinner from "../../ui/Spinner";
 import NotFound from "../../ui/Error";
 
-function InvoiceList() {
+function InvoiceList({ toggleFilterValues }) {
   const {
     isLoading,
     data: invoices,
@@ -17,11 +17,15 @@ function InvoiceList() {
 
   if (isLoading) return <Spinner />;
   if (error) return <NotFound />;
-  
+
+  const newInvoices = invoices.filter((invoice) =>
+    toggleFilterValues.includes(invoice.status)
+  );
+
   return (
     <>
       <ul className={styles.invoiceList}>
-        {invoices.map((invoice) => (
+        {(toggleFilterValues.length ? newInvoices : invoices).map((invoice) => (
           <InvoiceItem key={invoice.id} invoice={invoice} />
         ))}
       </ul>
