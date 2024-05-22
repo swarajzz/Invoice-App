@@ -3,13 +3,21 @@ import FormRow from "../../ui/FormRow";
 import styles from "../styles/InvoiceForm.module.scss";
 import FormList from "./FormList";
 import Button from "../../ui/Button";
+import { useState } from "react";
 
 function InvoiceForm({ isOpen, setIsOpen }) {
   let something = false;
+  const [counter, setCounter] = useState(1);
 
   function handleOverlayClick(e) {
     something = true;
     setIsOpen(false);
+  }
+
+  function handleAddItemClick(e) {
+    e.preventDefault();
+    console.log(e);
+    setCounter((prev) => prev + 1);
   }
 
   return (
@@ -74,8 +82,14 @@ function InvoiceForm({ isOpen, setIsOpen }) {
 
           <div className={styles.itemList_container}>
             <h3>Item List</h3>
-            <FormList />
-            <Button type="add" className={styles.addItem}>+ Add New Item</Button>
+            <FormList counter={counter} />
+            <Button
+              handleAddItemClick={handleAddItemClick}
+              type="add"
+              className={styles.addItem}
+            >
+              + Add New Item
+            </Button>
           </div>
 
           <div className={styles.buttonControls}>

@@ -1,10 +1,12 @@
 import styles from "../styles/FormList.module.scss";
 import FormListItem from "./FormListItem";
 
-function FormList() {
+function FormList({ counter }) {
   return (
     <ul className={styles.itemList}>
-      <FormListItem />
+      {Array.from({ length: counter }).map((_, i) => (
+        <FormListItem key={i} />
+      ))}
     </ul>
   );
 }
