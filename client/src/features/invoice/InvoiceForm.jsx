@@ -20,6 +20,10 @@ function InvoiceForm({ isOpen, setIsOpen }) {
     setCounter((prev) => prev + 1);
   }
 
+  function handleSaveClick(e) {
+    e.preventDefault();
+  }
+
   return (
     <>
       <div className={`${styles.form_container} ${isOpen ? styles.open : ""}`}>
@@ -96,7 +100,9 @@ function InvoiceForm({ isOpen, setIsOpen }) {
             <Button type="discard">Discard</Button>
             <div>
               <Button type="saveDraft">Save as draft</Button>
-              <Button type="save">Save & Send</Button>
+              <Button handleSaveClick={handleSaveClick} type="save">
+                Save & Send
+              </Button>
             </div>
           </div>
         </form>

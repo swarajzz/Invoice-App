@@ -1,6 +1,12 @@
 import styles from "./Button.module.scss";
 
-function Button({ children, type, handleOnClick, handleAddItemClick }) {
+function Button({
+  children,
+  type,
+  handleOnClick,
+  handleAddItemClick,
+  handleSaveClick,
+}) {
   const buttonTypes = {
     new: styles.new,
     edit: styles.edit,
@@ -11,9 +17,17 @@ function Button({ children, type, handleOnClick, handleAddItemClick }) {
     add: styles.add,
   };
 
+  const clickHandlers = {
+    add: handleAddItemClick,
+    save: handleSaveClick,
+    default: handleOnClick,
+  };
+
+  const handleClick = clickHandlers[type] || clickHandlers.default;
+
   return (
     <button
-      onClick={type === "add" ? handleAddItemClick : handleOnClick}
+      onClick={handleClick}
       className={`${styles.button} ${buttonTypes[type]}`}
     >
       {children}
