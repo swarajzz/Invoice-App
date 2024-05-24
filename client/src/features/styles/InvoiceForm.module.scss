@@ -1,73 +1,11 @@
 @import "../../styles/mixins.scss";
 @import "../../styles/animations.scss";
 
-.form_container {
-  position: fixed;
-  left: 8rem;
-  top: 0;
-  bottom: 0px;
-
-  max-width: 65rem;
-  background-color: #fff;
-  padding: 5rem;
-  border-radius: 0 11px 11px 0;
-  box-shadow: 0 0 1em rgb(0 0 0 / 0.3);
-
-  opacity: 0;
-  visibility: hidden;
-
-  overflow: auto;
-
-  z-index: 800;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  @include respond(tab-land) {
-    padding: 3rem;
-
-    left: 0px;
-    top: 8rem;
-  }
-
-  @include respond(tab-port) {
-    top: 7.2rem;
-  }
-
-  @include respond(phone) {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .form {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    // overflow-y: scroll;
-  }
-
-  &.open {
-    visibility: visible;
-    opacity: 1;
-    animation: moveInLeft 0.5s ease-in-out forwards;
-  }
-
-  h2 {
-    font-size: var(--heading--m);
-    margin-bottom: 3rem;
-  }
-
-  h3 {
-    margin-bottom: 2rem;
-  }
-
-  h6 {
-    font-size: var(--heading--s);
-    font-weight: 700;
-    color: var(--dark-purple);
-    margin-bottom: 2rem;
-  }
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  // overflow-y: scroll;
 
   .flexInputs {
     display: grid;
@@ -131,25 +69,5 @@
       @include flex-around;
       gap: 1rem;
     }
-  }
-}
-
-.overlay {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  z-index: 500;
-  background-color: rgba(0, 0, 0, 0.4984);
-
-  opacity: 0;
-  visibility: hidden;
-
-  transition: all 0.6s cubic-bezier(0.335, 0.01, 0.03, 1.36);
-
-  &.in {
-    opacity: 1;
-    visibility: visible;
   }
 }

@@ -9,6 +9,9 @@ import { getNetTermsDate } from "../../utils/helper";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useOutsideClick from "../../hooks/useOutsideClick";
+import Form from "../../ui/Form";
+import Input from "../../ui/Input";
+import Overlay from "../../ui/Overlay";
 
 function InvoiceForm({ isOpen, setIsOpen }) {
   let something = false;
@@ -52,23 +55,23 @@ function InvoiceForm({ isOpen, setIsOpen }) {
 
   return (
     <>
-      <div className={`${styles.form_container} ${isOpen ? styles.open : ""}`}>
+      <Form isOpen={isOpen}>
         <h2>New Invoice</h2>
-        <form className={styles.form}>
+        <div className={styles.wrapper}>
           <div className={styles.billFrom}>
             <h6>Bill From</h6>
             <FormRow label={"Street Address"}>
-              <input type="text" id="senderStreetAddress" required />
+              <Input type="text" id="senderStreetAddress" required />
             </FormRow>
             <div className={styles.flexInputs}>
               <FormRow label={"City"}>
-                <input type="text" id="senderCity" required />
+                <Input type="text" id="senderCity" required />
               </FormRow>
               <FormRow label={"Post Code"}>
-                <input type="number" id="senderPostCode" required />
+                <Input type="number" id="senderPostCode" required />
               </FormRow>
               <FormRow label={"Country"}>
-                <input type="text" id="senderCountry" required />
+                <Input type="text" id="senderCountry" required />
               </FormRow>
             </div>
           </div>
@@ -76,24 +79,24 @@ function InvoiceForm({ isOpen, setIsOpen }) {
           <div className={styles.billTo}>
             <h6>Bill To</h6>
             <FormRow label={"Client's Name"}>
-              <input type="text" id="clientName" required />
+              <Input type="text" id="clientName" required />
             </FormRow>
             <FormRow label={"Client's Email"}>
-              <input type="email" id="clientEmail" required />
+              <Input type="email" id="clientEmail" required />
             </FormRow>
             <FormRow label={"Street Address"}>
-              <input type="text" id="clientStreetAdress" required />
+              <Input type="text" id="clientStreetAdress" required />
             </FormRow>
 
             <div className={styles.flexInputs}>
               <FormRow label={"City"}>
-                <input type="text" id="clientCity" required />
+                <Input type="text" id="clientCity" required />
               </FormRow>
               <FormRow label={"Post Code"}>
-                <input type="number" id="clientPostCode" required />
+                <Input type="number" id="clientPostCode" required />
               </FormRow>
               <FormRow label={"Country"}>
-                <input type="text" id="clientCountry" required />
+                <Input type="text" id="clientCountry" required />
               </FormRow>
             </div>
           </div>
@@ -125,7 +128,7 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               />
             </FormRow>
             <FormRow label={"Payment Terms"}>
-              <input
+              <Input
                 className={styles.hoverInput}
                 type="text"
                 id="invoiceTerm"
@@ -170,7 +173,7 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               )}
             </FormRow>
             <FormRow label={"Project Description"}>
-              <input type="text" id="desc" required />
+              <Input type="text" id="desc" required />
             </FormRow>
           </div>
 
@@ -195,14 +198,9 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               </Button>
             </div>
           </div>
-        </form>
-      </div>
-      <div
-        className={`${styles.overlay} ${isOpen ? styles.in : ""} ${
-          something ? styles.out : ""
-        }`}
-        onClick={handleOverlayClick}
-      ></div>
+        </div>
+      </Form>
+      <Overlay handleOverlayClick={handleOverlayClick} isOpen={isOpen} />
     </>
   );
 }

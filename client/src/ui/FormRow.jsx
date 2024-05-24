@@ -3,7 +3,7 @@ import styles from "./FormRow.module.scss";
 function FormRow({ label, error, children }) {
   return (
     <div className={styles.formRow}>
-      {label && <label>{label}</label>}
+      {label && <label htmlFor={children?.props?.id}>{label}</label>}
       {children}
       {/* {error && <Error>{error}</Error>} */}
     </div>

@@ -1,0 +1,19 @@
+.overlay {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 500;
+  background-color: rgba(0, 0, 0, 0.4984);
+
+  opacity: 0;
+  visibility: hidden;
+
+  transition: all 0.6s cubic-bezier(0.335, 0.01, 0.03, 1.36);
+
+  &.in {
+    opacity: 1;
+    visibility: visible;
+  }
+}
