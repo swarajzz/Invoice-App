@@ -18,7 +18,7 @@ function FormListItem() {
     <li className={styles.listItem}>
       <div className={styles.firstBox}>
         <FormRow label={"Item Name"}>
-          <input type="text" id="itemName" />
+          <input type="text" id="itemName" required />
         </FormRow>
       </div>
       <FormRow label={"Qty."}>
@@ -28,6 +28,7 @@ function FormListItem() {
           type="number"
           min={0}
           id="quantity"
+          required
         />
       </FormRow>
       <FormRow label={"Price"}>
@@ -37,6 +38,7 @@ function FormListItem() {
           id="price"
           defaultValue={0}
           min={0}
+          required
         />
       </FormRow>
       <FormRow label={"Total"}>

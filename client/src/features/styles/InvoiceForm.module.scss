@@ -85,14 +85,41 @@
     }
   }
 
-  input {
-    height: 4.8rem;
+  input[type="text"].hoverInput {
+    cursor: pointer;
+  }
+
+  input[type="text"].hoverInput:hover,
+  input[type="text"].hoverInput:focus {
+    outline: none;
+    border: 1px solid var(--dark-purple);
+  }
+
+  input,
+  .selectDropdown {
     border-radius: 4px;
     border: 1px solid var(--light-gray-blue);
     font-weight: 700;
     font-size: var(--heading--s);
     color: var(--deep-black);
     gap: 1rem;
+  }
+
+  .selectDropdown {
+    box-shadow: 0 10px 20px rgba(72, 84, 159, 0.25);
+    .selectDropdown_option {
+      padding: 1.5rem;
+
+      &:not(:last-child) {
+        border-bottom: 1px solid var(--light-gray-blue);
+      }
+
+      &:hover {
+        cursor: pointer;
+        color: var(--dark-purple);
+        transition: all 0.2s;
+      }
+    }
   }
 
   .buttonControls {

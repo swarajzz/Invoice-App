@@ -7,3 +7,11 @@ export const formatDate = (date) => {
   const formattedDate = day + " " + month + " " + date.getFullYear();
   return formattedDate;
 };
+
+export const getNetTermsDate = (netTermValue = 7) => {
+  const date = new Date();
+  const futureDate = date.getDate() + netTermValue;
+  date.setDate(futureDate);
+
+  return date;
+};

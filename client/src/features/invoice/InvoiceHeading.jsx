@@ -31,9 +31,11 @@ function InvoiceHeading({ setIsOpen, setToggleFilterValues }) {
   function toggleValue(e) {
     e.target.checked
       ? setToggleFilterValues((prev) => [...prev, e.target.name])
-      : setToggleFilterValues((prev) => prev.filter((item) => item !== e.target.name));
+      : setToggleFilterValues((prev) =>
+          prev.filter((item) => item !== e.target.name)
+        );
   }
-  
+
   return (
     <div className={styles.invoiceHeader}>
       <div className={styles.left_container}>

@@ -142,3 +142,30 @@ h5 {
   color: var(--deep-black);
   font-size: var(--heading--s);
 }
+
+.react-datepicker-wrapper {
+  .react-datepicker__input-container {
+    @include flex-between;
+
+    .react-datepicker__calendar-icon {
+      width: 2rem;
+      height: 2rem;
+      right: 20px;
+    }
+
+    input[type="text"] {
+      padding: 1.5rem;
+      cursor: pointer;
+
+      &:hover,
+      &:focus {
+        outline: none;
+        border: 1px solid var(--dark-purple);
+      }
+    }
+  }
+}
+
+.calendarContainer {
+  width: 200px;
+}
