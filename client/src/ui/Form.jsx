@@ -1,8 +1,12 @@
 import styles from "./Form.module.scss";
 
-function Form({ isOpen, children }) {
+function Form({ isOpen, children, onSubmit }) {
+  // console.log(onSubmit);
   return (
-    <form className={`${styles.form} ${isOpen ? styles.open : ""}`}>
+    <form
+      onSubmit={onSubmit}
+      className={`${styles.form} ${isOpen ? styles.open : ""}`}
+    >
       {children}
     </form>
   );

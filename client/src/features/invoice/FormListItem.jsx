@@ -4,7 +4,7 @@ import deleteIcon from "../../assets/icon-delete.svg";
 import { useEffect, useState } from "react";
 import Input from "../../ui/Input";
 
-function FormListItem({ register }) {
+function FormListItem({ register, errors }) {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0);
   const [total, setTotal] = useState(0.0);
@@ -17,51 +17,51 @@ function FormListItem({ register }) {
 
   return (
     <li className={styles.listItem}>
-      <div className={styles.firstBox}>
-        <FormRow label={"Item Name"}>
-          <Input
-            type="text"
-            id="itemName"
-            {...register("itemName", {
-              required: true,
-            })}
-          />
-        </FormRow>
-      </div>
-      <FormRow label={"Qty."}>
+      <FormRow label={"Item Name"} error={errors?.itemName?.message}>
         <Input
-          onChange={(e) => setQuantity(e.target.value)}
-          defaultValue={1}
-          type="number"
-          id="quantity"
-          {...register("quantity", {
-            required: true,
-            min: 0,
+          type="text"
+          id="itemName"
+          placeholder="abc"
+          {...register("itemName", {
+            required: "This field is required",
           })}
         />
       </FormRow>
-      <FormRow label={"Price"}>
+      {/* </div> */}
+      <FormRow label={"Qty."} error={errors?.quantity?.message}>
+        <Input
+          onChange={(e) => setQuantity(e.target.value)}
+          defaultValue={1}
+          min={1}
+          type="number"
+          id="quantity"
+          {...register("quantity", {
+            required: "This field is required",
+            min: 1,
+          })}
+        />
+      </FormRow>
+      <FormRow label={"Price"} error={errors?.price?.message}>
         <Input
           onChange={(e) => setPrice(e.target.value)}
           type="number"
           id="price"
           defaultValue={0}
+          min={0}
           {...register("price", {
-            required: true,
+            required: "This field is required",
             min: 0,
           })}
         />
       </FormRow>
-      <FormRow label={"Total"}>
+      <FormRow label={"Total"} error={errors?.total?.message}>
         <Input
           className={styles.total}
           type="number"
           id="total"
           value={total}
           disabled
-          {...register("total", {
-            required: true,
-          })}
+          {...register("total")}
         />
       </FormRow>
       <button className={styles.iconBox}>

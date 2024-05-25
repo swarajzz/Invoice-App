@@ -1,22 +1,23 @@
-import FormRow from "../../ui/FormRow";
 import { useForm } from "react-hook-form";
 
-import styles from "../styles/InvoiceForm.module.scss";
-import FormList from "./FormList";
-import Button from "../../ui/Button";
 import { useRef, useState } from "react";
 import { getNetTermsDate } from "../../utils/helper";
 
 import DatePicker from "react-datepicker";
+
+import styles from "../styles/InvoiceForm.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
-import useOutsideClick from "../../hooks/useOutsideClick";
+
 import Form from "../../ui/Form";
+import FormRow from "../../ui/FormRow";
+import FormList from "./FormList";
 import Input from "../../ui/Input";
+import Button from "../../ui/Button";
 import Overlay from "../../ui/Overlay";
 
-function InvoiceForm({ isOpen, setIsOpen }) {
-  const { register, handleSubmit } = useForm();
+import useOutsideClick from "../../hooks/useOutsideClick";
 
+function InvoiceForm({ isOpen, setIsOpen }) {
   let something = false;
   const [counter, setCounter] = useState(1);
   const [netTerm, setNetTerm] = useState(1);
@@ -27,6 +28,9 @@ function InvoiceForm({ isOpen, setIsOpen }) {
 
   const boxRef = useOutsideClick(handleOnClickOutside, termRef);
 
+  const { register, handleSubmit, formState } = useForm();
+  const { errors } = formState;
+  console.log(errors);
   function handleOverlayClick(e) {
     something = true;
     setIsOpen(false);
@@ -34,7 +38,6 @@ function InvoiceForm({ isOpen, setIsOpen }) {
 
   function handleAddItemClick(e) {
     e.preventDefault();
-    console.log(e);
     setCounter((prev) => prev + 1);
   }
 
@@ -60,6 +63,10 @@ function InvoiceForm({ isOpen, setIsOpen }) {
     console.log(data);
   }
 
+  // function onInvalid(errors) {
+  //   console.log(errors);
+  // }
+
   return (
     <>
       <Form isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
@@ -67,38 +74,46 @@ function InvoiceForm({ isOpen, setIsOpen }) {
         <div className={styles.wrapper}>
           <div className={styles.billFrom}>
             <h6>Bill From</h6>
-            <FormRow label={"Street Address"}>
+            <FormRow
+              label={"Street Address"}
+              error={errors?.senderStreetAddress?.message}
+            >
               <Input
                 type="text"
                 id="senderStreetAddress"
-                {...register("senderStreetAddress", { required: true })}
+                {...register("senderStreetAddress", {
+                  required: "This field is required",
+                })}
               />
             </FormRow>
             <div className={styles.flexInputs}>
-              <FormRow label={"City"}>
+              <FormRow label={"City"} error={errors?.senderCity?.message}>
                 <Input
                   type="text"
                   id="senderCity"
                   {...register("senderCity", {
-                    required: true,
+                    required: "This field is required",
                   })}
                 />
               </FormRow>
-              <FormRow label={"Post Code"}>
+              <FormRow
+                label={"Post Code"}
+                error={errors?.senderPostCode?.message}
+              >
                 <Input
                   type="number"
                   id="senderPostCode"
                   {...register("senderPostCode", {
-                    required: true,
+                    required: "This field is required",
                   })}
                 />
               </FormRow>
-              <FormRow label={"Country"}>
+              <FormRow label={"Country"} error={errors?.senderCountry?.message}>
                 <Input
                   type="text"
                   id="senderCountry"
                   {...register("senderCountry", {
-                    required: true,
+                    required: "This field is required",
                   })}
                 />
               </FormRow>
@@ -107,59 +122,71 @@ function InvoiceForm({ isOpen, setIsOpen }) {
 
           <div className={styles.billTo}>
             <h6>Bill To</h6>
-            <FormRow label={"Client's Name"}>
+            <FormRow
+              label={"Client's Name"}
+              error={errors?.clientName?.message}
+            >
               <Input
                 type="text"
                 id="clientName"
                 {...register("clientName", {
-                  required: true,
+                  required: "This field is required",
                 })}
               />
             </FormRow>
-            <FormRow label={"Client's Email"}>
+            <FormRow
+              label={"Client's Email"}
+              error={errors?.clientEmail?.message}
+            >
               <Input
                 type="email"
                 id="clientEmail"
                 {...register("clientEmail", {
-                  required: true,
+                  required: "This field is required",
                 })}
               />
             </FormRow>
-            <FormRow label={"Street Address"}>
+            <FormRow
+              label={"Street Address"}
+              error={errors?.clientStreetAddress?.message}
+            >
               <Input
                 type="text"
-                id="clientStreetAdress"
+                id="clientStreetAddress"
                 {...register("clientStreetAddress", {
-                  required: true,
+                  required: "This field is required",
                 })}
               />
             </FormRow>
 
             <div className={styles.flexInputs}>
-              <FormRow label={"City"}>
+              <FormRow label={"City"} error={errors?.clientCity?.message}>
                 <Input
                   type="text"
                   id="clientCity"
                   {...register("clientCity", {
-                    required: true,
+                    required: "This field is required",
                   })}
                 />
               </FormRow>
-              <FormRow label={"Post Code"}>
+              <FormRow
+                label={"Post Code"}
+                error={errors?.clientPostCode?.message}
+              >
                 <Input
                   type="number"
                   id="clientPostCode"
                   {...register("clientPostCode", {
-                    required: true,
+                    required: "This field is required",
                   })}
                 />
               </FormRow>
-              <FormRow label={"Country"}>
+              <FormRow label={"Country"} error={errors?.clientCountry?.message}>
                 <Input
                   type="text"
                   id="clientCountry"
                   {...register("clientCountry", {
-                    required: true,
+                    required: "This field is required",
                   })}
                 />
               </FormRow>
@@ -167,7 +194,10 @@ function InvoiceForm({ isOpen, setIsOpen }) {
           </div>
 
           <div className={styles.invoiceDetail}>
-            <FormRow label={"Invoice Date"}>
+            <FormRow
+              label={"Invoice Date"}
+              //  error={errors?.name?.message}
+            >
               {/* <input type="date" id="invoiceDate" value={formatDate(startDate)} /> */}
               <DatePicker
                 wrapperClassName={styles.datePicker}
@@ -193,7 +223,10 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               />
             </FormRow>
 
-            <FormRow label={"Payment Terms"}>
+            <FormRow
+              label={"Payment Terms"}
+              error={errors?.invoiceTerm?.message}
+            >
               <input
                 className={styles.hoverInput}
                 type="text"
@@ -240,21 +273,24 @@ function InvoiceForm({ isOpen, setIsOpen }) {
                 </div>
               )}
             </FormRow>
-            <FormRow label={"Project Description"}>
+            <FormRow
+              label={"Project Description"}
+              error={errors?.desc?.message}
+            >
               <Input
                 type="text"
                 id="desc"
-                {...register("desc", { required: true })}
+                {...register("desc", { required: "This field is required" })}
               />
             </FormRow>
           </div>
 
           <div className={styles.itemList_container}>
             <h3>Item List</h3>
-            <FormList counter={counter} register={register} />
+            <FormList counter={counter} register={register} errors={errors} />
             <Button
+              name="add"
               handleAddItemClick={handleAddItemClick}
-              type="add"
               className={styles.addItem}
             >
               + Add New Item
@@ -262,13 +298,14 @@ function InvoiceForm({ isOpen, setIsOpen }) {
           </div>
 
           <div className={styles.buttonControls}>
-            <Button type="discard">Discard</Button>
+            <Button type="reset" name="discard">
+              Discard
+            </Button>
             <div>
-              <Button type="saveDraft">Save as draft</Button>
-              <Button type="save">Save & Send</Button>
-              {/* <Button handleSaveClick={handleSaveClick} type="save">
+              <Button name="saveDraft">Save as draft</Button>
+              <Button type="submit" name="save">
                 Save & Send
-              </Button> */}
+              </Button>
             </div>
           </div>
         </div>
