@@ -2,8 +2,9 @@ import FormRow from "../../ui/FormRow";
 import styles from "../styles/FormListItem.module.scss";
 import deleteIcon from "../../assets/icon-delete.svg";
 import { useEffect, useState } from "react";
+import Input from "../../ui/Input";
 
-function FormListItem() {
+function FormListItem({ register }) {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0);
   const [total, setTotal] = useState(0.0);
@@ -18,36 +19,49 @@ function FormListItem() {
     <li className={styles.listItem}>
       <div className={styles.firstBox}>
         <FormRow label={"Item Name"}>
-          <input type="text" id="itemName" required />
+          <Input
+            type="text"
+            id="itemName"
+            {...register("itemName", {
+              required: true,
+            })}
+          />
         </FormRow>
       </div>
       <FormRow label={"Qty."}>
-        <input
+        <Input
           onChange={(e) => setQuantity(e.target.value)}
           defaultValue={1}
           type="number"
-          min={0}
           id="quantity"
-          required
+          {...register("quantity", {
+            required: true,
+            min: 0,
+          })}
         />
       </FormRow>
       <FormRow label={"Price"}>
-        <input
+        <Input
           onChange={(e) => setPrice(e.target.value)}
           type="number"
           id="price"
           defaultValue={0}
-          min={0}
-          required
+          {...register("price", {
+            required: true,
+            min: 0,
+          })}
         />
       </FormRow>
       <FormRow label={"Total"}>
-        <input
+        <Input
           className={styles.total}
           type="number"
           id="total"
           value={total}
           disabled
+          {...register("total", {
+            required: true,
+          })}
         />
       </FormRow>
       <button className={styles.iconBox}>

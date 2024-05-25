@@ -1,4 +1,5 @@
 import FormRow from "../../ui/FormRow";
+import { useForm } from "react-hook-form";
 
 import styles from "../styles/InvoiceForm.module.scss";
 import FormList from "./FormList";
@@ -14,6 +15,8 @@ import Input from "../../ui/Input";
 import Overlay from "../../ui/Overlay";
 
 function InvoiceForm({ isOpen, setIsOpen }) {
+  const { register, handleSubmit } = useForm();
+
   let something = false;
   const [counter, setCounter] = useState(1);
   const [netTerm, setNetTerm] = useState(1);
@@ -43,35 +46,61 @@ function InvoiceForm({ isOpen, setIsOpen }) {
     setToggleDropdown(false);
   }
 
-  function handleChange(e) {
-    console.log(e.target.value);
-  }
-
   function handleOptionChange(value) {
     setNetTerm(value);
     setToggleDropdown(false);
     setStartDate(getNetTermsDate(value));
   }
 
+  // function handleTermDropdownClick(e) {
+  //   setToggleDropdown((prev) => !prev);
+  // }
+
+  function onSubmit(data) {
+    console.log(data);
+  }
+
   return (
     <>
-      <Form isOpen={isOpen}>
+      <Form isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
         <h2>New Invoice</h2>
         <div className={styles.wrapper}>
           <div className={styles.billFrom}>
             <h6>Bill From</h6>
             <FormRow label={"Street Address"}>
-              <Input type="text" id="senderStreetAddress" required />
+              <Input
+                type="text"
+                id="senderStreetAddress"
+                {...register("senderStreetAddress", { required: true })}
+              />
             </FormRow>
             <div className={styles.flexInputs}>
               <FormRow label={"City"}>
-                <Input type="text" id="senderCity" required />
+                <Input
+                  type="text"
+                  id="senderCity"
+                  {...register("senderCity", {
+                    required: true,
+                  })}
+                />
               </FormRow>
               <FormRow label={"Post Code"}>
-                <Input type="number" id="senderPostCode" required />
+                <Input
+                  type="number"
+                  id="senderPostCode"
+                  {...register("senderPostCode", {
+                    required: true,
+                  })}
+                />
               </FormRow>
               <FormRow label={"Country"}>
-                <Input type="text" id="senderCountry" required />
+                <Input
+                  type="text"
+                  id="senderCountry"
+                  {...register("senderCountry", {
+                    required: true,
+                  })}
+                />
               </FormRow>
             </div>
           </div>
@@ -79,24 +108,60 @@ function InvoiceForm({ isOpen, setIsOpen }) {
           <div className={styles.billTo}>
             <h6>Bill To</h6>
             <FormRow label={"Client's Name"}>
-              <Input type="text" id="clientName" required />
+              <Input
+                type="text"
+                id="clientName"
+                {...register("clientName", {
+                  required: true,
+                })}
+              />
             </FormRow>
             <FormRow label={"Client's Email"}>
-              <Input type="email" id="clientEmail" required />
+              <Input
+                type="email"
+                id="clientEmail"
+                {...register("clientEmail", {
+                  required: true,
+                })}
+              />
             </FormRow>
             <FormRow label={"Street Address"}>
-              <Input type="text" id="clientStreetAdress" required />
+              <Input
+                type="text"
+                id="clientStreetAdress"
+                {...register("clientStreetAddress", {
+                  required: true,
+                })}
+              />
             </FormRow>
 
             <div className={styles.flexInputs}>
               <FormRow label={"City"}>
-                <Input type="text" id="clientCity" required />
+                <Input
+                  type="text"
+                  id="clientCity"
+                  {...register("clientCity", {
+                    required: true,
+                  })}
+                />
               </FormRow>
               <FormRow label={"Post Code"}>
-                <Input type="number" id="clientPostCode" required />
+                <Input
+                  type="number"
+                  id="clientPostCode"
+                  {...register("clientPostCode", {
+                    required: true,
+                  })}
+                />
               </FormRow>
               <FormRow label={"Country"}>
-                <Input type="text" id="clientCountry" required />
+                <Input
+                  type="text"
+                  id="clientCountry"
+                  {...register("clientCountry", {
+                    required: true,
+                  })}
+                />
               </FormRow>
             </div>
           </div>
@@ -127,23 +192,26 @@ function InvoiceForm({ isOpen, setIsOpen }) {
                 calendarClassName={styles.calendarContainer}
               />
             </FormRow>
+
             <FormRow label={"Payment Terms"}>
-              <Input
+              <input
                 className={styles.hoverInput}
                 type="text"
                 id="invoiceTerm"
                 list="terms"
                 required
-                defaultValue="Net 7 Days"
+                // defaultValue="Net 7 Days"
                 onClick={() => setToggleDropdown((prev) => !prev)}
-                ref={termRef}
+                value={`Net ${netTerm} ${netTerm === 1 ? "Day" : "Days"}`}
+                // handleTermDropdownClick={handleTermDropdownClick}
+                // ref={termRef}
                 readOnly
+                {...register("invoiceTerm")}
               />
               {toggleDropdown && (
                 <div
                   className={styles.selectDropdown}
-                  ref={boxRef}
-                  onChange={(e) => handleChange(e)}
+                  // ref={boxRef}
                 >
                   <div
                     className={styles.selectDropdown_option}
@@ -173,13 +241,17 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               )}
             </FormRow>
             <FormRow label={"Project Description"}>
-              <Input type="text" id="desc" required />
+              <Input
+                type="text"
+                id="desc"
+                {...register("desc", { required: true })}
+              />
             </FormRow>
           </div>
 
           <div className={styles.itemList_container}>
             <h3>Item List</h3>
-            <FormList counter={counter} />
+            <FormList counter={counter} register={register} />
             <Button
               handleAddItemClick={handleAddItemClick}
               type="add"
@@ -193,9 +265,10 @@ function InvoiceForm({ isOpen, setIsOpen }) {
             <Button type="discard">Discard</Button>
             <div>
               <Button type="saveDraft">Save as draft</Button>
-              <Button handleSaveClick={handleSaveClick} type="save">
+              <Button type="save">Save & Send</Button>
+              {/* <Button handleSaveClick={handleSaveClick} type="save">
                 Save & Send
-              </Button>
+              </Button> */}
             </div>
           </div>
         </div>
