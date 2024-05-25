@@ -3,11 +3,12 @@ import styles from "./Button.module.scss";
 function Button({
   children,
   type,
+  name,
   handleOnClick,
   handleAddItemClick,
   handleSaveClick,
 }) {
-  const buttonTypes = {
+  const buttonNames = {
     new: styles.new,
     edit: styles.edit,
     delete: styles.delete,
@@ -23,12 +24,14 @@ function Button({
     default: handleOnClick,
   };
 
-  const handleClick = clickHandlers[type] || clickHandlers.default;
+  const handleClick = clickHandlers[name] || clickHandlers.default;
 
   return (
     <button
+      type={type}
+      name={name}
       onClick={handleClick}
-      className={`${styles.button} ${buttonTypes[type]}`}
+      className={`${styles.button} ${buttonNames[name]}`}
     >
       {children}
     </button>

@@ -57,7 +57,11 @@ function InvoiceHeading({ setIsOpen, setToggleFilterValues }) {
             alt="filter icon"
           />
         </div>
-        <Button type="new" className={styles.btn} handleOnClick={handleOnClick}>
+        <Button
+          name="new"
+          className={styles.btn}
+          handleOnClick={handleOnClick}
+        >
           <div className={styles.plusIcon}>
             <img src={plusIcon} alt="filter icon" />
           </div>

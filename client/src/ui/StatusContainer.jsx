@@ -13,8 +13,8 @@ function StatusContainer({ status }) {
       </div>
 
       <div className={styles.control_btns}>
-        <Button type="edit">Edit</Button>
-        <Button type="delete">Delete</Button>
+        <Button name="edit">Edit</Button>
+        <Button name="delete">Delete</Button>
       </div>
     </div>
   );
