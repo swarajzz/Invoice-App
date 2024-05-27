@@ -19,26 +19,44 @@ import useOutsideClick from "../../hooks/useOutsideClick";
 
 function InvoiceForm({ isOpen, setIsOpen }) {
   let something = false;
-  const [counter, setCounter] = useState(1);
   const [netTerm, setNetTerm] = useState(1);
   const [startDate, setStartDate] = useState(getNetTermsDate);
   const [toggleDropdown, setToggleDropdown] = useState(false);
+
+  const [fields, setFields] = useState([{ id: Date.now() }]);
+
+  const handleAddItemClick = () => {
+    setFields([...fields, { id: Date.now() }]);
+  };
 
   const termRef = useRef();
 
   const boxRef = useOutsideClick(handleOnClickOutside, termRef);
 
-  const { register, handleSubmit, formState } = useForm();
+  const { register, handleSubmit, formState, watch, setValue } = useForm({
+    defaultValues: {
+      senderAddress: {},
+      clientAddress: {},
+      items: [
+        {
+          name: "",
+          quantity: 1,
+          price: 0,
+          total: 0,
+        },
+      ],
+      description: "",
+      paymentTerms: 7,
+      clientName: "",
+      clientEmail: "",
+      total: 0,
+    },
+  });
   const { errors } = formState;
-  console.log(errors);
+
   function handleOverlayClick(e) {
     something = true;
     setIsOpen(false);
-  }
-
-  function handleAddItemClick(e) {
-    e.preventDefault();
-    setCounter((prev) => prev + 1);
   }
 
   function handleSaveClick(e) {
@@ -63,56 +81,62 @@ function InvoiceForm({ isOpen, setIsOpen }) {
     console.log(data);
   }
 
-  // function onInvalid(errors) {
-  //   console.log(errors);
-  // }
+  function onInvalid(errors) {
+    console.log(errors);
+  }
 
   return (
     <>
-      <Form isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
+      <Form isOpen={isOpen} onSubmit={handleSubmit(onSubmit, onInvalid)}>
         <h2>New Invoice</h2>
         <div className={styles.wrapper}>
           <div className={styles.billFrom}>
             <h6>Bill From</h6>
             <FormRow
               label={"Street Address"}
-              error={errors?.senderStreetAddress?.message}
+              error={errors?.senderAddress?.street?.message}
             >
               <Input
                 type="text"
                 id="senderStreetAddress"
-                {...register("senderStreetAddress", {
+                {...register("senderAddress.street", {
                   required: "This field is required",
                 })}
               />
             </FormRow>
             <div className={styles.flexInputs}>
-              <FormRow label={"City"} error={errors?.senderCity?.message}>
+              <FormRow
+                label={"City"}
+                error={errors?.senderAddress?.city?.message}
+              >
                 <Input
                   type="text"
                   id="senderCity"
-                  {...register("senderCity", {
+                  {...register("senderAddress.city", {
                     required: "This field is required",
                   })}
                 />
               </FormRow>
               <FormRow
                 label={"Post Code"}
-                error={errors?.senderPostCode?.message}
+                error={errors?.senderAddress?.postCode?.message}
               >
                 <Input
                   type="number"
                   id="senderPostCode"
-                  {...register("senderPostCode", {
+                  {...register("senderAddress.postCode", {
                     required: "This field is required",
                   })}
                 />
               </FormRow>
-              <FormRow label={"Country"} error={errors?.senderCountry?.message}>
+              <FormRow
+                label={"Country"}
+                error={errors?.senderAddress?.country?.message}
+              >
                 <Input
                   type="text"
                   id="senderCountry"
-                  {...register("senderCountry", {
+                  {...register("senderAddress.country", {
                     required: "This field is required",
                   })}
                 />
@@ -148,44 +172,50 @@ function InvoiceForm({ isOpen, setIsOpen }) {
             </FormRow>
             <FormRow
               label={"Street Address"}
-              error={errors?.clientStreetAddress?.message}
+              error={errors?.clientAddress?.street?.message}
             >
               <Input
                 type="text"
                 id="clientStreetAddress"
-                {...register("clientStreetAddress", {
+                {...register("clientAddress.street", {
                   required: "This field is required",
                 })}
               />
             </FormRow>
 
             <div className={styles.flexInputs}>
-              <FormRow label={"City"} error={errors?.clientCity?.message}>
+              <FormRow
+                label={"City"}
+                error={errors?.clientAddress?.city?.message}
+              >
                 <Input
                   type="text"
                   id="clientCity"
-                  {...register("clientCity", {
+                  {...register("clientAddress.city", {
                     required: "This field is required",
                   })}
                 />
               </FormRow>
               <FormRow
                 label={"Post Code"}
-                error={errors?.clientPostCode?.message}
+                error={errors?.clientAddress?.postCode?.message}
               >
                 <Input
                   type="number"
                   id="clientPostCode"
-                  {...register("clientPostCode", {
+                  {...register("clientAddress.postCode", {
                     required: "This field is required",
                   })}
                 />
               </FormRow>
-              <FormRow label={"Country"} error={errors?.clientCountry?.message}>
+              <FormRow
+                label={"Country"}
+                error={errors?.clientAddress?.country?.message}
+              >
                 <Input
                   type="text"
                   id="clientCountry"
-                  {...register("clientCountry", {
+                  {...register("clientAddress.country", {
                     required: "This field is required",
                   })}
                 />
@@ -225,12 +255,12 @@ function InvoiceForm({ isOpen, setIsOpen }) {
 
             <FormRow
               label={"Payment Terms"}
-              error={errors?.invoiceTerm?.message}
+              error={errors?.paymentTerms?.message}
             >
               <input
                 className={styles.hoverInput}
                 type="text"
-                id="invoiceTerm"
+                id="paymentTerms"
                 list="terms"
                 required
                 // defaultValue="Net 7 Days"
@@ -239,7 +269,7 @@ function InvoiceForm({ isOpen, setIsOpen }) {
                 // handleTermDropdownClick={handleTermDropdownClick}
                 // ref={termRef}
                 readOnly
-                {...register("invoiceTerm")}
+                {...register("paymentTerms")}
               />
               {toggleDropdown && (
                 <div
@@ -275,19 +305,27 @@ function InvoiceForm({ isOpen, setIsOpen }) {
             </FormRow>
             <FormRow
               label={"Project Description"}
-              error={errors?.desc?.message}
+              error={errors?.description?.message}
             >
               <Input
                 type="text"
-                id="desc"
-                {...register("desc", { required: "This field is required" })}
+                id="description"
+                {...register("description", {
+                  required: "This field is required",
+                })}
               />
             </FormRow>
           </div>
 
           <div className={styles.itemList_container}>
             <h3>Item List</h3>
-            <FormList counter={counter} register={register} errors={errors} />
+            <FormList
+              fields={fields}
+              register={register}
+              errors={errors}
+              watch={watch}
+              setValue={setValue}
+            />
             <Button
               name="add"
               handleAddItemClick={handleAddItemClick}
