@@ -49,7 +49,7 @@ function InvoiceForm({ isOpen, setIsOpen }) {
       paymentTerms: 7,
       clientName: "",
       clientEmail: "",
-      total: 0,
+      // total: 0,
     },
   });
   const { errors } = formState;
@@ -327,6 +327,7 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               setValue={setValue}
             />
             <Button
+              type="button"
               name="add"
               handleAddItemClick={handleAddItemClick}
               className={styles.addItem}
@@ -340,7 +341,9 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               Discard
             </Button>
             <div>
-              <Button name="saveDraft">Save as draft</Button>
+              <Button type="button" name="saveDraft">
+                Save as draft
+              </Button>
               <Button type="submit" name="save">
                 Save & Send
               </Button>

@@ -3,7 +3,7 @@
 .listItem {
   display: flex;
   justify-content: center;
-  align-items: center;
+  // align-items: center;
   gap: 1rem;
 
   input:disabled {
@@ -13,12 +13,21 @@
   }
 
   .iconBox {
-    .deleteIcon {
-      width: 20px;
-      
-      // &:hover {
-      //   fill: red;
-      // }
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 1rem;
+    svg {
+      // height: 20px;
+      // width: 20px;
+      color: #7e88c3;
+      transition: color 0.3s;
+
+      &:hover {
+        color: var(--bright-red);
+      }
     }
   }
 }
