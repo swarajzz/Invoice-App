@@ -1,6 +1,6 @@
-import { useForm, useFieldArray } from "react-hook-form";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { getNetTermsDate } from "../../utils/helper";
 
 import DatePicker from "react-datepicker";
@@ -17,7 +17,7 @@ import Overlay from "../../ui/Overlay";
 
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { useMutation } from "@tanstack/react-query";
-import axios from "axios";
+import { createInvoice } from "../../services/apiInvoices";
 
 function InvoiceForm({ isOpen, setIsOpen }) {
   let something = false;
@@ -25,42 +25,31 @@ function InvoiceForm({ isOpen, setIsOpen }) {
   const [startDate, setStartDate] = useState(getNetTermsDate);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-  // const [fields, setFields] = useState([{ id: Date.now() }]);
-
-  // const handleAddItemClick = () => {
-  //   setFields([...fields, { id: Date.now() }]);
-  // };
-
   const termRef = useRef();
 
   const boxRef = useOutsideClick(handleOnClickOutside, termRef);
 
-  const {
-    register,
-    handleSubmit,
-    formState,
-    watch,
-    setValue,
-    control,
-  } = useForm({
-    defaultValues: {
-      senderAddress: { city: "", country: "", postCode: "", street: "" },
-      clientAddress: { city: "", country: "", postCode: "", street: "" },
-      items: [
-        {
-          name: "",
-          quantity: 1,
-          price: 0,
-          total: 0,
-        },
-      ],
-      description: "",
-      paymentTerms: 7,
-      clientName: "",
-      clientEmail: "",
-      total: 0,
-    },
-  });
+  const { register, handleSubmit, formState, watch, setValue, control, reset } =
+    useForm({
+      defaultValues: {
+        senderAddress: { city: "", country: "", postCode: "", street: "" },
+        clientAddress: { city: "", country: "", postCode: "", street: "" },
+        items: [
+          {
+            name: "",
+            quantity: 1,
+            price: 0,
+            total: 0,
+          },
+        ],
+        paymentDue: startDate,
+        description: "",
+        paymentTerms: 7,
+        clientName: "",
+        clientEmail: "",
+        total: 0,
+      },
+    });
   const { errors } = formState;
 
   const { fields, append, remove } = useFieldArray({
@@ -68,32 +57,9 @@ function InvoiceForm({ isOpen, setIsOpen }) {
     name: "items",
   });
 
-  const items = watch("items");
-
-  console.log(watch("total"));
-
-  useEffect(() => {
-    console.log(fields);
-  }, [fields]);
-
-  // useEffect(() => {
-  //   console.log("Hey items array changed");
-  // }, [items]);
-  // console.log(getValues());
-
-  // useEffect(() => {
-  //   const calculateTotal = () => {
-  //     return items.reduce((acc, item) => acc + item.quantity * item.price, 0);
-  //   };
-
-  //   const total = calculateTotal();
-  //   // console.log(total);
-  //   setValue("total", parseFloat(total.toFixed(2)));
-  // }, [items, setValue]);
-
   const mutation = useMutation({
     mutationFn: (newInvoice) => {
-      return axios.post("/api/invoice", newInvoice);
+      return createInvoice(newInvoice);
     },
   });
 
@@ -121,8 +87,8 @@ function InvoiceForm({ isOpen, setIsOpen }) {
   // }
 
   function onSubmit(data) {
-    console.log(data);
-    mutation.mutate(data);
+    console.log({ ...data, paymentTerms: netTerm });
+    mutation.mutate({ ...data, paymentTerms: netTerm });
   }
 
   function onInvalid(errors) {
@@ -273,27 +239,35 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               //  error={errors?.name?.message}
             >
               {/* <input type="date" id="invoiceDate" value={formatDate(startDate)} /> */}
-              <DatePicker
-                wrapperClassName={styles.datePicker}
-                selected={startDate}
-                onChange={(date) => setStartDate(date)}
-                dateFormat="d MMMM yyyy"
-                showIcon
-                toggleCalendarOnIconClick
-                icon={
-                  <svg
-                    width="16"
-                    height="16"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M14 2h-.667V.667A.667.667 0 0012.667 0H12a.667.667 0 00-.667.667V2H4.667V.667A.667.667 0 004 0h-.667a.667.667 0 00-.666.667V2H2C.897 2 0 2.897 0 4v10c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm.667 12c0 .367-.3.667-.667.667H2A.668.668 0 011.333 14V6.693h13.334V14z"
-                      fill="#7E88C3"
-                      opacity=".5"
-                    />
-                  </svg>
-                }
-                calendarClassName={styles.calendarContainer}
+              <Controller
+                control={control}
+                name="paymentDue"
+                render={({ field: { onChange, onBlur, value, ref } }) => (
+                  <DatePicker
+                    wrapperClassName={styles.datePicker}
+                    selected={startDate}
+                    onChange={(date) => {
+                      setStartDate(date);
+                    }}
+                    // dateFormat="d MMMM yyyy"
+                    showIcon
+                    toggleCalendarOnIconClick
+                    icon={
+                      <svg
+                        width="16"
+                        height="16"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M14 2h-.667V.667A.667.667 0 0012.667 0H12a.667.667 0 00-.667.667V2H4.667V.667A.667.667 0 004 0h-.667a.667.667 0 00-.666.667V2H2C.897 2 0 2.897 0 4v10c0 1.103.897 2 2 2h12c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zm.667 12c0 .367-.3.667-.667.667H2A.668.668 0 011.333 14V6.693h13.334V14z"
+                          fill="#7E88C3"
+                          opacity=".5"
+                        />
+                      </svg>
+                    }
+                    calendarClassName={styles.calendarContainer}
+                  />
+                )}
               />
             </FormRow>
 
@@ -371,7 +345,7 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               setValue={setValue}
               remove={remove}
             />
-            <button
+            <Button
               type="button"
               name="add"
               onClick={() =>
@@ -380,11 +354,11 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               className={styles.addItem}
             >
               + Add New Item
-            </button>
+            </Button>
           </div>
 
           <div className={styles.buttonControls}>
-            <Button type="reset" name="discard">
+            <Button type="reset" onClick={() => reset()} name="discard">
               Discard
             </Button>
             <div>

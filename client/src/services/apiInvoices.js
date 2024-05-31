@@ -7,3 +7,7 @@ export async function getInvoices() {
 
   return invoices;
 }
+
+export async function createInvoice(newInvoice) {
+  axios.post("/api/invoice", newInvoice);
+}
