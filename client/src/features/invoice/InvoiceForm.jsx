@@ -1,6 +1,6 @@
-import { useForm } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getNetTermsDate } from "../../utils/helper";
 
 import DatePicker from "react-datepicker";
@@ -16,27 +16,36 @@ import Button from "../../ui/Button";
 import Overlay from "../../ui/Overlay";
 
 import useOutsideClick from "../../hooks/useOutsideClick";
+import { useMutation } from "@tanstack/react-query";
+import axios from "axios";
 
 function InvoiceForm({ isOpen, setIsOpen }) {
   let something = false;
-  const [netTerm, setNetTerm] = useState(1);
+  const [netTerm, setNetTerm] = useState(7);
   const [startDate, setStartDate] = useState(getNetTermsDate);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
-  const [fields, setFields] = useState([{ id: Date.now() }]);
+  // const [fields, setFields] = useState([{ id: Date.now() }]);
 
-  const handleAddItemClick = () => {
-    setFields([...fields, { id: Date.now() }]);
-  };
+  // const handleAddItemClick = () => {
+  //   setFields([...fields, { id: Date.now() }]);
+  // };
 
   const termRef = useRef();
 
   const boxRef = useOutsideClick(handleOnClickOutside, termRef);
 
-  const { register, handleSubmit, formState, watch, setValue } = useForm({
+  const {
+    register,
+    handleSubmit,
+    formState,
+    watch,
+    setValue,
+    control,
+  } = useForm({
     defaultValues: {
-      senderAddress: {},
-      clientAddress: {},
+      senderAddress: { city: "", country: "", postCode: "", street: "" },
+      clientAddress: { city: "", country: "", postCode: "", street: "" },
       items: [
         {
           name: "",
@@ -49,10 +58,44 @@ function InvoiceForm({ isOpen, setIsOpen }) {
       paymentTerms: 7,
       clientName: "",
       clientEmail: "",
-      // total: 0,
+      total: 0,
     },
   });
   const { errors } = formState;
+
+  const { fields, append, remove } = useFieldArray({
+    control,
+    name: "items",
+  });
+
+  const items = watch("items");
+
+  console.log(watch("total"));
+
+  useEffect(() => {
+    console.log(fields);
+  }, [fields]);
+
+  // useEffect(() => {
+  //   console.log("Hey items array changed");
+  // }, [items]);
+  // console.log(getValues());
+
+  // useEffect(() => {
+  //   const calculateTotal = () => {
+  //     return items.reduce((acc, item) => acc + item.quantity * item.price, 0);
+  //   };
+
+  //   const total = calculateTotal();
+  //   // console.log(total);
+  //   setValue("total", parseFloat(total.toFixed(2)));
+  // }, [items, setValue]);
+
+  const mutation = useMutation({
+    mutationFn: (newInvoice) => {
+      return axios.post("/api/invoice", newInvoice);
+    },
+  });
 
   function handleOverlayClick(e) {
     something = true;
@@ -79,6 +122,7 @@ function InvoiceForm({ isOpen, setIsOpen }) {
 
   function onSubmit(data) {
     console.log(data);
+    mutation.mutate(data);
   }
 
   function onInvalid(errors) {
@@ -325,15 +369,18 @@ function InvoiceForm({ isOpen, setIsOpen }) {
               errors={errors}
               watch={watch}
               setValue={setValue}
+              remove={remove}
             />
-            <Button
+            <button
               type="button"
               name="add"
-              handleAddItemClick={handleAddItemClick}
+              onClick={() =>
+                append({ name: "", quantity: 1, price: 0, total: 0 })
+              }
               className={styles.addItem}
             >
               + Add New Item
-            </Button>
+            </button>
           </div>
 
           <div className={styles.buttonControls}>

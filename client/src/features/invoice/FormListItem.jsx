@@ -4,24 +4,23 @@ import deleteIcon from "../../assets/icon-delete.svg";
 import { useEffect, useState } from "react";
 import Input from "../../ui/Input";
 
-function FormListItem({ register, errors, watch, setValue, index }) {
-  console.log(errors);
-  // const quantity = watch("quantity");
-  // const price = watch("price");
-
-  // useEffect(() => {
-  //   let value = quantity * price;
-  //   value = parseFloat(value).toFixed(2);
-  //   setValue("total", value);
-  // }, [quantity, price, setValue]);
+function FormListItem({ register, errors, watch, remove, setValue, index }) {
   const [quantity, setQuantity] = useState(1);
   const [price, setPrice] = useState(0);
   const [total, setTotal] = useState(0);
+
+  const items = watch("items");
+
+  useEffect(() => {
+    const overallTotal = items.reduce((acc, item) => acc + item.total, 0);
+    setValue("total", overallTotal);
+  }, [items, setValue, total]);
 
   useEffect(() => {
     let value = quantity * price;
     value = parseFloat(value.toFixed(2));
     setTotal(value);
+
     setValue(`items[${index}].total`, value);
   }, [quantity, price, index, setValue]);
 
@@ -85,16 +84,18 @@ function FormListItem({ register, errors, watch, setValue, index }) {
           })}
         />
       </FormRow>
-      <div className={styles.iconBox}>
-        {/* <img className={styles.deleteIcon} src={deleteIcon} alt="Delete Icon" /> */}
-        <svg width="13" height="16" xmlns="http://www.w3.org/2000/svg">
-          <path
-            d="M11.583 3.556v10.666c0 .982-.795 1.778-1.777 1.778H2.694a1.777 1.777 0 01-1.777-1.778V3.556h10.666zM8.473 0l.888.889h3.111v1.778H.028V.889h3.11L4.029 0h4.444z"
-            fill="currentColor"
-            fillRule="nonzero"
-          />
-        </svg>
-      </div>
+      {index > 0 && (
+        <div className={styles.iconBox} onClick={() => remove(index)}>
+          {/* <img className={styles.deleteIcon} src={deleteIcon} alt="Delete Icon" /> */}
+          <svg width="13" height="16" xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M11.583 3.556v10.666c0 .982-.795 1.778-1.777 1.778H2.694a1.777 1.777 0 01-1.777-1.778V3.556h10.666zM8.473 0l.888.889h3.111v1.778H.028V.889h3.11L4.029 0h4.444z"
+              fill="currentColor"
+              fillRule="nonzero"
+            />
+          </svg>
+        </div>
+      )}
     </li>
   );
 }
