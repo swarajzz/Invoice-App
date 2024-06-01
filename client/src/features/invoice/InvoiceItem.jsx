@@ -52,14 +52,12 @@ function InvoiceItem({ invoice }) {
           {id}
         </p>
         <p className={styles.date}>Due {formatDate(new Date(paymentDue))}</p>
-        {/* <p className={styles.name}>{clientName}</p> */}
         {isMobile ? <p className={styles.amount}>£ {total}</p> : null}
       </div>
 
       <div className={styles.second_container}>
         <div className={styles.sub_container}>
           <p className={styles.name}>{clientName}</p>
-          {/* <p className={styles.date}>Due {paymentDue}</p> */}
           {!isMobile ? <p className={styles.amount}>£ {total}</p> : null}
         </div>
 

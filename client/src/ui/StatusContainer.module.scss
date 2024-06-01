@@ -13,7 +13,7 @@
     align-items: center;
     gap: 20px;
 
-    &>p {
+    & > p {
       color: var(--other-gray);
     }
 
@@ -33,7 +33,13 @@
     gap: 10px;
 
     @include respond(phone) {
-      display: none;
+      justify-content: center;
+      position: fixed;
+      background-color: var(--white);
+      padding: 2rem;
+      bottom: 0;
+      left: 0;
+      width: 100%;
     }
   }
 

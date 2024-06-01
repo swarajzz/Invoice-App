@@ -37,7 +37,7 @@ function InvoiceDetail() {
 
   // const { items: invoiceItems } = items;
 
-  // console.log(state);
+  console.log(state);
 
   return (
     <>

@@ -20,5 +20,9 @@
     gap: 10px;
     width: 90%;
     max-width: 730px;
+
+    @include respond(phone) {
+      margin-bottom: 5rem;
+    }
   }
 }
