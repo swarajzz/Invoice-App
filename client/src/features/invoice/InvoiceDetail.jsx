@@ -42,7 +42,7 @@ function InvoiceDetail() {
   return (
     <>
       <GoBack />
-      <StatusContainer status={status} />
+      <StatusContainer invoiceId={id} status={status} />
 
       <div className={styles.detail_wrapper}>
         <div className={styles.detail_container}>

@@ -65,4 +65,27 @@ const createInvoice = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, createdInvoice, "Invoice created successfully"));
 });
 
-export { createInvoice, getInvoices };
+const markAsPaidInvoice = asyncHandler(async (req, res) => {
+  const invoiceId = req.params.id;
+
+  const query = { id: invoiceId };
+  const updatedInvoice = await Invoice.findOneAndUpdate(
+    query,
+    {
+      $set: { status: "paid" },
+    },
+    { new: true }
+  );
+
+  return res
+    .status(201)
+    .json(
+      new ApiResponse(
+        200,
+        updatedInvoice,
+        "Invoice updated to paid successfully"
+      )
+    );
+});
+
+export { createInvoice, getInvoices, markAsPaidInvoice };
