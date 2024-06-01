@@ -13,7 +13,7 @@
     align-items: center;
     gap: 20px;
 
-    p {
+    &>p {
       color: var(--other-gray);
     }
 

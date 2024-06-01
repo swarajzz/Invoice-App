@@ -89,4 +89,8 @@
       }
     }
   }
+
+  &.mark {
+    @extend .save;
+  }
 }

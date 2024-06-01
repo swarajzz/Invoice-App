@@ -15,6 +15,11 @@ function StatusContainer({ status }) {
       <div className={styles.control_btns}>
         <Button name="edit">Edit</Button>
         <Button name="delete">Delete</Button>
+        {status === "pending" && (
+          <Button type="button" name="mark">
+            Mark as Paid{" "}
+          </Button>
+        )}
       </div>
     </div>
   );

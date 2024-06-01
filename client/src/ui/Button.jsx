@@ -17,6 +17,7 @@ function Button({
     save: styles.save,
     saveDraft: styles.saveDraft,
     add: styles.add,
+    mark: styles.mark
   };
 
   const clickHandlers = {
