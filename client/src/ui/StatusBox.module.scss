@@ -34,9 +34,9 @@
 
   &.draft {
     background-color: rgba(55, 59, 83, 0.0571);
-    color: #373b53;
+    color: var(--light-blue-gray);
     span {
-      background-color: #373b53;
+      background-color: var(--light-blue-gray);
     }
   }
 }

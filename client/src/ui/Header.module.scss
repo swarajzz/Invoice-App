@@ -1,7 +1,7 @@
 @import "../styles/_mixins.scss";
 
 .header {
-  background-color: var(--midnight-blue);
+  background-color: var(--light-blue-gray-2);
   display: flex;
   justify-content: space-between;
   flex-direction: column;
@@ -66,7 +66,6 @@
       @include respond(tab-land) {
         width: 8rem;
         height: 8rem;
-
       }
       @include respond(tab-port) {
         width: 7.2rem;
@@ -90,8 +89,13 @@
     }
 
     .toggleIcon {
-      // margin: 20px;
-      position: relative;
+      cursor: pointer;
+
+      .icon {
+        // margin: 20px;
+        position: relative;
+        transition: all 2s;
+      }
     }
 
     .divider {

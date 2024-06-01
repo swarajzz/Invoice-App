@@ -1,7 +1,7 @@
 @import "../../styles/mixins.scss";
 
 .detail_wrapper {
-  background-color: #fff;
+  background-color: var(--white);
   box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
 
   padding: 25px;
@@ -34,7 +34,7 @@
         font-size: var(--heading--s);
 
         span {
-          color: var(--steel-blue);
+          color: var(--gray-blue);
         }
         font-weight: bold;
         color: var(--deep-black);

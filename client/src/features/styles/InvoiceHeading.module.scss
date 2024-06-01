@@ -10,6 +10,7 @@
 
     h2 {
       font-size: var(--heading--l);
+      color: var(--deep-black);
     }
 
     p {
@@ -21,6 +22,7 @@
   .right_container {
     display: flex;
     font-size: var(--heading--s);
+    color: var(--deep-black);
     font-weight: 700;
     gap: 20px;
     position: relative;
@@ -41,19 +43,19 @@
     }
 
     .checkBox_container {
-      background-color: #fff;
+      background-color: var(--white-2);
       border-radius: 8px;
-      width: 192px;
-      height: 128px;
+      width: 20rem;
+      height: 13rem;
       position: absolute;
       display: flex;
       justify-content: center;
       flex-direction: column;
       gap: 10px;
-      box-shadow: 0 10px 20px rgba(72, 84, 159, 0.25);
+      box-shadow: var(--box-shadow-1);
       left: -50px;
       top: 50px;
-      padding: 20px;
+      padding: 2rem;
       transition: opacity 0.3s ease-in-out;
       opacity: 0;
       pointer-events: none;

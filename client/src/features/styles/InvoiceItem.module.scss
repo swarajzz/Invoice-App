@@ -1,7 +1,7 @@
 @import "../../styles/mixins";
 
 .invoiceItem {
-  background-color: #fff;
+  background-color: var(--white);
   padding: 25px;
   box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
   border-radius: 8px;
@@ -51,7 +51,7 @@
 
       .name {
         font-weight: 500;
-        color: #858bb2;
+        color: var(--other-gray-2);
       }
     }
 

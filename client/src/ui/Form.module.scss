@@ -8,7 +8,7 @@
   bottom: 0px;
 
   max-width: 65rem;
-  background-color: #fff;
+  background-color: var(--white-3);
   padding: 5rem;
   border-radius: 0 11px 11px 0;
   box-shadow: 0 0 1em rgb(0 0 0 / 0.3);
@@ -48,7 +48,8 @@
 
   h2 {
     font-size: var(--heading--m);
-    margin-bottom: 3rem;
+    // margin-bottom: 3rem;
+    color: var(--deep-black);
   }
 
   h3 {

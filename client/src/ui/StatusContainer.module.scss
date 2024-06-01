@@ -3,7 +3,7 @@
 .status_container {
   @include flex-between;
 
-  background-color: #fff;
+  background-color: var(--white);
   box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
   padding: 25px;
   border-radius: 8px;
@@ -14,7 +14,7 @@
     gap: 20px;
 
     p {
-      color: #858bb2;
+      color: var(--other-gray);
     }
 
     .wrapper {

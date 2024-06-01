@@ -98,8 +98,8 @@ function InvoiceForm({ isOpen, setIsOpen }) {
   return (
     <>
       <Form isOpen={isOpen} onSubmit={handleSubmit(onSubmit, onInvalid)}>
-        <h2>New Invoice</h2>
         <div className={styles.wrapper}>
+          <h2>New Invoice</h2>
           <div className={styles.billFrom}>
             <h6>Bill From</h6>
             <FormRow
