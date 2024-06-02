@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 
 import styles from "../styles/InvoiceForm.module.scss";
 import "react-datepicker/dist/react-datepicker.css";
+import { toast } from "react-hot-toast";
 
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
@@ -16,7 +17,7 @@ import Button from "../../ui/Button";
 import Overlay from "../../ui/Overlay";
 
 import useOutsideClick from "../../hooks/useOutsideClick";
-import { useMutation } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { createInvoice } from "../../services/apiInvoices";
 
 function InvoiceForm({ isOpen, setIsOpen }) {
@@ -24,6 +25,8 @@ function InvoiceForm({ isOpen, setIsOpen }) {
   const [netTerm, setNetTerm] = useState(7);
   const [startDate, setStartDate] = useState(getNetTermsDate);
   const [toggleDropdown, setToggleDropdown] = useState(false);
+
+  const queryClient = useQueryClient();
 
   const termRef = useRef();
 
@@ -57,9 +60,14 @@ function InvoiceForm({ isOpen, setIsOpen }) {
     name: "items",
   });
 
-  const mutation = useMutation({
+  const { mutate, isLoading: isCreating } = useMutation({
     mutationFn: (newInvoice) => {
       return createInvoice(newInvoice);
+    },
+    onSuccess: () => {
+      toast.success("Invoice successfully created");
+      queryClient.invalidateQueries({ queryKey: ["invoices"] });
+      reset();
     },
   });
 
@@ -88,7 +96,7 @@ function InvoiceForm({ isOpen, setIsOpen }) {
 
   function onSubmit(data) {
     console.log({ ...data, paymentTerms: netTerm });
-    mutation.mutate({ ...data, paymentTerms: netTerm });
+    mutate({ ...data, paymentTerms: netTerm });
   }
 
   function onInvalid(errors) {

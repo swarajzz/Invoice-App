@@ -7,13 +7,21 @@ function InvoiceMain() {
   const [isOpen, setIsOpen] = useOutletContext();
   const [toggleFilterValues, setToggleFilterValues] = useState([]);
 
+  function handleToggleIsOpen() {
+    setIsOpen((prev) => !prev);
+  }
+
   return (
     <>
       <InvoiceHeading
+        handleOnClick={handleToggleIsOpen}
         setToggleFilterValues={setToggleFilterValues}
         setIsOpen={setIsOpen}
       />
-      <InvoiceList toggleFilterValues={toggleFilterValues} />
+      <InvoiceList
+        handleOnClick={handleToggleIsOpen}
+        toggleFilterValues={toggleFilterValues}
+      />
     </>
   );
 }
