@@ -7,7 +7,8 @@ function Button({
   handleOnClick,
   handleAddItemClick,
   handleSaveClick,
-  onClick
+  handleCancelClick,
+  onClick,
 }) {
   const buttonNames = {
     new: styles.new,
@@ -17,12 +18,13 @@ function Button({
     save: styles.save,
     saveDraft: styles.saveDraft,
     add: styles.add,
-    mark: styles.mark
+    mark: styles.mark,
   };
 
   const clickHandlers = {
     add: handleAddItemClick,
     save: handleSaveClick,
+    discard: handleCancelClick,
     default: handleOnClick || onClick,
   };
 

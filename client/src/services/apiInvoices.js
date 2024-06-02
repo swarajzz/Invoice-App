@@ -13,6 +13,10 @@ export async function createInvoice(newInvoice) {
 }
 
 export async function markAsPaidInvoice(invoiceId) {
-  console.log(invoiceId);
   axios.put(`/api/invoice/${invoiceId}`);
+}
+
+export async function deleteInvoice(invoiceId) {
+  console.log(invoiceId)
+  axios.delete(`/api/invoice/${invoiceId}`);
 }

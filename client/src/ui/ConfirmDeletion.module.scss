@@ -1,0 +1,28 @@
+.wrapper {
+    padding: 4rem;
+    background-color: var(--white);
+    border-radius: 8px;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    max-width: 48rem;
+
+    &.hidden {
+        display: none;
+    }
+    
+    p {
+        color: var(--gray-blue)
+    }
+
+    .control_btns {
+        display: flex;
+        justify-content: right;
+        gap: 1rem;
+    }
+}

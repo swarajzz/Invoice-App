@@ -7,7 +7,7 @@ import { useRef, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import useCheckMobileScreen from "../../hooks/useCheckMobileScreen";
 
-function InvoiceHeading({ setIsOpen, setToggleFilterValues }) {
+function InvoiceHeading({ setIsOpen, setToggleFilterValues, handleOnClick }) {
   const [toggleFilter, setToggleFilter] = useState(false);
 
   const isPhone = useCheckMobileScreen();
@@ -15,10 +15,6 @@ function InvoiceHeading({ setIsOpen, setToggleFilterValues }) {
   const filterRef = useRef();
 
   const boxRef = useOutsideClick(handleOnClickOutside, filterRef);
-
-  function handleOnClick() {
-    setIsOpen((prev) => !prev);
-  }
 
   function handleToggleFilter() {
     setToggleFilter((prev) => !prev);

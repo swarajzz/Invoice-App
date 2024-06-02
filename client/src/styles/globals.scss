@@ -143,6 +143,12 @@ h5 {
   font-size: var(--heading--s);
 }
 
+h6 {
+  font-weight: 700;
+  color: var(--deep-black);
+  font-size: var(--heading--m);
+}
+
 .react-datepicker-wrapper {
   .react-datepicker__input-container {
     @include flex-between;
