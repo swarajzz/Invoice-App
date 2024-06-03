@@ -6,15 +6,21 @@ import CheckBox from "../../ui/CheckBox";
 import { useRef, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import useCheckMobileScreen from "../../hooks/useCheckMobileScreen";
+import { useDispatch } from "react-redux";
+import { toggleIsOpen } from "./formSlice";
 
-function InvoiceHeading({ setIsOpen, setToggleFilterValues, handleOnClick }) {
+function InvoiceHeading({ setToggleFilterValues }) {
   const [toggleFilter, setToggleFilter] = useState(false);
-
+  const dispatch = useDispatch();
   const isPhone = useCheckMobileScreen();
 
   const filterRef = useRef();
 
   const boxRef = useOutsideClick(handleOnClickOutside, filterRef);
+
+  function handleOnClick() {
+    dispatch(toggleIsOpen());
+  }
 
   function handleToggleFilter() {
     setToggleFilter((prev) => !prev);
@@ -53,11 +59,7 @@ function InvoiceHeading({ setIsOpen, setToggleFilterValues, handleOnClick }) {
             alt="filter icon"
           />
         </div>
-        <Button
-          name="new"
-          className={styles.btn}
-          handleOnClick={handleOnClick}
-        >
+        <Button name="new" className={styles.btn} handleOnClick={handleOnClick}>
           <div className={styles.plusIcon}>
             <img src={plusIcon} alt="filter icon" />
           </div>

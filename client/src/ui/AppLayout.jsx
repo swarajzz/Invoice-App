@@ -3,19 +3,19 @@ import { Outlet } from "react-router-dom";
 
 import styles from "./AppLayout.module.scss";
 import InvoiceForm from "../features/invoice/InvoiceForm";
-import { useState } from "react";
+import { useSelector } from "react-redux";
 
 function AppLayout() {
-  const [isOpen, setIsOpen] = useState(false);
-
+  const isOpen = useSelector((store) => store.form.isOpen);
+  console.log(isOpen);
   return (
     <>
       <Header />
-      <InvoiceForm isOpen={isOpen} setIsOpen={setIsOpen} />
+      <InvoiceForm isOpen={isOpen} />
 
       <main className={styles.main}>
         <section>
-          <Outlet context={[isOpen, setIsOpen]} />
+          <Outlet context={[isOpen]} />
         </section>
       </main>
     </>

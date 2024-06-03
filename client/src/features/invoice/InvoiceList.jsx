@@ -18,8 +18,6 @@ function InvoiceList({ toggleFilterValues }) {
   if (isLoading) return <Spinner />;
   if (error) return <NotFound />;
 
-  console.log(invoices)
-  
   const newInvoices = invoices.filter((invoice) =>
     toggleFilterValues.includes(invoice.status)
   );

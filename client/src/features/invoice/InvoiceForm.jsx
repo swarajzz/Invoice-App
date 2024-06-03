@@ -17,14 +17,18 @@ import Button from "../../ui/Button";
 import Overlay from "../../ui/Overlay";
 
 import useOutsideClick from "../../hooks/useOutsideClick";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createInvoice } from "../../services/apiInvoices";
+import { useDispatch } from "react-redux";
+import { toggleIsOpen } from "./formSlice";
 
-function InvoiceForm({ isOpen, setIsOpen }) {
+function InvoiceForm({ isOpen }) {
   let something = false;
   const [netTerm, setNetTerm] = useState(7);
   const [startDate, setStartDate] = useState(getNetTermsDate);
   const [toggleDropdown, setToggleDropdown] = useState(false);
+
+  const dispatch = useDispatch();
 
   const queryClient = useQueryClient();
 
@@ -60,7 +64,7 @@ function InvoiceForm({ isOpen, setIsOpen }) {
     name: "items",
   });
 
-  const { mutate, isLoading: isCreating } = useMutation({
+  const { mutate } = useMutation({
     mutationFn: (newInvoice) => {
       return createInvoice(newInvoice);
     },
@@ -68,16 +72,13 @@ function InvoiceForm({ isOpen, setIsOpen }) {
       toast.success("Invoice successfully created");
       queryClient.invalidateQueries({ queryKey: ["invoices"] });
       reset();
+      dispatch(toggleIsOpen());
     },
   });
 
-  function handleOverlayClick(e) {
+  function handleOverlayClick() {
     something = true;
-    setIsOpen(false);
-  }
-
-  function handleSaveClick(e) {
-    e.preventDefault();
+    dispatch(toggleIsOpen());
   }
 
   function handleOnClickOutside() {
