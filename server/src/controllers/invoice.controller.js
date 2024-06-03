@@ -11,11 +11,25 @@ const getInvoices = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, allInvoices, "Invoices fetched successfully"));
 });
 
+const getInvoice = asyncHandler(async (req, res) => {
+  const invoiceId = req.params.id;
+
+  const selectedInvoice = await Invoice.findOne({ id: invoiceId }).exec();
+
+  console.log(selectedInvoice);
+
+  return res
+    .status(201)
+    .json(
+      new ApiResponse(200, selectedInvoice, "Invoice fetched successfully")
+    );
+});
+
 const deleteInvoice = asyncHandler(async (req, res) => {
   const invoiceId = req.params.id;
 
   await Invoice.deleteOne({ id: invoiceId });
-  
+
   return res
     .status(201)
     .json(new ApiResponse(200, "Invoice deleted successfully"));
@@ -98,4 +112,10 @@ const markAsPaidInvoice = asyncHandler(async (req, res) => {
     );
 });
 
-export { createInvoice, deleteInvoice, getInvoices, markAsPaidInvoice };
+export {
+  createInvoice,
+  deleteInvoice,
+  getInvoice,
+  getInvoices,
+  markAsPaidInvoice,
+};
