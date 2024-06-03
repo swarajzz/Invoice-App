@@ -7,39 +7,21 @@ import { formatDate } from "../../utils/helper";
 
 function InvoiceItem({ invoice }) {
   const {
-    clientAddress,
     id,
     clientName,
-    clientEmail,
-    createdAt,
-    description,
-    items,
     paymentDue,
     total,
-    senderAddress,
     status,
   } = invoice;
-
-  const {
-    city: clientCity,
-    country: clientCountry,
-    postCode: clientPostCode,
-    street: clientStreet,
-  } = clientAddress;
-
-  const {
-    city: senderCity,
-    country: senderCountry,
-    postCode: senderPostCode,
-    street: senderStreet,
-  } = senderAddress;
 
   const navigate = useNavigate();
 
   const isMobile = useCheckMobileScreen();
 
   function handleNavigate() {
-    navigate(`/invoice/:${id}`);
+    navigate(`/invoice/:${id}`, {
+      state: { id },
+    });
   }
 
   return (

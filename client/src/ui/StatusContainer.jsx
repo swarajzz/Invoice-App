@@ -23,6 +23,9 @@ function StatusContainer({ invoiceId, status }) {
       queryClient.invalidateQueries({
         queryKey: ["invoices"],
       });
+      queryClient.invalidateQueries({
+        queryKey: ["invoice", invoiceId],
+      });
     },
   });
 
@@ -34,6 +37,9 @@ function StatusContainer({ invoiceId, status }) {
       toast.success("Invoice successfully deleted");
       queryClient.invalidateQueries({
         queryKey: ["invoices"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: ["invoice", invoiceId],
       });
     },
   });

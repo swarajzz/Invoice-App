@@ -9,14 +9,22 @@ export async function getInvoices() {
 }
 
 export async function createInvoice(newInvoice) {
-  axios.post("/api/invoice", newInvoice);
+  await axios.post("/api/invoice", newInvoice);
+}
+
+export async function getInvoice(invoiceId) {
+  const {
+    data: { data: invoice },
+  } = await axios.get(`/api/invoice/${invoiceId}`);
+
+  return invoice;
 }
 
 export async function markAsPaidInvoice(invoiceId) {
-  axios.put(`/api/invoice/${invoiceId}`);
+  await axios.put(`/api/invoice/${invoiceId}`);
 }
 
 export async function deleteInvoice(invoiceId) {
-  console.log(invoiceId)
-  axios.delete(`/api/invoice/${invoiceId}`);
+  const { data } = await axios.delete(`/api/invoice/${invoiceId}`);
+  return data;
 }

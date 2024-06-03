@@ -1,12 +1,10 @@
 import styles from "../styles/InvoiceDetail.module.scss";
 import GoBack from "../../ui/GoBack";
 import StatusContainer from "../../ui/StatusContainer";
-import { useLocation } from "react-router-dom";
 import { formatDate } from "../../utils/helper";
 import InvoiceReceipt from "./InvoiceReceipt";
 
-function InvoiceDetail() {
-  const { state } = useLocation();
+function InvoiceDetail({ invoice }) {
   const {
     clientAddress,
     id,
@@ -19,7 +17,7 @@ function InvoiceDetail() {
     total,
     senderAddress,
     status,
-  } = state.invoice;
+  } = invoice;
 
   const {
     city: clientCity,
@@ -34,10 +32,6 @@ function InvoiceDetail() {
     postCode: senderPostCode,
     street: senderStreet,
   } = senderAddress;
-
-  // const { items: invoiceItems } = items;
-
-  console.log(state);
 
   return (
     <>
