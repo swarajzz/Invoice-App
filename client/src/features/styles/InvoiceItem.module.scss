@@ -2,7 +2,6 @@
 
 .invoiceItem {
   background-color: var(--white);
-  padding: 25px;
   box-shadow: 0 10px 10px -10px rgba(72, 84, 159, 0.1004);
   border-radius: 8px;
   @include flex-between;
@@ -14,6 +13,12 @@
     color: var(--deep-black);
     font-size: var(--heading--m-variant);
     font-weight: 700;
+  }
+
+  .link {
+    @include flex-between;
+    width: 100%;
+    padding: 2.5rem;
   }
 
   .first_container {

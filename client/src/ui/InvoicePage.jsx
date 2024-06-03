@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import InvoiceDetail from "../features/invoice/InvoiceDetail";
 import NotFound from "./Error";
 import Spinner from "./Spinner";
@@ -6,8 +6,8 @@ import { getInvoice } from "../services/apiInvoices";
 import { useQuery } from "@tanstack/react-query";
 
 function InvoicePage() {
-  const { state } = useLocation();
-  const { id } = state;
+  const params = useParams();
+  const id = params.id.replace(":", "");
 
   const {
     isLoading,
