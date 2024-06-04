@@ -7,12 +7,15 @@
   &.light-mode {
     --off-white: #f8f8fb;
 
+    --draft: #373b530f;
+
     --white: #ffffff;
     --white-2: #ffffff;
     --white-3: #ffffff;
 
     --light-blue-gray: #373b53;
     --light-blue-gray-2: #373b53;
+    --light-blue-gray-3: #373b53;
 
     --other-gray: #858bb2;
     --other-gray-2: #858bb2;
@@ -36,12 +39,15 @@
   &.dark-mode {
     --off-white: #141625;
 
+    --draft: rgba(223, 227, 250, 0.0571);
+
     --white: #1e2139;
     --white-2: #252945;
     --white-3: #141625;
 
     --light-blue-gray: #0c0e16;
     --light-blue-gray-2: #1e2139;
+    --light-blue-gray-3: #dfe3fa;
 
     --other-gray: #dfe3fa;
     --other-gray-2: #ffffff;

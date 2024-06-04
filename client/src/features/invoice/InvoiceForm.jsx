@@ -95,18 +95,14 @@ function InvoiceForm({ isOpen }) {
   //   setToggleDropdown((prev) => !prev);
   // }
 
-  function onSubmit(data) {
-    console.log({ ...data, paymentTerms: netTerm });
-    mutate({ ...data, paymentTerms: netTerm });
-  }
-
-  function onInvalid(errors) {
-    console.log(errors);
+  function onSubmit(data, e) {
+    const submitButtonName = e.nativeEvent.submitter.name;
+    mutate({ ...data, paymentTerms: netTerm, submitButtonName });
   }
 
   return (
     <>
-      <Form isOpen={isOpen} onSubmit={handleSubmit(onSubmit, onInvalid)}>
+      <Form isOpen={isOpen} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.wrapper}>
           <h2>New Invoice</h2>
           <div className={styles.billFrom}>
@@ -371,7 +367,12 @@ function InvoiceForm({ isOpen }) {
               Discard
             </Button>
             <div>
-              <Button type="button" name="saveDraft">
+              <Button
+                type="submit"
+                name="draft"
+                formonvalidate="formnovalidate"
+                value="cancel"
+              >
                 Save as draft
               </Button>
               <Button type="submit" name="save">

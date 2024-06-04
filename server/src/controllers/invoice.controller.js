@@ -47,6 +47,7 @@ const createInvoice = asyncHandler(async (req, res) => {
     clientAddress,
     items,
     total,
+    submitButtonName,
   } = req.body;
 
   if (
@@ -77,6 +78,7 @@ const createInvoice = asyncHandler(async (req, res) => {
     clientAddress,
     items,
     total,
+    status: submitButtonName,
   });
 
   const createdInvoice = await Invoice.findById(invoice._id).select(

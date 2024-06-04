@@ -3,6 +3,7 @@ import styles from "./Button.module.scss";
 function Button({
   children,
   type = "button",
+  formonvalidate,
   name,
   handleOnClick,
   handleAddItemClick,
@@ -16,7 +17,7 @@ function Button({
     delete: styles.delete,
     discard: styles.discard,
     save: styles.save,
-    saveDraft: styles.saveDraft,
+    draft: styles.draft,
     add: styles.add,
     mark: styles.mark,
   };
@@ -36,6 +37,7 @@ function Button({
       name={name}
       onClick={handleClick}
       className={`${styles.button} ${buttonNames[name]}`}
+      formNoValidate={formonvalidate}
     >
       {children}
     </button>

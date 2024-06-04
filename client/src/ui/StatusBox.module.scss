@@ -33,10 +33,10 @@
   }
 
   &.draft {
-    background-color: rgba(55, 59, 83, 0.0571);
-    color: var(--light-blue-gray);
+    background-color: var(--draft);
+    color: var(--light-blue-gray-3);
     span {
-      background-color: var(--light-blue-gray);
+      background-color: var(--light-blue-gray-3);
     }
   }
 }
