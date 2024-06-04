@@ -3,14 +3,15 @@ import plusIcon from "../../assets/icon-plus.svg";
 import styles from "../styles/InvoiceHeading.module.scss";
 import Button from "../../ui/Button";
 import CheckBox from "../../ui/CheckBox";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import useCheckMobileScreen from "../../hooks/useCheckMobileScreen";
 import { useDispatch } from "react-redux";
 import { toggleIsOpen } from "./formSlice";
 
-function InvoiceHeading({ setToggleFilterValues }) {
+function InvoiceHeading({ setToggleFilterValues, invoices }) {
   const [toggleFilter, setToggleFilter] = useState(false);
+  const [total, setTotal] = useState(0);
   const dispatch = useDispatch();
   const isPhone = useCheckMobileScreen();
 
@@ -38,12 +39,18 @@ function InvoiceHeading({ setToggleFilterValues }) {
         );
   }
 
+  useEffect(() => {
+    setTotal(invoices?.length);
+  }, [invoices]);
+
   return (
     <div className={styles.invoiceHeader}>
       <div className={styles.left_container}>
         <h2>Invoices</h2>
 
-        <p>{!isPhone ? `There are 10 total invoices` : `10 invoices`}</p>
+        <p>
+          {!isPhone ? `There are ${total} total invoices` : `${total} invoices`}
+        </p>
       </div>
 
       <div className={styles.right_container}>

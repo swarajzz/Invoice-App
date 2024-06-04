@@ -1,20 +1,9 @@
 import InvoiceItem from "./InvoiceItem";
 import styles from "../styles/InvoiceList.module.scss";
-import { useQuery } from "@tanstack/react-query";
-import { getInvoices } from "../../services/apiInvoices";
 import Spinner from "../../ui/Spinner";
 import NotFound from "../../ui/Error";
 
-function InvoiceList({ toggleFilterValues }) {
-  const {
-    isLoading,
-    data: invoices,
-    error,
-  } = useQuery({
-    queryKey: ["invoices"],
-    queryFn: getInvoices,
-  });
-
+function InvoiceList({ toggleFilterValues, invoices, isLoading, error }) {
   if (isLoading) return <Spinner />;
   if (error) return <NotFound />;
 

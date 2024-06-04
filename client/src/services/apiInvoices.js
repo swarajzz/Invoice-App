@@ -1,10 +1,8 @@
 import axios from "axios";
 
 export async function getInvoices() {
-  const {
-    data: { data: invoices },
-  } = await axios.get("/api/invoice");
-
+  const res = await axios.get("/api/invoice");
+  const { data: invoices } = res.data;
   return invoices;
 }
 
@@ -13,10 +11,8 @@ export async function createInvoice(newInvoice) {
 }
 
 export async function getInvoice(invoiceId) {
-  const {
-    data: { data: invoice },
-  } = await axios.get(`/api/invoice/${invoiceId}`);
-
+  const res = await axios.get(`/api/invoice/${invoiceId}`);
+  const { data: invoice } = res.data;
   return invoice;
 }
 
