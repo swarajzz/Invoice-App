@@ -1,13 +1,13 @@
 import FormRow from "../../ui/FormRow";
 import styles from "../styles/FormListItem.module.scss";
-import deleteIcon from "../../assets/icon-delete.svg";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Input from "../../ui/Input";
 
 function FormListItem({ register, errors, watch, remove, setValue, index }) {
-  const [quantity, setQuantity] = useState(1);
-  const [price, setPrice] = useState(0);
-  const [total, setTotal] = useState(0);
+
+  const quantity = watch(`items[${index}].quantity`);
+  const price = watch(`items[${index}].price`);
+  const total = watch(`items[${index}].total`);
 
   const items = watch("items");
 
@@ -18,9 +18,6 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
 
   useEffect(() => {
     let value = quantity * price;
-    value = parseFloat(value.toFixed(2));
-    setTotal(value);
-
     setValue(`items[${index}].total`, value);
   }, [quantity, price, index, setValue]);
 
@@ -50,7 +47,8 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
             valueAsNumber: true,
             min: 1,
             onChange: (e) => {
-              setQuantity(+e.target.value);
+              // setQuantity(+e.target.value);
+              setValue(`items[${index}].quantity`, +e.target.value);
             },
           })}
         />
@@ -60,14 +58,15 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
           type="number"
           id={`price-${index}`}
           min={0}
-          defaultValue={0}
-          step=".000001"
+          step={0.01}
+          // defaultValue={0.00}
           {...register(`items[${index}].price`, {
             required: "This field is required",
             valueAsNumber: true,
             min: 0,
             onChange: (e) => {
-              setPrice(+e.target.value);
+              // setPrice(+e.target.value);
+              setValue(`items[${index}].price`, parseFloat(+e.target.value).toFixed(2));
             },
           })}
         />
@@ -78,6 +77,7 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
           type="number"
           id={`total-${index}`}
           value={total}
+          step={0.01}
           readOnly
           {...register(`items[${index}].total`, {
             valueAsNumber: true,
