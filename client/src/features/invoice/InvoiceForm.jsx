@@ -1,7 +1,7 @@
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 
 import { useEffect, useRef, useState } from "react";
-import { getNetTermsDate } from "../../utils/helper";
+import { getPaymentDueDate } from "../../utils/helper";
 
 import DatePicker from "react-datepicker";
 
@@ -24,8 +24,10 @@ import { toggleIsOpen } from "./formSlice";
 
 function InvoiceForm({ isOpen, action, invoice }) {
   let something = false;
-  const [netTerm, setNetTerm] = useState(7);
-  const [startDate, setStartDate] = useState(getNetTermsDate);
+  const [netTerm, setNetTerm] = useState(invoice.paymentTerms || 7);
+  const [paymentDueDate, setPaymentDueDate] = useState(
+    invoice.paymentDue || getPaymentDueDate(netTerm)
+  );
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   const dispatch = useDispatch();
@@ -59,7 +61,7 @@ function InvoiceForm({ isOpen, action, invoice }) {
               total: 0,
             },
           ],
-          paymentDue: startDate,
+          paymentDue: paymentDueDate,
           description: "",
           paymentTerms: 7,
           clientName: "",
@@ -122,7 +124,8 @@ function InvoiceForm({ isOpen, action, invoice }) {
   function handleOptionChange(value) {
     setNetTerm(value);
     setToggleDropdown(false);
-    setStartDate(getNetTermsDate(value));
+    setPaymentDueDate(getPaymentDueDate(value));
+    setValue("paymentDue", getPaymentDueDate(value));
   }
 
   // function handleTermDropdownClick(e) {
@@ -131,8 +134,6 @@ function InvoiceForm({ isOpen, action, invoice }) {
 
   function onSubmit(data, e) {
     const submitBtnName = e.nativeEvent.submitter.name;
-    console.log(submitBtnName);
-
     submitBtnName === "saveChanges"
       ? updateInvoiceFxn([{ ...data, paymentTerms: netTerm }, submitBtnName])
       : createInvoiceFxn({ ...data, paymentTerms: netTerm, submitBtnName });
@@ -288,12 +289,12 @@ function InvoiceForm({ isOpen, action, invoice }) {
                 render={({ field: { onChange, onBlur, value, ref } }) => (
                   <DatePicker
                     wrapperClassName={styles.datePicker}
-                    selected={startDate}
+                    selected={paymentDueDate}
                     onChange={(date) => {
-                      setStartDate(date);
+                      setPaymentDueDate(date);
                     }}
-                    // dateFormat="d MMMM yyyy"
                     showIcon
+                    readOnly={action === "edit"}
                     toggleCalendarOnIconClick
                     icon={
                       <svg
@@ -318,7 +319,7 @@ function InvoiceForm({ isOpen, action, invoice }) {
               label={"Payment Terms"}
               error={errors?.paymentTerms?.message}
             >
-              <input
+              <Input
                 className={styles.hoverInput}
                 type="text"
                 id="paymentTerms"
@@ -327,7 +328,6 @@ function InvoiceForm({ isOpen, action, invoice }) {
                 // defaultValue="Net 7 Days"
                 onClick={() => setToggleDropdown((prev) => !prev)}
                 value={`Net ${netTerm} ${netTerm === 1 ? "Day" : "Days"}`}
-                // handleTermDropdownClick={handleTermDropdownClick}
                 // ref={termRef}
                 readOnly
                 {...register("paymentTerms")}

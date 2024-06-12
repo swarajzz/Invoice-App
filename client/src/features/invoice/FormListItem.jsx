@@ -4,7 +4,6 @@ import { useEffect } from "react";
 import Input from "../../ui/Input";
 
 function FormListItem({ register, errors, watch, remove, setValue, index }) {
-
   const quantity = watch(`items[${index}].quantity`);
   const price = watch(`items[${index}].price`);
   const total = watch(`items[${index}].total`);
@@ -18,7 +17,7 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
 
   useEffect(() => {
     let value = quantity * price;
-    setValue(`items[${index}].total`, value);
+    setValue(`items[${index}].total`, parseFloat(value).toFixed(2));
   }, [quantity, price, index, setValue]);
 
   return (
@@ -66,7 +65,10 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
             min: 0,
             onChange: (e) => {
               // setPrice(+e.target.value);
-              setValue(`items[${index}].price`, parseFloat(+e.target.value).toFixed(2));
+              setValue(
+                `items[${index}].price`,
+                parseFloat(+e.target.value).toFixed(2)
+              );
             },
           })}
         />

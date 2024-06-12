@@ -8,7 +8,7 @@ export const formatDate = (date) => {
   return formattedDate;
 };
 
-export const getNetTermsDate = (netTermValue = 7) => {
+export const getPaymentDueDate = (netTermValue = 7) => {
   const date = new Date();
   const futureDate = date.getDate() + netTermValue;
   date.setDate(futureDate);

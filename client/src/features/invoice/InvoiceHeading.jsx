@@ -50,9 +50,13 @@ function InvoiceHeading({ setToggleFilterValues, invoices }) {
       <div className={styles.left_container}>
         <h2>Invoices</h2>
 
-        <p>
-          {!isPhone ? `There are ${total} total invoices` : `${total} invoices`}
-        </p>
+        {total ? (
+          <p>
+            {!isPhone
+              ? `There are ${total} total invoices`
+              : `${total} invoices`}
+          </p>
+        ) : ""}
       </div>
 
       <div className={styles.right_container}>
