@@ -93,4 +93,12 @@
   &.mark {
     @extend .save;
   }
+
+  &.cancel {
+    @extend .edit;
+  }
+
+  &.saveChanges {
+    @extend .save;
+  }
 }

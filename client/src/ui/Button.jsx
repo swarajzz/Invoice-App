@@ -20,6 +20,8 @@ function Button({
     draft: styles.draft,
     add: styles.add,
     mark: styles.mark,
+    cancel: styles.cancel,
+    saveChanges: styles.saveChanges,
   };
 
   const clickHandlers = {
