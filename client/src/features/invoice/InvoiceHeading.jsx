@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import useOutsideClick from "../../hooks/useOutsideClick";
 import useCheckMobileScreen from "../../hooks/useCheckMobileScreen";
 import { useDispatch } from "react-redux";
-import { toggleIsOpen } from "./formSlice";
+import { addInvoice, setAction, toggleIsOpen } from "./formSlice";
 
 function InvoiceHeading({ setToggleFilterValues, invoices }) {
   const [toggleFilter, setToggleFilter] = useState(false);
@@ -20,7 +20,9 @@ function InvoiceHeading({ setToggleFilterValues, invoices }) {
   const boxRef = useOutsideClick(handleOnClickOutside, filterRef);
 
   function handleOnClick() {
+    dispatch(addInvoice({}));
     dispatch(toggleIsOpen());
+    dispatch(setAction("new"));
   }
 
   function handleToggleFilter() {

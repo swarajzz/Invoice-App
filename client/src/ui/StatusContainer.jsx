@@ -7,10 +7,17 @@ import ConfirmDeletion from "./ConfirmDeletion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import {
+  addInvoice,
+  setAction,
+  toggleIsOpen,
+} from "../features/invoice/formSlice";
 
-function StatusContainer({ invoiceId, status }) {
+function StatusContainer({ invoice, invoiceId, status }) {
   const [isDeleteToggle, setIsDeleteToggle] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const queryClient = useQueryClient();
 
@@ -44,6 +51,12 @@ function StatusContainer({ invoiceId, status }) {
     },
   });
 
+  function handleEditClick() {
+    dispatch(addInvoice(invoice));
+    dispatch(setAction("edit"));
+    dispatch(toggleIsOpen());
+  }
+
   function handleMarkPaidReq() {
     markAsPaid(invoiceId);
   }
@@ -76,7 +89,9 @@ function StatusContainer({ invoiceId, status }) {
       )}
 
       <div className={styles.control_btns}>
-        <Button name="edit">Edit</Button>
+        <Button name="edit" onClick={handleEditClick}>
+          Edit
+        </Button>
         <Button onClick={handleSetToggle} name="delete">
           Delete
         </Button>

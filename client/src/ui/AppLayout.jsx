@@ -7,11 +7,13 @@ import { useSelector } from "react-redux";
 
 function AppLayout() {
   const isOpen = useSelector((store) => store.form.isOpen);
-  console.log(isOpen);
+  const action = useSelector((store) => store.form.action);
+  const invoice = useSelector((store) => store.form.invoice);
+
   return (
     <>
       <Header />
-      <InvoiceForm isOpen={isOpen} />
+      <InvoiceForm invoice={invoice} action={action} isOpen={isOpen} />
 
       <main className={styles.main}>
         <section>
