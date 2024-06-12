@@ -65,6 +65,14 @@
 
     @include flex-between;
 
+    &.flexRight {
+      justify-content: right;
+    }
+
+    .hide {
+      display: none
+    }
+
     div {
       @include flex-around;
       gap: 1rem;

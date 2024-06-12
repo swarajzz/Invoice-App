@@ -1,6 +1,6 @@
 import { useForm, useFieldArray, Controller } from "react-hook-form";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getNetTermsDate } from "../../utils/helper";
 
 import DatePicker from "react-datepicker";
@@ -18,11 +18,11 @@ import Overlay from "../../ui/Overlay";
 
 import useOutsideClick from "../../hooks/useOutsideClick";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createInvoice } from "../../services/apiInvoices";
+import { createInvoice, updateInvoice } from "../../services/apiInvoices";
 import { useDispatch } from "react-redux";
 import { toggleIsOpen } from "./formSlice";
 
-function InvoiceForm({ isOpen }) {
+function InvoiceForm({ isOpen, action, invoice }) {
   let something = false;
   const [netTerm, setNetTerm] = useState(7);
   const [startDate, setStartDate] = useState(getNetTermsDate);
@@ -36,41 +36,75 @@ function InvoiceForm({ isOpen }) {
 
   const boxRef = useOutsideClick(handleOnClickOutside, termRef);
 
+  const initialValues =
+    action === "new"
+      ? {
+          senderAddress: {
+            city: "",
+            country: "",
+            postCode: "",
+            street: "",
+          },
+          clientAddress: {
+            city: "",
+            country: "",
+            postCode: "",
+            street: "",
+          },
+          items: [
+            {
+              name: "",
+              quantity: 1,
+              price: 0,
+              total: 0,
+            },
+          ],
+          paymentDue: startDate,
+          description: "",
+          paymentTerms: 7,
+          clientName: "",
+          clientEmail: "",
+          total: 0,
+        }
+      : invoice;
+
   const { register, handleSubmit, formState, watch, setValue, control, reset } =
     useForm({
-      defaultValues: {
-        senderAddress: { city: "", country: "", postCode: "", street: "" },
-        clientAddress: { city: "", country: "", postCode: "", street: "" },
-        items: [
-          {
-            name: "",
-            quantity: 1,
-            price: 0,
-            total: 0,
-          },
-        ],
-        paymentDue: startDate,
-        description: "",
-        paymentTerms: 7,
-        clientName: "",
-        clientEmail: "",
-        total: 0,
-      },
+      defaultValues: initialValues,
     });
   const { errors } = formState;
+
+  useEffect(() => {
+    reset(initialValues);
+  }, [invoice]);
 
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
   });
 
-  const { mutate } = useMutation({
+  const { mutate: createInvoiceFxn } = useMutation({
     mutationFn: (newInvoice) => {
       return createInvoice(newInvoice);
     },
     onSuccess: () => {
       toast.success("Invoice successfully created");
       queryClient.invalidateQueries({ queryKey: ["invoices"] });
+      reset();
+      dispatch(toggleIsOpen());
+    },
+  });
+
+  const { mutate: updateInvoiceFxn } = useMutation({
+    mutationFn: ([newInvoice, submitBtnName]) => {
+      return updateInvoice(newInvoice, submitBtnName);
+    },
+    onSuccess: () => {
+      toast.success("Invoice successfully updated");
+      // queryClient.invalidateQueries({ queryKey: ["invoices"] });
+      queryClient.invalidateQueries({
+        queryKey: ["invoice", invoice.id],
+      });
       reset();
       dispatch(toggleIsOpen());
     },
@@ -96,8 +130,12 @@ function InvoiceForm({ isOpen }) {
   // }
 
   function onSubmit(data, e) {
-    const submitButtonName = e.nativeEvent.submitter.name;
-    mutate({ ...data, paymentTerms: netTerm, submitButtonName });
+    const submitBtnName = e.nativeEvent.submitter.name;
+    console.log(submitBtnName);
+
+    submitBtnName === "saveChanges"
+      ? updateInvoiceFxn([{ ...data, paymentTerms: netTerm }, submitBtnName])
+      : createInvoiceFxn({ ...data, paymentTerms: netTerm, submitBtnName });
   }
 
   return (
@@ -137,7 +175,7 @@ function InvoiceForm({ isOpen }) {
                 error={errors?.senderAddress?.postCode?.message}
               >
                 <Input
-                  type="number"
+                  type="text"
                   id="senderPostCode"
                   {...register("senderAddress.postCode", {
                     required: "This field is required",
@@ -216,7 +254,7 @@ function InvoiceForm({ isOpen }) {
                 error={errors?.clientAddress?.postCode?.message}
               >
                 <Input
-                  type="number"
+                  type="text"
                   id="clientPostCode"
                   {...register("clientAddress.postCode", {
                     required: "This field is required",
@@ -362,22 +400,53 @@ function InvoiceForm({ isOpen }) {
             </Button>
           </div>
 
-          <div className={styles.buttonControls}>
-            <Button type="reset" onClick={() => reset()} name="discard">
-              Discard
-            </Button>
-            <div>
+          <div
+            className={`${styles.buttonControls} ${
+              action === "edit" ? styles.flexRight : ""
+            } `}
+          >
+            {action === "new" ? (
               <Button
-                type="submit"
-                name="draft"
-                formonvalidate="formnovalidate"
-                value="cancel"
+                // className={!action === "new" ? styles.hide : ""}
+                type="reset"
+                onClick={() => reset()}
+                name="discard"
               >
-                Save as draft
+                Discard
               </Button>
-              <Button type="submit" name="save">
-                Save & Send
-              </Button>
+            ) : (
+              ""
+            )}
+            <div>
+              {action === "new" ? (
+                <Button
+                  type="button"
+                  name="draft"
+                  formonvalidate="formnovalidate"
+                  // value="draft"
+                >
+                  Save as draft
+                </Button>
+              ) : (
+                <Button
+                  type="button"
+                  name="cancel"
+                  // value="cancel"
+                  onClick={() => dispatch(toggleIsOpen())}
+                >
+                  Cancel
+                </Button>
+              )}
+
+              {action === "new" ? (
+                <Button type="submit" name="save">
+                  Save & Send
+                </Button>
+              ) : (
+                <Button type="submit" name="saveChanges">
+                  Save Changes
+                </Button>
+              )}
             </div>
           </div>
         </div>
