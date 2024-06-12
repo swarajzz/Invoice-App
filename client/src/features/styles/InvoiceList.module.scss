@@ -1,6 +1,31 @@
+@import "../../styles/_mixins.scss";
+
 .invoiceList {
   display: flex;
   flex-direction: column;
   gap: 20px;
   margin-top: 30px;
+}
+
+.empty_box {
+  @include flex-center;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 5rem;
+  
+  .empty_img {
+    width: 30rem;
+    max-width: 30rem;
+  }
+
+  h4 {
+    font-size: var(--heading--l);
+  }
+
+  p {
+    font-size: var(--heading--m-variant);
+    color: var(--light-blue-gray-3);
+    width: 50%;
+    text-align: center;
+  }
 }
