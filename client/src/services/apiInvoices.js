@@ -10,6 +10,10 @@ export async function createInvoice(newInvoice) {
   await axios.post("/api/invoice", newInvoice);
 }
 
+export async function updateInvoice(newInvoice) {
+  await axios.put("/api/invoice", newInvoice);
+}
+
 export async function getInvoice(invoiceId) {
   const res = await axios.get(`/api/invoice/${invoiceId}`);
   const { data: invoice } = res.data;

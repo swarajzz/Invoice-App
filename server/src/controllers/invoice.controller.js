@@ -16,8 +16,6 @@ const getInvoice = asyncHandler(async (req, res) => {
 
   const selectedInvoice = await Invoice.findOne({ id: invoiceId }).exec();
 
-  console.log(selectedInvoice);
-
   return res
     .status(201)
     .json(
@@ -91,6 +89,24 @@ const createInvoice = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, createdInvoice, "Invoice created successfully"));
 });
 
+const updateInvoice = asyncHandler(async (req, res) => {
+  // const invoiceId = req.params.id;
+  const invoice = req.body;
+
+  const query = { id: invoice.id };
+  const updatedInvoice = await Invoice.findOneAndUpdate(query, invoice, {
+    new: true,
+  });
+
+  return res.status(201).json(
+    new ApiResponse(
+      200,
+      updatedInvoice,
+      "Invoice updated successfully"
+    )
+  );
+});
+
 const markAsPaidInvoice = asyncHandler(async (req, res) => {
   const invoiceId = req.params.id;
 
@@ -120,4 +136,5 @@ export {
   getInvoice,
   getInvoices,
   markAsPaidInvoice,
+  updateInvoice,
 };
