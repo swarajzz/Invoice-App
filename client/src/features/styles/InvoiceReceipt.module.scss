@@ -63,7 +63,16 @@
       display: none;
 
       @include respond(phone) {
-        @include flex-between;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 10px;
+
+        .phoneItems {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
       }
     }
   }
