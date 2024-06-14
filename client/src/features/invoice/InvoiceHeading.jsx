@@ -1,5 +1,4 @@
 import filterIcon from "../../assets/icon-arrow-down.svg";
-import plusIcon from "../../assets/icon-plus.svg";
 import styles from "../styles/InvoiceHeading.module.scss";
 import Button from "../../ui/Button";
 import CheckBox from "../../ui/CheckBox";
@@ -56,7 +55,9 @@ function InvoiceHeading({ setToggleFilterValues, invoices }) {
               ? `There are ${total} total invoices`
               : `${total} invoices`}
           </p>
-        ) : ""}
+        ) : (
+          ""
+        )}
       </div>
 
       <div className={styles.right_container}>
@@ -74,9 +75,15 @@ function InvoiceHeading({ setToggleFilterValues, invoices }) {
         </div>
         <Button name="new" className={styles.btn} handleOnClick={handleOnClick}>
           <div className={styles.plusIcon}>
-            <img src={plusIcon} alt="filter icon" />
+            <svg width="11" height="11" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M6.313 10.023v-3.71h3.71v-2.58h-3.71V.023h-2.58v3.71H.023v2.58h3.71v3.71z"
+                fill="#7C5DFA"
+                fillRule="nonzero"
+              />
+            </svg>
           </div>
-          <p>{!isPhone ? `New Invoice` : `New`}</p>
+          <span>{!isPhone ? `New Invoice` : `New`}</span>
         </Button>
         <div
           className={`${styles.checkBox_container} ${
