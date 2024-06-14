@@ -8,7 +8,7 @@ import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import { Suspense, lazy } from "react";
-import Spinner from "./ui/Spinner";
+import SpinnerFullPage from "./ui/SpinnerFullPage";
 
 const AppLayout = lazy(() => import("./ui/AppLayout"));
 const InvoicePage = lazy(() => import("./ui/InvoicePage"));
@@ -47,7 +47,7 @@ function App() {
     <DarkModeProvider>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <Suspense fallback={<Spinner />}>
+        <Suspense fallback={<SpinnerFullPage />}>
           <RouterProvider router={router} />
         </Suspense>
 
