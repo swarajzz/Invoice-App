@@ -7,12 +7,16 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
 import { DarkModeProvider } from "./context/DarkModeContext";
-import { Suspense, lazy } from "react";
-import SpinnerFullPage from "./ui/SpinnerFullPage";
+// import { Suspense, lazy } from "react";
+// import SpinnerFullPage from "./ui/SpinnerFullPage";
 
-const AppLayout = lazy(() => import("./ui/AppLayout"));
-const InvoicePage = lazy(() => import("./ui/InvoicePage"));
-const InvoiceMain = lazy(() => import("./features/invoice/InvoiceMain"));
+import AppLayout from "./ui/AppLayout";
+import  InvoicePage from "./ui/InvoicePage";
+import  InvoiceMain from "./features/invoice/InvoiceMain";
+
+// const AppLayout = lazy(() => import("./ui/AppLayout"));
+// const InvoicePage = lazy(() => import("./ui/InvoicePage"));
+// const InvoiceMain = lazy(() => import("./features/invoice/InvoiceMain"));
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -47,9 +51,9 @@ function App() {
     <DarkModeProvider>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        <Suspense fallback={<SpinnerFullPage />}>
-          <RouterProvider router={router} />
-        </Suspense>
+        {/* <Suspense fallback={<SpinnerFullPage />}> */}
+        <RouterProvider router={router} />
+        {/* </Suspense> */}
 
         <Toaster
           position="top-center"
