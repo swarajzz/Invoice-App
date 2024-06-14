@@ -36,7 +36,7 @@ function InvoiceItem({ invoice }) {
           <div className={styles.wrapper}>
             <StatusBox type={status} />
 
-            {!isMobile ? <img src={rightArrow} alt="" /> : null}
+            {!isMobile ? <img src={rightArrow} alt="Right arrow icon" /> : null}
           </div>
         </div>
       </Link>

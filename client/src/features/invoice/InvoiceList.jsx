@@ -24,7 +24,7 @@ function InvoiceList({ toggleFilterValues, invoices, isLoading, error }) {
         </ul>
       ) : (
         <div className={styles.empty_box}>
-          <img src={empty} className={styles.empty_img} />
+          <img src={empty} alt="No Invoices Image" className={styles.empty_img} />
 
           <h4>There is nothing here</h4>
 
