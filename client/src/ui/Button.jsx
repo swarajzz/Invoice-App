@@ -22,6 +22,8 @@ function Button({
     mark: styles.mark,
     cancel: styles.cancel,
     saveChanges: styles.saveChanges,
+    register: styles.register,
+    sendMail: styles.sendMail,
   };
 
   const clickHandlers = {

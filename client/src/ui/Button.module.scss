@@ -101,4 +101,14 @@
   &.saveChanges {
     @extend .save;
   }
+
+  &.register {
+    @extend .save;
+    width: 100%;
+  }
+
+  &.sendMail {
+    @extend .register;
+    margin-top: 20px;
+  }
 }

@@ -15,6 +15,7 @@ import InvoicePage from "./ui/InvoicePage";
 import InvoiceMain from "./features/invoice/InvoiceMain";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
+import Reset from "./features/auth/Reset";
 
 // const AppLayout = lazy(() => import("./ui/AppLayout"));
 // const InvoicePage = lazy(() => import("./ui/InvoicePage"));
@@ -53,6 +54,10 @@ const router = createBrowserRouter([
   {
     path: "/auth/register",
     element: <Register />,
+  },
+  {
+    path: "/auth/reset",
+    element: <Reset />,
   },
 ]);
 
