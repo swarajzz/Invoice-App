@@ -11,8 +11,10 @@ import { DarkModeProvider } from "./context/DarkModeContext";
 // import SpinnerFullPage from "./ui/SpinnerFullPage";
 
 import AppLayout from "./ui/AppLayout";
-import  InvoicePage from "./ui/InvoicePage";
-import  InvoiceMain from "./features/invoice/InvoiceMain";
+import InvoicePage from "./ui/InvoicePage";
+import InvoiceMain from "./features/invoice/InvoiceMain";
+import Login from "./features/auth/Login";
+import Register from "./features/auth/Register";
 
 // const AppLayout = lazy(() => import("./ui/AppLayout"));
 // const InvoicePage = lazy(() => import("./ui/InvoicePage"));
@@ -31,10 +33,6 @@ const router = createBrowserRouter([
     element: <AppLayout />,
     children: [
       {
-        path: "/",
-        element: <Navigate to="/invoices" replace />,
-      },
-      {
         path: "/invoices",
         element: <InvoiceMain />,
       },
@@ -43,6 +41,18 @@ const router = createBrowserRouter([
         element: <InvoicePage />,
       },
     ],
+  },
+  {
+    path: "/",
+    element: <Navigate to="/auth/login" replace />,
+  },
+  {
+    path: "/auth/login",
+    element: <Login />,
+  },
+  {
+    path: "/auth/register",
+    element: <Register />,
   },
 ]);
 
