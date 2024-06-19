@@ -5,19 +5,27 @@ import { useForm } from "react-hook-form";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
 import { Link } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { registerUser } from "../../services/apiAuth";
 
 function Register() {
-  const { register, formState, handleSubmit } = useForm();
+  const { register, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
 
   function onSubmit(data) {
-    console.log(data);
+    mutate(data);
   }
 
-  function onError(data) {
-    console.log(data);
-    console.log(errors);
-  }
+  const { mutate } = useMutation({
+    mutationFn: (newInvoice) => {
+      return registerUser(newInvoice);
+    },
+    onSuccess: () => {
+      toast.success("Successfully Registerd");
+      reset();
+    },
+  });
 
   return (
     <div className={styles.auth_content}>
@@ -28,16 +36,13 @@ function Register() {
           </div>
           <div>Create an account</div>
         </div>
-        <form
-          className={styles.auth_form}
-          onSubmit={handleSubmit(onSubmit, onError)}
-        >
-          <FormRow label={"Full Name"} error={errors?.fullName?.message}>
+        <form className={styles.auth_form} onSubmit={handleSubmit(onSubmit)}>
+          <FormRow label={"User Name"} error={errors?.username?.message}>
             <Input
               type="text"
-              id="fullName"
+              id="username"
               placeholder="whoami"
-              {...register("fullName", {
+              {...register("username", {
                 required: "This field is required",
               })}
               icon={"person-outline"}

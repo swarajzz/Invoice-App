@@ -21,9 +21,10 @@ import userRouter from "./routes/user.routes.js";
 import invoiceRouter from "./routes/invoice.routes.js";
 
 // routes declaration
-app.use("/api/users", userRouter);
+app.use("/api/auth", userRouter);
 app.use("/api/invoice", invoiceRouter);
 
 export { app };
 
+// http:localhost:3000/api/auth
 // http:localhost:3000/api/invoice

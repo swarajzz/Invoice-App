@@ -4,16 +4,29 @@ import FormRow from "../../ui/FormRow";
 import { useForm } from "react-hook-form";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { loginUser } from "../../services/apiAuth";
 
 function Login() {
-  const { register, formState, handleSubmit } = useForm();
-
+  const { register, formState, handleSubmit, reset } = useForm();
+  const navigate = useNavigate();
   const { errors } = formState;
-
-  function onSubmit() {
-    console.log("HEY");
+  function onSubmit(data) {
+    mutate(data);
   }
+
+  const { mutate } = useMutation({
+    mutationFn: (newInvoice) => {
+      return loginUser(newInvoice);
+    },
+    onSuccess: () => {
+      toast.success("Successfully Logged In");
+      navigate("/invoices");
+      reset();
+    },
+  });
 
   return (
     <div className={styles.auth_content}>
@@ -58,7 +71,11 @@ function Login() {
             Login
           </Button>
           <p className={styles.member}>
-            Not a member yet? <Link className={styles.signed} to="/auth/register"> Sign up </Link>
+            Not a member yet?{" "}
+            <Link className={styles.signed} to="/auth/register">
+              {" "}
+              Sign up{" "}
+            </Link>
           </p>
         </form>
       </div>
