@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import InvoiceDetail from "../features/invoice/InvoiceDetail";
-import NotFound from "./Error";
+import Error from "./Error";
 import Spinner from "./Spinner";
 import { getInvoice } from "../services/apiInvoices";
 import { useQuery } from "@tanstack/react-query";
@@ -20,7 +20,7 @@ function InvoicePage() {
 
   if (isLoading) return <Spinner />;
 
-  if (error) return <NotFound />;
+  if (error) return <Error />;
 
   return (
     <>

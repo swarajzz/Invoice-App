@@ -1,12 +1,12 @@
 import InvoiceItem from "./InvoiceItem";
 import styles from "../styles/InvoiceList.module.scss";
 import Spinner from "../../ui/Spinner";
-import NotFound from "../../ui/Error";
+import Error from "../../ui/Error";
 import empty from "../../assets/empty.svg";
 
 function InvoiceList({ toggleFilterValues, invoices, isLoading, error }) {
   if (isLoading) return <Spinner />;
-  if (error) return <NotFound />;
+  if (error) return <Error />;
 
   const newInvoices = invoices.filter((invoice) =>
     toggleFilterValues.includes(invoice.status)
