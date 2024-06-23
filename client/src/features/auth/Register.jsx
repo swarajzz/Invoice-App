@@ -4,7 +4,7 @@ import FormRow from "../../ui/FormRow";
 import { useForm } from "react-hook-form";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { registerUser } from "../../services/apiAuth";
@@ -12,6 +12,7 @@ import { registerUser } from "../../services/apiAuth";
 function Register() {
   const { register, formState, handleSubmit, reset } = useForm();
   const { errors } = formState;
+  const navigate = useNavigate();
 
   function onSubmit(data) {
     mutate(data);
@@ -22,8 +23,12 @@ function Register() {
       return registerUser(newInvoice);
     },
     onSuccess: () => {
-      toast.success("Successfully Registerd");
+      toast.success("User registered successfully");
       reset();
+      navigate("/auth/login");
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
     },
   });
 

@@ -23,8 +23,11 @@ function Login() {
     },
     onSuccess: () => {
       toast.success("Successfully Logged In");
-      navigate("/invoices");
+      // navigate("/invoices");
       reset();
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
     },
   });
 
