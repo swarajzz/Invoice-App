@@ -8,6 +8,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { loginUser } from "../../services/apiAuth";
+import { useDispatch } from "react-redux";
+import { setCredentials } from "./authSlice";
 
 function Login() {
   const { register, formState, handleSubmit, reset } = useForm();
@@ -17,13 +19,18 @@ function Login() {
     mutate(data);
   }
 
+  const dispatch = useDispatch();
+
   const { mutate } = useMutation({
     mutationFn: (newInvoice) => {
       return loginUser(newInvoice);
     },
-    onSuccess: () => {
+    onSuccess: (res) => {
+      const accessToken = res.data.data.accessToken;
+      const user = res.data.data.user._id;
       toast.success("Successfully Logged In");
-      // navigate("/invoices");
+      dispatch(setCredentials({ accessToken, user }));
+      navigate("/invoices");
       reset();
     },
     onError: (err) => {

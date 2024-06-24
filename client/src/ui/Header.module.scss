@@ -112,11 +112,40 @@
 
     .btn {
       cursor: pointer;
+      position: relative;
+
+      .popup {
+        text-align: center;
+        background-color: var(--white-2);
+        color: var(--deep-black);
+        padding: 1rem 0;
+        display: block;
+        position: absolute;
+        min-width: 130px;
+        top: -5px;
+        left: 50px;
+        border-radius: 8px;
+
+        @include respond(tab-land) {
+          left: -100px;
+          top: 30px;
+        }
+
+        &:hover {
+          background-color: var(--light-gray-blue);
+        }
+      }
 
       .avatar {
         width: 32px;
         height: 32px;
         border-radius: 50%;
+        border: 2px solid transparent;
+        transition: all 0.3s;
+
+        &:hover {
+          border: 2px solid var(--dark-purple);
+        }
       }
     }
   }

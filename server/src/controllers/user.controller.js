@@ -62,9 +62,7 @@ const loginUser = asyncHandler(async (req, res) => {
     throw new ApiError(404, "email is required");
   }
 
-  const user = await User.findOne({
-    email,
-  });
+  const user = await User.findOne({ email });
 
   if (!user) {
     throw new ApiError(404, "user does not exist");

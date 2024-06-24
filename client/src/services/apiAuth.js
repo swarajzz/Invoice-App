@@ -5,5 +5,10 @@ export async function registerUser(data) {
 }
 
 export async function loginUser(data) {
-  await axios.post("/api/users/login", data);
+  const res = await axios.post("/api/users/login", data);
+  return res;
+}
+
+export async function logoutUser() {
+  await axios.post("/api/users/logout");
 }
