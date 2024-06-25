@@ -48,6 +48,7 @@ function StatusContainer({ invoice, invoiceId, status }) {
       queryClient.invalidateQueries({
         queryKey: ["invoice", invoiceId],
       });
+      navigate("/invoices")
     },
   });
 

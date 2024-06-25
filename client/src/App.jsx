@@ -1,8 +1,4 @@
-import {
-  Navigate,
-  RouterProvider,
-  createBrowserRouter,
-} from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { Toaster } from "react-hot-toast";
@@ -16,6 +12,10 @@ import InvoiceMain from "./features/invoice/InvoiceMain";
 import Login from "./features/auth/Login";
 import Register from "./features/auth/Register";
 import Reset from "./features/auth/Reset";
+import NotFound from "./ui/NotFound";
+import ProtectedRoute from "./ui/ProtectedRoute";
+import { getCurrentUser } from "./features/auth/authSlice";
+import { useSelector } from "react-redux";
 
 // const AppLayout = lazy(() => import("./ui/AppLayout"));
 // const InvoicePage = lazy(() => import("./ui/InvoicePage"));
@@ -29,46 +29,41 @@ const queryClient = new QueryClient({
   },
 });
 
-const router = createBrowserRouter([
-  {
-    element: <AppLayout />,
-    children: [
-      {
-        path: "/invoices",
-        element: <InvoiceMain />,
-      },
-      {
-        path: "/invoice/:id",
-        element: <InvoicePage />,
-      },
-    ],
-  },
-  {
-    path: "/",
-    element: <Navigate to="/auth/login" replace />,
-  },
-  {
-    path: "/auth/login",
-    element: <Login />,
-  },
-  {
-    path: "/auth/register",
-    element: <Register />,
-  },
-  {
-    path: "/auth/reset",
-    element: <Reset />,
-  },
-]);
-
 function App() {
+  const user = useSelector(getCurrentUser);
+
   return (
     <DarkModeProvider>
       <QueryClientProvider client={queryClient}>
         <ReactQueryDevtools initialIsOpen={false} />
-        {/* <Suspense fallback={<SpinnerFullPage />}> */}
-        <RouterProvider router={router} />
-        {/* </Suspense> */}
+
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Navigate replace to="/auth/login" />} />
+
+            <Route
+              path="/auth/login"
+              element={user ? <Navigate to="/invoices" /> : <Login />}
+            />
+            <Route
+              path="/auth/register"
+              element={user ? <Navigate to="/invoices" /> : <Register />}
+            />
+
+            <Route
+              element={
+                <ProtectedRoute>
+                  <AppLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route path="invoices" element={<InvoiceMain />} />
+              <Route path="invoice/:id" element={<InvoicePage />} />
+            </Route>
+
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </BrowserRouter>
 
         <Toaster
           position="top-center"

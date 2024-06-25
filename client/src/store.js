@@ -1,12 +1,27 @@
 import { combineReducers, createStore } from "redux";
 import formReducer from "./features/invoice/formSlice";
-  import authSlice from "./features/auth/authSlice";
+import authSlice from "./features/auth/authSlice";
+import storage from "redux-persist/lib/storage";
+import { persistStore, persistReducer } from "redux-persist";
+
+const authPersistConfig = {
+  key: "auth",
+  version: 1,
+  storage,
+};
+
+const persistedAuthReducer = persistReducer(
+  authPersistConfig,
+  authSlice
+);
 
 const rootReducer = combineReducers({
   form: formReducer,
-  auth: authSlice,
+  auth: persistedAuthReducer,
 });
 
 const store = createStore(rootReducer);
 
-export default store;
+let persistor = persistStore(store);
+
+export { store, persistor };
