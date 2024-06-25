@@ -12,14 +12,27 @@ const generateRandomPrefix = () => {
 
 const generateCustomId = () => {
   const prefix = generateRandomPrefix();
-  const randomNumber = Math.floor(1000 + Math.random() * 9000); 
+  const randomNumber = Math.floor(1000 + Math.random() * 9000);
   return `${prefix}${randomNumber}`;
 };
 
 const invoiceSchema = new mongoose.Schema(
   {
     id: { type: String, default: generateCustomId, required: true },
-    paymentDue: { type: Date, required: true },
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    paymentDue: {
+      type: Date,
+      default: () => {
+        const today = new Date();
+        today.setDate(today.getDate() + 1);
+        return today;
+      },
+      required: true,
+    },
     description: { type: String, required: true },
     paymentTerms: { type: Number, enum: [1, 7, 14, 30], required: true },
     clientName: { type: String, required: true },

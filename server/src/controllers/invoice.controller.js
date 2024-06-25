@@ -2,19 +2,23 @@ import { Invoice } from "../models/invoice.models.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
+import { User } from "../models/user.models.js";
 
 const getInvoices = asyncHandler(async (req, res) => {
-  const allInvoices = await Invoice.find().select();
+  const invoices = await Invoice.find({ userId: req.user._id });
 
   return res
     .status(201)
-    .json(new ApiResponse(200, allInvoices, "Invoices fetched successfully"));
+    .json(new ApiResponse(200, invoices, "Invoices fetched successfully"));
 });
 
 const getInvoice = asyncHandler(async (req, res) => {
   const invoiceId = req.params.id;
 
-  const selectedInvoice = await Invoice.findOne({ id: invoiceId }).exec();
+  const selectedInvoice = await Invoice.findOne({
+    id: invoiceId,
+    userId: req.user._id,
+  });
 
   return res
     .status(201)
@@ -26,7 +30,7 @@ const getInvoice = asyncHandler(async (req, res) => {
 const deleteInvoice = asyncHandler(async (req, res) => {
   const invoiceId = req.params.id;
 
-  await Invoice.deleteOne({ id: invoiceId });
+  await Invoice.deleteOne({ id: invoiceId, userId: req.user._id });
 
   return res
     .status(201)
@@ -48,6 +52,14 @@ const createInvoice = asyncHandler(async (req, res) => {
     submitButtonName,
   } = req.body;
 
+  const userId = req.user._id;
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    throw new ApiError(404, "User not found");
+  }
+
   if (
     [
       id,
@@ -67,6 +79,7 @@ const createInvoice = asyncHandler(async (req, res) => {
 
   const invoice = await Invoice.create({
     id,
+    userId,
     paymentDue,
     description,
     paymentTerms,
@@ -93,24 +106,20 @@ const updateInvoice = asyncHandler(async (req, res) => {
   // const invoiceId = req.params.id;
   const invoice = req.body;
 
-  const query = { id: invoice.id };
+  const query = { id: invoice.id, userId: req.user._id };
   const updatedInvoice = await Invoice.findOneAndUpdate(query, invoice, {
     new: true,
   });
 
-  return res.status(201).json(
-    new ApiResponse(
-      200,
-      updatedInvoice,
-      "Invoice updated successfully"
-    )
-  );
+  return res
+    .status(201)
+    .json(new ApiResponse(200, updatedInvoice, "Invoice updated successfully"));
 });
 
 const markAsPaidInvoice = asyncHandler(async (req, res) => {
   const invoiceId = req.params.id;
 
-  const query = { id: invoiceId };
+  const query = { id: invoiceId, userId: req.user._id };
   const updatedInvoice = await Invoice.findOneAndUpdate(
     query,
     {

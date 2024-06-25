@@ -11,11 +11,11 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.route("/").post(createInvoice);
+router.route("/").post(verifyJWT, createInvoice);
 router.route("/").get(verifyJWT, getInvoices);
-router.route("/:id").get(getInvoice);
-router.route("/:id").put(markAsPaidInvoice);
-router.route("/").put(updateInvoice);
-router.route("/:id").delete(deleteInvoice);
+router.route("/:id").get(verifyJWT, getInvoice);
+router.route("/:id").put(verifyJWT, markAsPaidInvoice);
+router.route("/").put(verifyJWT, updateInvoice);
+router.route("/:id").delete(verifyJWT, deleteInvoice);
 
 export default router;
