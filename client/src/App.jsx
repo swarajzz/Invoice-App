@@ -14,7 +14,7 @@ import Register from "./features/auth/Register";
 import Reset from "./features/auth/Reset";
 import NotFound from "./ui/NotFound";
 import ProtectedRoute from "./ui/ProtectedRoute";
-import { getCurrentUser } from "./features/auth/authSlice";
+import { getCurrentToken } from "./features/auth/authSlice";
 import { useSelector } from "react-redux";
 
 // const AppLayout = lazy(() => import("./ui/AppLayout"));
@@ -30,7 +30,7 @@ const queryClient = new QueryClient({
 });
 
 function App() {
-  const user = useSelector(getCurrentUser);
+  const token = useSelector(getCurrentToken);
 
   return (
     <DarkModeProvider>
@@ -43,11 +43,15 @@ function App() {
 
             <Route
               path="/auth/login"
-              element={user ? <Navigate to="/invoices" /> : <Login />}
+              element={token ? <Navigate to="/invoices" /> : <Login />}
             />
             <Route
               path="/auth/register"
-              element={user ? <Navigate to="/invoices" /> : <Register />}
+              element={token ? <Navigate to="/invoices" /> : <Register />}
+            />
+            <Route
+              path="/auth/reset"
+              element={token ? <Navigate to="/invoices" /> : <Reset />}
             />
 
             <Route

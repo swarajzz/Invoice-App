@@ -4,15 +4,34 @@ import FormRow from "../../ui/FormRow";
 import { useForm } from "react-hook-form";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
+import { useMutation } from "@tanstack/react-query";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
+import { resetUser } from "../../services/apiAuth";
 
 function Reset() {
-  const { register, formState, handleSubmit } = useForm();
+  const { register, formState, handleSubmit, reset, watch } = useForm();
+  const navigate = useNavigate();
 
   const { errors } = formState;
 
-  function onSubmit() {
-    console.log("HEY");
+  function onSubmit(data) {
+    mutate(data);
   }
+
+  const { mutate } = useMutation({
+    mutationFn: (data) => {
+      return resetUser(data);
+    },
+    onSuccess: () => {
+      toast.success("Successfully Updated");
+      navigate("/auth/login");
+      reset();
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
+    },
+  });
 
   return (
     <div className={styles.auth_content}>
@@ -35,9 +54,50 @@ function Reset() {
               icon={"mail-outline"}
             />
           </FormRow>
+          <FormRow label={"New Password"} error={errors?.newPassword?.message}>
+            <Input
+              type="password"
+              placeholder=""
+              id="newPassword"
+              {...register("newPassword", {
+                required: "This field is required",
+                minLength: {
+                  value: 6,
+                  message: "min length is 5",
+                },
+              })}
+              icon={"lock-closed-outline"}
+            />
+          </FormRow>
+          <FormRow
+            label={"Confirm Password"}
+            error={errors?.confirmPassword?.message}
+          >
+            <Input
+              type="password"
+              placeholder=""
+              id="confirmPassword"
+              {...register("confirmPassword", {
+                required: "This field is required",
+                validate: (val) => {
+                  if (watch("newPassword") != val) {
+                    return "Your passwords do no match";
+                  }
+                },
+              })}
+              icon={"lock-closed-outline"}
+            />
+          </FormRow>
           <Button type="submit" name="sendMail">
-            Send Email
+            Reset Password
           </Button>
+          <p className={styles.member}>
+            Back to login?{" "}
+            <Link className={styles.signed} to="/auth/login">
+              {" "}
+              Sign in{" "}
+            </Link>
+          </p>
         </form>
       </div>
     </div>

@@ -13,6 +13,10 @@ export async function logoutUser() {
   await axios.post("/api/users/logout");
 }
 
+export async function resetUser(data) {
+  await axios.post("/api/users/reset", data);
+}
+
 export async function refreshAccessToken() {
   await axios.post("/api/users/refresh-token");
 }

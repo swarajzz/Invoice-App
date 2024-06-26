@@ -125,6 +125,33 @@ const logoutUser = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, {}, "User logged out"));
 });
 
+const resetUser = asyncHandler(async (req, res) => {
+  const { email, newPassword, confirmPassword } = req.body;
+
+  if (
+    [email, newPassword, confirmPassword].some((field) => field?.trim() === "")
+  ) {
+    throw new ApiError(400, "All fields are required");
+  }
+
+  if (newPassword !== confirmPassword) {
+    throw new ApiError(404, "Passwords do not match");
+  }
+
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new ApiError(404, "user does not exist");
+  }
+  console.log(user)
+
+  user.password = newPassword;
+  await user.save(); 
+
+  return res
+    .status(201)
+    .json(new ApiResponse(200, {}, "Password updated successfully"));
+});
+
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const incomingRefreshToken = req.cookies.refreshToken || req.body.rereshToken;
 
@@ -153,8 +180,9 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
       secure: true,
     };
 
-    const { accessToken, refreshToken } =
-      await generateAccessAndRefreshTokens(user._id);
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(
+      user._id
+    );
 
     return res
       .status(200)
@@ -172,4 +200,4 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser, logoutUser, refreshAccessToken };
+export { registerUser, loginUser, logoutUser, resetUser, refreshAccessToken };

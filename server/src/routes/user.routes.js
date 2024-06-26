@@ -4,12 +4,14 @@ import {
   logoutUser,
   refreshAccessToken,
   registerUser,
+  resetUser,
 } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 const router = Router();
 
 router.route("/login").post(loginUser);
 router.route("/register").post(registerUser);
+router.route("/reset").post(resetUser);
 
 // secured routes
 router.route("/logout").post(verifyJWT, logoutUser);
