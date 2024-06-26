@@ -12,3 +12,7 @@ export async function loginUser(data) {
 export async function logoutUser() {
   await axios.post("/api/users/logout");
 }
+
+export async function refreshAccessToken() {
+  await axios.post("/api/users/refresh-token");
+}

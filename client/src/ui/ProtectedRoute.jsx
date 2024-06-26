@@ -5,11 +5,13 @@ import { getCurrentToken } from "../features/auth/authSlice";
 
 function ProtectedRoute({ children }) {
   const isAuthenticated = useSelector(getCurrentToken);
-  const navigate = useNavigate();
 
+  const navigate = useNavigate();
   useEffect(
     function () {
-      if (!isAuthenticated) navigate("/auth/login");
+      if (!isAuthenticated) {
+        navigate("/auth/login");
+      }
     },
     [isAuthenticated, navigate]
   );
