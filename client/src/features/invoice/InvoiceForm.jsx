@@ -70,10 +70,18 @@ function InvoiceForm({ isOpen, action, invoice }) {
         }
       : invoice;
 
-  const { register, handleSubmit, formState, watch, setValue, control, reset } =
-    useForm({
-      defaultValues: initialValues,
-    });
+  const {
+    register,
+    handleSubmit,
+    formState,
+    watch,
+    setValue,
+    control,
+    reset,
+    getValues,
+  } = useForm({
+    defaultValues: initialValues,
+  });
   const { errors } = formState;
 
   useEffect(() => {
@@ -95,15 +103,18 @@ function InvoiceForm({ isOpen, action, invoice }) {
       reset();
       dispatch(toggleIsOpen());
     },
+    onError: (err) => {
+      console.log(err);
+    },
   });
 
   const { mutate: updateInvoiceFxn } = useMutation({
-    mutationFn: ([newInvoice, submitBtnName]) => {
-      return updateInvoice(newInvoice, submitBtnName);
+    mutationFn: (updatedInvoice) => {
+      console.log("hey", updatedInvoice);
+      return updateInvoice(updatedInvoice);
     },
     onSuccess: () => {
       toast.success("Invoice successfully updated");
-      // queryClient.invalidateQueries({ queryKey: ["invoices"] });
       queryClient.invalidateQueries({
         queryKey: ["invoice", invoice.id],
       });
@@ -121,6 +132,15 @@ function InvoiceForm({ isOpen, action, invoice }) {
     setToggleDropdown(false);
   }
 
+  function handleDraftClick() {
+    const data = getValues();
+    createInvoiceFxn({
+      ...data,
+      paymentTerms: netTerm,
+      submitBtnName: "draft",
+    });
+  }
+
   function handleOptionChange(value) {
     setNetTerm(value);
     setToggleDropdown(false);
@@ -128,15 +148,15 @@ function InvoiceForm({ isOpen, action, invoice }) {
     setValue("paymentDue", getPaymentDueDate(value));
   }
 
-  // function handleTermDropdownClick(e) {
-  //   setToggleDropdown((prev) => !prev);
-  // }
-
   function onSubmit(data, e) {
     const submitBtnName = e.nativeEvent.submitter.name;
     submitBtnName === "saveChanges"
-      ? updateInvoiceFxn([{ ...data, paymentTerms: netTerm }, submitBtnName])
-      : createInvoiceFxn({ ...data, paymentTerms: netTerm, submitBtnName });
+      ? updateInvoiceFxn({ ...data, paymentTerms: netTerm })
+      : createInvoiceFxn({
+          ...data,
+          paymentTerms: netTerm,
+          submitBtnName,
+        });
   }
 
   return (
@@ -419,12 +439,7 @@ function InvoiceForm({ isOpen, action, invoice }) {
             )}
             <div>
               {action === "new" ? (
-                <Button
-                  type="button"
-                  name="draft"
-                  formonvalidate="formnovalidate"
-                  // value="draft"
-                >
+                <Button type="button" name="draft" onClick={handleDraftClick}>
                   Save as draft
                 </Button>
               ) : (

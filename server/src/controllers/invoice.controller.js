@@ -39,7 +39,6 @@ const deleteInvoice = asyncHandler(async (req, res) => {
 
 const createInvoice = asyncHandler(async (req, res) => {
   const {
-    id,
     paymentDue,
     description,
     paymentTerms,
@@ -49,7 +48,7 @@ const createInvoice = asyncHandler(async (req, res) => {
     clientAddress,
     items,
     total,
-    submitButtonName,
+    submitBtnName,
   } = req.body;
 
   const userId = req.user._id;
@@ -60,25 +59,7 @@ const createInvoice = asyncHandler(async (req, res) => {
     throw new ApiError(404, "User not found");
   }
 
-  if (
-    [
-      id,
-      paymentDue,
-      description,
-      paymentTerms,
-      clientName,
-      clientEmail,
-      senderAddress,
-      clientAddress,
-      items,
-      total,
-    ].some((field) => field?.trim === "")
-  ) {
-    throw new ApiError(400, "All fields are required");
-  }
-
-  const invoice = await Invoice.create({
-    id,
+  let invoiceData = {
     userId,
     paymentDue,
     description,
@@ -89,13 +70,20 @@ const createInvoice = asyncHandler(async (req, res) => {
     clientAddress,
     items,
     total,
-    status: submitButtonName,
-  });
+    status: submitBtnName === "draft" ? "draft" : "pending",
+  };
+
+  const invoice = new Invoice(invoiceData);
+
+  if (submitBtnName === "draft") {
+    await invoice.save({ validateBeforeSave: false });
+  } else {
+    await invoice.save();
+  }
 
   const createdInvoice = await Invoice.findById(invoice._id).select(
     "+id +status"
   );
-  // console.log(createInvoice)
 
   return res
     .status(201)
@@ -103,9 +91,8 @@ const createInvoice = asyncHandler(async (req, res) => {
 });
 
 const updateInvoice = asyncHandler(async (req, res) => {
-  // const invoiceId = req.params.id;
   const invoice = req.body;
-
+  invoice.status = "pending";
   const query = { id: invoice.id, userId: req.user._id };
   const updatedInvoice = await Invoice.findOneAndUpdate(query, invoice, {
     new: true,
