@@ -23,7 +23,7 @@ function InvoiceItem({ invoice }) {
             <span>#</span>
             {id}
           </p>
-          <p className={styles.date}>Due {formatDate(new Date(paymentDue))}</p>
+          <p className={styles.date}>Due {formatDate(paymentDue)}</p>
           {isMobile ? <p className={styles.amount}>£ {total}</p> : null}
         </div>
 

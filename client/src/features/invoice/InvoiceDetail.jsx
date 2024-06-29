@@ -58,16 +58,12 @@ function InvoiceDetail({ invoice }) {
           <div className={styles.dateBox}>
             <div className={styles.invoiceDateBox}>
               <p>Invoice Date</p>
-              <h4 className={styles.invoiceDate}>
-                {formatDate(new Date(createdAt))}
-              </h4>
+              <h4 className={styles.invoiceDate}>{formatDate(createdAt)}</h4>
             </div>
 
             <div className={styles.dueBox}>
               <p>Payment Due</p>
-              <h4 className={styles.dueDate}>
-                {formatDate(new Date(paymentDue))}
-              </h4>
+              <h4 className={styles.dueDate}>{formatDate(paymentDue)}</h4>
             </div>
           </div>
 

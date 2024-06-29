@@ -1,10 +1,9 @@
+import { parseISO, format } from "date-fns";
+
 export const formatDate = (date) => {
-  const options = { month: "short" };
-  const month = new Intl.DateTimeFormat("en-US", options).format(date);
+  const parsedDate = parseISO(date);
+  const formattedDate = format(parsedDate, "dd MMM yyyy");
 
-  const day = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
-
-  const formattedDate = day + " " + month + " " + date.getFullYear();
   return formattedDate;
 };
 

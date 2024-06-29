@@ -4,8 +4,8 @@ import { useEffect } from "react";
 import Input from "../../ui/Input";
 
 function FormListItem({ register, errors, watch, remove, setValue, index }) {
-  const quantity = watch(`items[${index}].quantity`);
-  const price = watch(`items[${index}].price`);
+  const quantity = watch(`items[${index}].quantity`, 1);
+  const price = watch(`items[${index}].price`, 0);
   const total = watch(`items[${index}].total`);
 
   const items = watch("items");
@@ -13,12 +13,14 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
   useEffect(() => {
     const overallTotal = items.reduce((acc, item) => acc + item.total, 0);
     setValue("total", overallTotal);
-  }, [items, setValue, total]);
+  }, [total]);
 
   useEffect(() => {
-    let value = quantity * price;
-    setValue(`items[${index}].total`, parseFloat(value).toFixed(2));
-  }, [quantity, price, index, setValue]);
+    console.log(quantity, price);
+    let value = parseFloat((quantity * price).toFixed(2));
+    console.log(value);
+    setValue(`items[${index}].total`, value);
+  }, [quantity, price]);
 
   return (
     <li className={styles.listItem}>
@@ -46,7 +48,6 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
             valueAsNumber: true,
             min: 1,
             onChange: (e) => {
-              // setQuantity(+e.target.value);
               setValue(`items[${index}].quantity`, +e.target.value);
             },
           })}
@@ -58,17 +59,12 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
           id={`price-${index}`}
           min={0}
           step={0.01}
-          // defaultValue={0.00}
           {...register(`items[${index}].price`, {
             required: "This field is required",
             valueAsNumber: true,
             min: 0,
             onChange: (e) => {
-              // setPrice(+e.target.value);
-              setValue(
-                `items[${index}].price`,
-                parseFloat(+e.target.value).toFixed(2)
-              );
+              setValue(`items[${index}].price`, +e.target.value);
             },
           })}
         />
@@ -78,7 +74,6 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
           className={styles.total}
           type="number"
           id={`total-${index}`}
-          value={total}
           step={0.01}
           readOnly
           {...register(`items[${index}].total`, {

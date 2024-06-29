@@ -22,8 +22,8 @@ function Login() {
   const dispatch = useDispatch();
 
   const { mutate } = useMutation({
-    mutationFn: (newInvoice) => {
-      return loginUser(newInvoice);
+    mutationFn: (data) => {
+      return loginUser(data);
     },
     onSuccess: (res) => {
       const accessToken = res.data.data.accessToken;

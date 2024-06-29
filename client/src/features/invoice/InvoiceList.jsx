@@ -8,13 +8,13 @@ function InvoiceList({ toggleFilterValues, invoices, isLoading, error }) {
   if (isLoading) return <Spinner />;
   if (error) return <Error />;
 
-  const newInvoices = invoices.filter((invoice) =>
+  const newInvoices = invoices?.filter((invoice) =>
     toggleFilterValues.includes(invoice.status)
   );
 
   return (
     <>
-      {invoices.length ? (
+      {invoices?.length ? (
         <ul className={styles.invoiceList}>
           {(toggleFilterValues.length ? newInvoices : invoices).map(
             (invoice) => (

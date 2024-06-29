@@ -33,9 +33,9 @@ function Header() {
       return logoutUser();
     },
     onSuccess: () => {
+      toggleDarkMode(false);
       toast.success("Successfully Logged Out");
       dispatch(logout());
-      toggleDarkMode(false);
       navigate("/auth/login");
     },
     onError: (err) => {

@@ -23,11 +23,11 @@ function InvoiceReceipt({ items }) {
 
           <tbody>
             {items.map((item) => (
-              <tr key={item.name}>
+              <tr key={item._id}>
                 <td className={styles.itemName}>{item.name}</td>
                 <td>{item.quantity}</td>
-                <td>$ {item.price}</td>
-                <td className={styles.total}>$ {item.quantity * item.price}</td>
+                <td>$ {item.price.toFixed(2)}</td>
+                <td className={styles.total}>$ {parseFloat(item.total).toFixed(2)}</td>
               </tr>
             ))}
           </tbody>
@@ -37,11 +37,15 @@ function InvoiceReceipt({ items }) {
             <div className={styles.phoneItems} key={item._id}>
               <div>
                 <p className={styles.itemName}>{item.name}</p>
-                <p className={styles.quantity}>1 x $ {item.price}</p>
+                <p className={styles.quantity}>
+                  1 x $ {item.price.toFixed(2)}
+                </p>
               </div>
 
               <div>
-                <p className={styles.itemName}>$ {item.total}</p>
+                <p className={styles.itemName}>
+                  $ {item.total.toFixed(2)}
+                </p>
               </div>
             </div>
           ))}
@@ -50,7 +54,9 @@ function InvoiceReceipt({ items }) {
 
       <div className={styles.total_container}>
         <p>Grand Total</p>
-        <p className={styles.totalValue}>${totalPrice}</p>
+        <p className={styles.totalValue}>
+          ${totalPrice.toFixed(2)}
+        </p>
       </div>
     </div>
   );

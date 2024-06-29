@@ -19,8 +19,8 @@ function Register() {
   }
 
   const { mutate } = useMutation({
-    mutationFn: (newInvoice) => {
-      return registerUser(newInvoice);
+    mutationFn: (data) => {
+      return registerUser(data);
     },
     onSuccess: () => {
       toast.success("User registered successfully");
