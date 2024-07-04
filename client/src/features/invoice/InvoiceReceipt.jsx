@@ -6,8 +6,6 @@ function InvoiceReceipt({ items }) {
     0
   );
 
-  console.log(items)
-
   return (
     <div className={styles.receipt_container}>
       <div className={styles.wrapper}>
@@ -27,7 +25,9 @@ function InvoiceReceipt({ items }) {
                 <td className={styles.itemName}>{item.name}</td>
                 <td>{item.quantity}</td>
                 <td>$ {item.price.toFixed(2)}</td>
-                <td className={styles.total}>$ {parseFloat(item.total).toFixed(2)}</td>
+                <td className={styles.total}>
+                  $ {parseFloat(item.total).toFixed(2)}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -37,15 +37,11 @@ function InvoiceReceipt({ items }) {
             <div className={styles.phoneItems} key={item._id}>
               <div>
                 <p className={styles.itemName}>{item.name}</p>
-                <p className={styles.quantity}>
-                  1 x $ {item.price.toFixed(2)}
-                </p>
+                <p className={styles.quantity}>1 x $ {item.price.toFixed(2)}</p>
               </div>
 
               <div>
-                <p className={styles.itemName}>
-                  $ {item.total.toFixed(2)}
-                </p>
+                <p className={styles.itemName}>$ {item.total.toFixed(2)}</p>
               </div>
             </div>
           ))}
@@ -54,9 +50,7 @@ function InvoiceReceipt({ items }) {
 
       <div className={styles.total_container}>
         <p>Grand Total</p>
-        <p className={styles.totalValue}>
-          ${totalPrice.toFixed(2)}
-        </p>
+        <p className={styles.totalValue}>${totalPrice.toFixed(2)}</p>
       </div>
     </div>
   );

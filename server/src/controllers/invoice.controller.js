@@ -39,6 +39,7 @@ const deleteInvoice = asyncHandler(async (req, res) => {
 
 const createInvoice = asyncHandler(async (req, res) => {
   const {
+    id,
     paymentDue,
     description,
     paymentTerms,
@@ -49,6 +50,7 @@ const createInvoice = asyncHandler(async (req, res) => {
     items,
     total,
     submitBtnName,
+    status,
   } = req.body;
 
   const userId = req.user._id;
@@ -60,6 +62,7 @@ const createInvoice = asyncHandler(async (req, res) => {
   }
 
   let invoiceData = {
+    id,
     userId,
     paymentDue,
     description,
@@ -70,12 +73,17 @@ const createInvoice = asyncHandler(async (req, res) => {
     clientAddress,
     items,
     total,
-    status: submitBtnName === "draft" ? "draft" : "pending",
+    // status: submitBtnName === "draft" ? "draft" : "pending",
+    status: submitBtnName
+      ? submitBtnName === "draft"
+        ? "draft"
+        : "pending"
+      : status,
   };
 
   const invoice = new Invoice(invoiceData);
 
-  if (submitBtnName === "draft") {
+  if (submitBtnName === "draft" || status === "draft") {
     await invoice.save({ validateBeforeSave: false });
   } else {
     await invoice.save();

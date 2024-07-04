@@ -104,7 +104,7 @@ function InvoiceForm({ isOpen, action, invoice }) {
       dispatch(toggleIsOpen());
     },
     onError: (err) => {
-      console.log(err);
+      toast.error(err.response.data.message);
     },
   });
 
@@ -120,6 +120,9 @@ function InvoiceForm({ isOpen, action, invoice }) {
       });
       reset();
       dispatch(toggleIsOpen());
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
     },
   });
 

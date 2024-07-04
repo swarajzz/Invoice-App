@@ -6,7 +6,7 @@ import avatar from "../assets/image-avatar.jpg";
 import styles from "./Header.module.scss";
 import { useDarkMode } from "../context/DarkModeContext";
 import { useState } from "react";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { logout } from "../features/auth/authSlice";
 import { useDispatch } from "react-redux";
@@ -17,6 +17,7 @@ function Header() {
   const { isDarkMode, toggleDarkMode, resetDarkMode } = useDarkMode();
   const [popup, setPopup] = useState(false);
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const dispatch = useDispatch();
 
@@ -35,6 +36,7 @@ function Header() {
     onSuccess: () => {
       resetDarkMode();
       toast.success("Successfully Logged Out");
+      queryClient.removeQueries();
       dispatch(logout());
       navigate("/auth/login");
     },

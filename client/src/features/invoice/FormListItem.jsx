@@ -16,9 +16,7 @@ function FormListItem({ register, errors, watch, remove, setValue, index }) {
   }, [total]);
 
   useEffect(() => {
-    console.log(quantity, price);
     let value = parseFloat((quantity * price).toFixed(2));
-    console.log(value);
     setValue(`items[${index}].total`, value);
   }, [quantity, price]);
 

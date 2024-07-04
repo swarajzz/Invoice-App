@@ -85,6 +85,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const options = {
     httpOnly: true,
     secure: true,
+    sameSite: 'None',
   };
 
   return res
@@ -142,10 +143,10 @@ const resetUser = asyncHandler(async (req, res) => {
   if (!user) {
     throw new ApiError(404, "user does not exist");
   }
-  console.log(user)
+  console.log(user);
 
   user.password = newPassword;
-  await user.save(); 
+  await user.save();
 
   return res
     .status(201)

@@ -34,6 +34,9 @@ function StatusContainer({ invoice, invoiceId, status }) {
         queryKey: ["invoice", invoiceId],
       });
     },
+    onError: (err) => {
+      toast.error(err.response.data.message);
+    },
   });
 
   const { mutate: deleteInv } = useMutation({
@@ -48,7 +51,10 @@ function StatusContainer({ invoice, invoiceId, status }) {
       queryClient.invalidateQueries({
         queryKey: ["invoice", invoiceId],
       });
-      navigate("/invoices")
+      navigate("/invoices");
+    },
+    onError: (err) => {
+      toast.error(err.response.data.message);
     },
   });
 
