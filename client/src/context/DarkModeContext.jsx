@@ -20,8 +20,14 @@ function DarkModeProvider({ children }) {
     setIsDarkMode((isDark) => !isDark);
   }
 
+  function resetDarkMode() {
+    setIsDarkMode(false);
+  }
+
   return (
-    <DarkModeContext.Provider value={{ isDarkMode, toggleDarkMode }}>
+    <DarkModeContext.Provider
+      value={{ isDarkMode, toggleDarkMode, resetDarkMode }}
+    >
       {children}
     </DarkModeContext.Provider>
   );

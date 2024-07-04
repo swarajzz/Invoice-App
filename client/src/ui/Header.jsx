@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { logoutUser } from "../services/apiAuth";
 
 function Header() {
-  const { isDarkMode, toggleDarkMode } = useDarkMode();
+  const { isDarkMode, toggleDarkMode, resetDarkMode } = useDarkMode();
   const [popup, setPopup] = useState(false);
   const navigate = useNavigate();
 
@@ -33,7 +33,7 @@ function Header() {
       return logoutUser();
     },
     onSuccess: () => {
-      toggleDarkMode(false);
+      resetDarkMode();
       toast.success("Successfully Logged Out");
       dispatch(logout());
       navigate("/auth/login");
