@@ -10,9 +10,11 @@ import toast from "react-hot-toast";
 import { loginUser } from "../../services/apiAuth";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
+import ShowHidePassword from "../../ui/ShowHidePassword";
 
 function Login() {
   const { register, formState, handleSubmit, reset } = useForm();
+
   const navigate = useNavigate();
   const { errors } = formState;
   function onSubmit(data) {
@@ -52,7 +54,7 @@ function Login() {
             <Input
               type="email"
               id="email"
-              placeholder="abc@gmail.com"
+              placeholder="demo@gmail.com"
               {...register("email", {
                 required: "This field is required",
               })}
@@ -60,18 +62,17 @@ function Login() {
             />
           </FormRow>
           <FormRow label={"Password"} error={errors?.password?.message}>
-            <Input
-              type="password"
-              placeholder=""
+            <ShowHidePassword
               id="password"
-              {...register("password", {
+              register={register}
+              placeholder="demo123"
+              validationRules={{
                 required: "This field is required",
                 minLength: {
                   value: 6,
-                  message: "min length is 5",
+                  message: "min length is 6",
                 },
-              })}
-              icon={"lock-closed-outline"}
+              }}
             />
           </FormRow>
           <Link to="/auth/reset" className={styles.forgot}>

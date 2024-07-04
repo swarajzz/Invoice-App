@@ -4,10 +4,11 @@ import FormRow from "../../ui/FormRow";
 import { useForm } from "react-hook-form";
 import Input from "../../ui/Input";
 import Button from "../../ui/Button";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { registerUser } from "../../services/apiAuth";
+import ShowHidePassword from "../../ui/ShowHidePassword";
 
 function Register() {
   const { register, formState, handleSubmit, reset } = useForm();
@@ -64,18 +65,17 @@ function Register() {
               icon={"mail-outline"}
             />
           </FormRow>
-          <FormRow label={"Password"} error={errors?.password?.message}>
-            <Input
-              type="password"
-              id="password"
-              {...register("password", {
+          <FormRow label={"Password"} error={errors?.createPassword?.message}>
+            <ShowHidePassword
+              id="createPassword"
+              register={register}
+              validationRules={{
                 required: "This field is required",
                 minLength: {
                   value: 6,
-                  message: "min length is 5",
+                  message: "min length is 6",
                 },
-              })}
-              icon={"lock-closed-outline"}
+              }}
             />
           </FormRow>
           <Button type="submit" name="register">

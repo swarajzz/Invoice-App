@@ -11,8 +11,12 @@
   position: absolute;
   right: 10px;
 
-  & > :first-child {
-    height: 15px;
-    width: 15px;
+  ion-icon {
+    height: 18px;
+    width: 18px;
+
+    &.pointer {
+      cursor: pointer;
+    }
   }
 }

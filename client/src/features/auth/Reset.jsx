@@ -8,14 +8,21 @@ import { useMutation } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { resetUser } from "../../services/apiAuth";
+import ShowHidePassword from "../../ui/ShowHidePassword";
 
 function Reset() {
   const { register, formState, handleSubmit, reset, watch } = useForm();
+
   const navigate = useNavigate();
 
   const { errors } = formState;
 
   function onSubmit(data) {
+    const { email } = data;
+    if (email === "demo@gmail.com") {
+      toast.error("You are not authorized to reset the demo password");
+      return;
+    }
     mutate(data);
   }
 
@@ -55,37 +62,34 @@ function Reset() {
             />
           </FormRow>
           <FormRow label={"New Password"} error={errors?.newPassword?.message}>
-            <Input
-              type="password"
-              placeholder=""
+            <ShowHidePassword
               id="newPassword"
-              {...register("newPassword", {
+              register={register}
+              // placeholder="demo123"
+              validationRules={{
                 required: "This field is required",
                 minLength: {
                   value: 6,
                   message: "min length is 5",
                 },
-              })}
-              icon={"lock-closed-outline"}
+              }}
             />
           </FormRow>
           <FormRow
             label={"Confirm Password"}
             error={errors?.confirmPassword?.message}
           >
-            <Input
-              type="password"
-              placeholder=""
+            <ShowHidePassword
               id="confirmPassword"
-              {...register("confirmPassword", {
+              register={register}
+              validationRules={{
                 required: "This field is required",
                 validate: (val) => {
                   if (watch("newPassword") != val) {
                     return "Your passwords do no match";
                   }
                 },
-              })}
-              icon={"lock-closed-outline"}
+              }}
             />
           </FormRow>
           <Button type="submit" name="sendMail">
