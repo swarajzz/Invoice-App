@@ -23,7 +23,7 @@ function Login() {
 
   const dispatch = useDispatch();
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (data) => {
       return loginUser(data);
     },
@@ -78,7 +78,7 @@ function Login() {
           <Link to="/auth/reset" className={styles.forgot}>
             Forgot password
           </Link>
-          <Button type="submit" name="register">
+          <Button type="submit" name="register" isPending={isPending}>
             Login
           </Button>
           <p className={styles.member}>

@@ -21,7 +21,7 @@ function StatusContainer({ invoice, invoiceId, status }) {
 
   const queryClient = useQueryClient();
 
-  const { mutate: markAsPaid } = useMutation({
+  const { mutate: markAsPaid, isPending } = useMutation({
     mutationFn: (invoiceId) => {
       return markAsPaidInvoice(invoiceId);
     },
@@ -38,6 +38,8 @@ function StatusContainer({ invoice, invoiceId, status }) {
       toast.error(err.response.data.message);
     },
   });
+
+  console.log(isPending);
 
   const { mutate: deleteInv } = useMutation({
     mutationFn: (invoiceId) => {
@@ -103,7 +105,12 @@ function StatusContainer({ invoice, invoiceId, status }) {
           Delete
         </Button>
         {status === "pending" && (
-          <Button onClick={handleMarkPaidReq} type="button" name="mark">
+          <Button
+            onClick={handleMarkPaidReq}
+            type="button"
+            name="mark"
+            isPending={isPending}
+          >
             Mark as Paid{" "}
           </Button>
         )}

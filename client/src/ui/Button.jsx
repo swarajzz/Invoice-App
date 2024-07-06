@@ -10,6 +10,7 @@ function Button({
   handleSaveClick,
   handleCancelClick,
   onClick,
+  isPending,
 }) {
   const buttonNames = {
     new: styles.new,
@@ -39,6 +40,7 @@ function Button({
     <button
       type={type}
       name={name}
+      disabled={isPending}
       onClick={handleClick}
       className={`${styles.button} ${buttonNames[name]}`}
       formNoValidate={formonvalidate}

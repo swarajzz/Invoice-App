@@ -21,6 +21,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createInvoice, updateInvoice } from "../../services/apiInvoices";
 import { useDispatch } from "react-redux";
 import { toggleIsOpen } from "./formSlice";
+import { isPending } from "@reduxjs/toolkit";
 
 function InvoiceForm({ isOpen, action, invoice }) {
   let something = false;
@@ -93,38 +94,40 @@ function InvoiceForm({ isOpen, action, invoice }) {
     name: "items",
   });
 
-  const { mutate: createInvoiceFxn } = useMutation({
-    mutationFn: (newInvoice) => {
-      return createInvoice(newInvoice);
-    },
-    onSuccess: () => {
-      toast.success("Invoice successfully created");
-      queryClient.invalidateQueries({ queryKey: ["invoices"] });
-      reset();
-      dispatch(toggleIsOpen());
-    },
-    onError: (err) => {
-      toast.error(err.response.data.message);
-    },
-  });
+  const { mutate: createInvoiceFxn, isPending: createInvoicePending } =
+    useMutation({
+      mutationFn: (newInvoice) => {
+        return createInvoice(newInvoice);
+      },
+      onSuccess: () => {
+        toast.success("Invoice successfully created");
+        queryClient.invalidateQueries({ queryKey: ["invoices"] });
+        reset();
+        dispatch(toggleIsOpen());
+      },
+      onError: (err) => {
+        toast.error(err.response.data.message);
+      },
+    });
 
-  const { mutate: updateInvoiceFxn } = useMutation({
-    mutationFn: (updatedInvoice) => {
-      console.log("hey", updatedInvoice);
-      return updateInvoice(updatedInvoice);
-    },
-    onSuccess: () => {
-      toast.success("Invoice successfully updated");
-      queryClient.invalidateQueries({
-        queryKey: ["invoice", invoice.id],
-      });
-      reset();
-      dispatch(toggleIsOpen());
-    },
-    onError: (err) => {
-      toast.error(err.response.data.message);
-    },
-  });
+  const { mutate: updateInvoiceFxn, isPending: updateInvoicePending } =
+    useMutation({
+      mutationFn: (updatedInvoice) => {
+        console.log("hey", updatedInvoice);
+        return updateInvoice(updatedInvoice);
+      },
+      onSuccess: () => {
+        toast.success("Invoice successfully updated");
+        queryClient.invalidateQueries({
+          queryKey: ["invoice", invoice.id],
+        });
+        reset();
+        dispatch(toggleIsOpen());
+      },
+      onError: (err) => {
+        toast.error(err.response.data.message);
+      },
+    });
 
   function handleOverlayClick() {
     something = true;
@@ -442,7 +445,12 @@ function InvoiceForm({ isOpen, action, invoice }) {
             )}
             <div>
               {action === "new" ? (
-                <Button type="button" name="draft" onClick={handleDraftClick}>
+                <Button
+                  type="button"
+                  name="draft"
+                  onClick={handleDraftClick}
+                  isPending={createInvoicePending}
+                >
                   Save as draft
                 </Button>
               ) : (
@@ -457,11 +465,19 @@ function InvoiceForm({ isOpen, action, invoice }) {
               )}
 
               {action === "new" ? (
-                <Button type="submit" name="save">
+                <Button
+                  type="submit"
+                  name="save"
+                  isPending={createInvoicePending}
+                >
                   Save & Send
                 </Button>
               ) : (
-                <Button type="submit" name="saveChanges">
+                <Button
+                  type="submit"
+                  name="saveChanges"
+                  isPending={updateInvoicePending}
+                >
                   Save Changes
                 </Button>
               )}

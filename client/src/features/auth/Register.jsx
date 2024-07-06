@@ -19,7 +19,7 @@ function Register() {
     mutate(data);
   }
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (data) => {
       return registerUser(data);
     },
@@ -78,7 +78,7 @@ function Register() {
               }}
             />
           </FormRow>
-          <Button type="submit" name="register">
+          <Button type="submit" name="register" isPending={isPending}>
             Register
           </Button>
           <p className={styles.member}>

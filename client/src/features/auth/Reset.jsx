@@ -26,7 +26,7 @@ function Reset() {
     mutate(data);
   }
 
-  const { mutate } = useMutation({
+  const { mutate, isPending } = useMutation({
     mutationFn: (data) => {
       return resetUser(data);
     },
@@ -92,7 +92,7 @@ function Reset() {
               }}
             />
           </FormRow>
-          <Button type="submit" name="sendMail">
+          <Button type="submit" name="sendMail" isPending={isPending}>
             Reset Password
           </Button>
           <p className={styles.member}>
