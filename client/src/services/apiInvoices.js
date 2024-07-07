@@ -18,7 +18,7 @@ createAuthRefreshInterceptor(apiClient, refreshAuth, {
 });
 
 export async function getInvoices() {
-  const res = await axiosInstance.get(`${API_BASE_URL}/api/invoice`);
+  const res = await apiClient.get(`${API_BASE_URL}/api/invoice`);
   const { data: invoices } = res.data;
   return invoices;
 }
