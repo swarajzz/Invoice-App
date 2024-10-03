@@ -111,4 +111,12 @@
     @extend .register;
     margin-top: 20px;
   }
+
+  &:disabled,
+  &[disabled] {
+    width: 100%;
+    background-color: #cccccc;
+    color: #666666;
+    cursor: not-allowed;
+  }
 }

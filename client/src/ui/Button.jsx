@@ -11,7 +11,7 @@ function Button({
   handleCancelClick,
   onClick,
   isPending,
-}) {
+}) {  
   const buttonNames = {
     new: styles.new,
     edit: styles.edit,
@@ -40,9 +40,9 @@ function Button({
     <button
       type={type}
       name={name}
-      disabled={isPending}
       onClick={handleClick}
-      className={`${styles.button} ${buttonNames[name]}`}
+      className={`${styles.button} ${!isPending && buttonNames[name]}`}
+      disabled={isPending}
       formNoValidate={formonvalidate}
     >
       {children}
