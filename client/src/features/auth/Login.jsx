@@ -11,9 +11,13 @@ import { loginUser } from "../../services/apiAuth";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./authSlice";
 import ShowHidePassword from "../../ui/ShowHidePassword";
+import { useDarkMode } from "../../context/DarkModeContext";
 
 function Login() {
   const { register, formState, handleSubmit, reset } = useForm();
+  const { resetDarkMode } = useDarkMode();
+
+  resetDarkMode();
 
   const navigate = useNavigate();
   const { errors } = formState;
